@@ -15,7 +15,7 @@ interface Props {
 const ApplicationLayout: React.FC<Props> = ({
   children,
   headerHasBorder,
-  headerStyle = 'header-2',
+  headerStyle = 'header-1',
   showBanner = false,
 }) => {
   return (
