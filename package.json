@@ -6,7 +6,6 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "check:links": "node scripts/check-links.mjs",
     "lint": "eslint .",
     "check": "next build",
     "lint:fix": "eslint . --fix",
