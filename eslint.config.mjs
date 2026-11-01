@@ -1,12 +1,7 @@
-// Equivalent to the old `extends: 'next/core-web-vitals'`.
-// `eslint-config-next/typescript` is deliberately not added: it turns on ~110
-// pre-existing errors that are out of scope for the lint script.
-import nextCoreWebVitals from 'eslint-config-next/core-web-vitals'
+import { defineConfig } from '@fullstacksjs/eslint-config'
+import reactHooks from 'eslint-plugin-react-hooks'
 
-// eslint-config-next 16.3 ships eslint-plugin-react-hooks v6, whose React
-// Compiler rules fire on two patterns this template uses on purpose. Scoped by
-// path rather than switched off wholesale, so the rules stay live everywhere
-// else. See docs/adr/0001-react-compiler-lint-rules.md.
+// Preserve existing React Compiler exceptions while migrating the baseline.
 const reactCompilerRules = {
   'react-hooks/set-state-in-effect': 'off',
   'react-hooks/refs': 'off',
@@ -14,50 +9,81 @@ const reactCompilerRules = {
   'react-hooks/preserve-manual-memoization': 'off',
 }
 
-const config = [
-  { ignores: ['.next/**', 'out/**', 'build/**', 'node_modules/**', 'dist/**'] },
-  ...nextCoreWebVitals,
+const hooksConfig = [reactHooks.configs.flat.recommended]
+
+const config = defineConfig(
   {
-    rules: {
-      '@next/next/no-img-element': 'off',
+    prettier: false,
+    react: { overrides: { rules: { 'react-refresh/only-export-components': 'off' } } },
+    stylistic: false,
+    typescript: {
+      tsconfigRootDir: import.meta.dirname,
+      projectService: { allowDefaultProject: ['*.mjs', 'scripts/*.mjs'] },
     },
-  },
-  {
-    // Vendored Tiptap editor UI — third-party source the template ships but does
-    // not maintain. Upstream owns these patterns.
-    files: [
+    ignores: [
+      '.next/**',
+      'out/**',
+      'build/**',
+      'node_modules/**',
+      'dist/**',
       'src/components/tiptap-*/**',
-      'src/hooks/use-cursor-visibility.ts',
-      'src/hooks/use-menu-navigation.ts',
-      'src/lib/tiptap-utils.ts',
+      'src/components/ui/tiptap-*/**',
+      'src/styles/_tiptap-*.scss',
+      'src/libs/utils/tiptap-utils.ts',
+      'src/libs/hooks/use-menu-navigation.ts',
+      'src/libs/hooks/use-cursor-visibility.ts',
     ],
-    rules: reactCompilerRules,
   },
-  {
-    // Subscriptions to an external source: the effect takes one synchronous
-    // snapshot, then keeps it current from the source's own callback. The rule
-    // cannot tell this apart from a cascading render, and its own message names
-    // this case as legitimate.
-    files: [
-      'src/app/(app)/post/GalleryImages.tsx',
-      'src/hooks/use-carousel-arrow-buttons.ts',
-      'src/hooks/use-carousel-dot-buttons.ts',
-      'src/hooks/useIntersectionObserver.ts',
-    ],
-    rules: { 'react-hooks/set-state-in-effect': 'off' },
-  },
-  {
-    // Client-only gate: the theme is read from localStorage on mount, which
-    // cannot be derived at render.
-    files: ['src/app/theme-provider.tsx'],
-    rules: { 'react-hooks/set-state-in-effect': 'off' },
-  },
-  {
-    // False positive: `commentActions` is an array literal. The rule reaches a
-    // ref through one of the onClick closures and attributes it to the array.
-    files: ['src/components/CommentCard/CommentCard.tsx'],
-    rules: { 'react-hooks/refs': 'off' },
-  },
-]
+  [
+    { ignores: ['.next/**', 'out/**', 'build/**', 'node_modules/**', 'dist/**'] },
+    ...hooksConfig,
+    {
+      files: ['src/app/**/page.tsx'],
+      rules: { 'max-lines': ['error', { max: 50, skipBlankLines: true, skipComments: true }] },
+    },
+    {
+      rules: {
+        '@next/next/no-img-element': 'off',
+      },
+    },
+    {
+      // Vendored Tiptap editor UI — third-party source the template ships but does
+      // not maintain. Upstream owns these patterns.
+      files: [
+        'src/components/tiptap-*/**',
+        'src/components/ui/tiptap-*/**',
+        'src/libs/hooks/use-cursor-visibility.ts',
+        'src/libs/hooks/use-menu-navigation.ts',
+        'src/libs/utils/tiptap-utils.ts',
+      ],
+      rules: reactCompilerRules,
+    },
+    {
+      // Subscriptions to an external source: the effect takes one synchronous
+      // snapshot, then keeps it current from the source's own callback. The rule
+      // cannot tell this apart from a cascading render, and its own message names
+      // this case as legitimate.
+      files: [
+        'src/app/(app)/post/GalleryImages.tsx',
+        'src/libs/hooks/use-carousel-arrow-buttons.ts',
+        'src/libs/hooks/use-carousel-dot-buttons.ts',
+        'src/libs/hooks/useIntersectionObserver.ts',
+      ],
+      rules: { 'react-hooks/set-state-in-effect': 'off' },
+    },
+    {
+      // Client-only gate: the theme is read from localStorage on mount, which
+      // cannot be derived at render.
+      files: ['src/libs/providers/theme-provider.tsx'],
+      rules: { 'react-hooks/set-state-in-effect': 'off' },
+    },
+    {
+      // False positive: `commentActions` is an array literal. The rule reaches a
+      // ref through one of the onClick closures and attributes it to the array.
+      files: ['src/components/common/comments/CommentCard/CommentCard.tsx'],
+      rules: { 'react-hooks/refs': 'off' },
+    },
+  ]
+)
 
 export default config

@@ -1,13 +1,5 @@
 'use client'
 
-import FollowButton from '@/components/FollowButton'
-import { type TCategory } from '@/data/categories'
-import Avatar from '@/shared/Avatar'
-import { Badge } from '@/shared/Badge'
-import { Button } from '@/shared/Button'
-import ButtonCircle from '@/shared/ButtonCircle'
-import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
 import {
   CopyLinkIcon,
   Facebook01Icon,
@@ -25,6 +17,16 @@ import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
 import { useState } from 'react'
 
+import type { TCategory } from '@/libs/data-layer/categories'
+
+import FollowButton from '@/components/common/authors/FollowButton'
+import Avatar from '@/libs/design/Avatar'
+import { Badge } from '@/libs/design/Badge'
+import { Button } from '@/libs/design/Button'
+import ButtonCircle from '@/libs/design/ButtonCircle'
+import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/libs/design/dialog'
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/libs/design/dropdown'
+
 const PageHeader = ({
   category,
   className,
@@ -32,7 +34,7 @@ const PageHeader = ({
 }: {
   category: TCategory
   className?: string
-  type?: 'audio' | 'video' | 'default'
+  type?: 'audio' | 'default' | 'video'
 }) => {
   const { name, description, handle, thumbnail, count, color } = category
 
@@ -41,7 +43,6 @@ const PageHeader = ({
       <div className="relative h-32 w-full bg-neutral-100 md:h-48 dark:bg-white/10" />
       <div className="container -mt-16">
         <div className="relative flex flex-col items-start gap-6 rounded-3xl border border-transparent bg-white p-5 shadow-xl md:flex-row md:rounded-4xl lg:p-8 lg:px-9 dark:border-neutral-700 dark:bg-neutral-900">
-          {/* AVATAR */}
           <Avatar
             alt={category.name || 'Avatar'}
             src={thumbnail.src}
@@ -51,8 +52,6 @@ const PageHeader = ({
             className="shrink-0 rotate-12 shadow-2xl ring-4 ring-white lg:w-36"
             sizes="144px"
           />
-
-          {/* INFO */}
           <div className="flex-1 lg:ps-4">
             <div className="max-w-(--breakpoint-sm) space-y-3.5">
               <div>
@@ -74,8 +73,6 @@ const PageHeader = ({
               </p>
             </div>
           </div>
-
-          {/* ACTIONS */}
           <div className="flex gap-x-2 self-start">
             <FollowButton className="py-[calc(--spacing(2)-1px)]!" />
             <ShareDropdown handle={handle} />
@@ -132,7 +129,7 @@ function ActionDropdown({ handle, category }: { handle: string; category: TCateg
       name: 'Copy link',
       icon: CopyLinkIcon,
       onClick: () => {
-        navigator.clipboard.writeText(window.location.href)
+        void navigator.clipboard.writeText(window.location.href)
       },
     },
     {
@@ -165,8 +162,6 @@ function ActionDropdown({ handle, category }: { handle: string; category: TCateg
           ))}
         </DropdownMenu>
       </Dropdown>
-
-      {/* DIALOG HIDE AUTHOR */}
       <Dialog open={isOpenDialogHideAuthor} onClose={() => setIsOpenDialogHideAuthor(false)}>
         <DialogTitle>
           Hide this category? <span className="font-semibold">({category.name.trim()})</span>
@@ -184,8 +179,6 @@ function ActionDropdown({ handle, category }: { handle: string; category: TCateg
           <Button onClick={() => setIsOpenDialogHideAuthor(false)}>Hide</Button>
         </DialogActions>
       </Dialog>
-
-      {/* DIALOG REPORT POST */}
       <Dialog open={isOpenDialogReportPost} onClose={() => setIsOpenDialogReportPost(false)}>
         <DialogTitle>Report this category?</DialogTitle>
         <DialogBody>

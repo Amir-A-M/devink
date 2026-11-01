@@ -23,9 +23,9 @@ import { TrailingNode } from '@/components/tiptap-extension/trailing-node-extens
 import Placeholder from '@tiptap/extension-placeholder'
 
 // --- UI Primitives ---
-import { Button } from '@/components/tiptap-ui-primitive/button'
-import { Spacer } from '@/components/tiptap-ui-primitive/spacer'
-import { Toolbar, ToolbarGroup, ToolbarSeparator } from '@/components/tiptap-ui-primitive/toolbar'
+import { Button } from '@/components/ui/tiptap-ui-primitive/button/index'
+import { Spacer } from '@/components/ui/tiptap-ui-primitive/spacer/index'
+import { Toolbar, ToolbarGroup, ToolbarSeparator } from '@/components/ui/tiptap-ui-primitive/toolbar/index'
 
 // --- Tiptap Node ---
 import '@/components/tiptap-node/image-node/image-node.scss'
@@ -33,45 +33,45 @@ import { ImageUploadNode } from '@/components/tiptap-node/image-upload-node/imag
 import '@/components/tiptap-node/paragraph-node/paragraph-node.scss'
 
 // --- Tiptap UI ---
-import { BlockQuoteButton } from '@/components/tiptap-ui/blockquote-button'
-import { CodeBlockButton } from '@/components/tiptap-ui/code-block-button'
+import { BlockQuoteButton } from '@/components/ui/tiptap-ui/blockquote-button/index'
+import { CodeBlockButton } from '@/components/ui/tiptap-ui/code-block-button/index'
 import {
   ColorHighlightPopover,
   ColorHighlightPopoverButton,
   ColorHighlightPopoverContent,
-} from '@/components/tiptap-ui/color-highlight-popover'
-import { HeadingDropdownMenu } from '@/components/tiptap-ui/heading-dropdown-menu'
-import { ImageUploadButton } from '@/components/tiptap-ui/image-upload-button'
-import { LinkButton, LinkContent, LinkPopover } from '@/components/tiptap-ui/link-popover'
-import { ListDropdownMenu } from '@/components/tiptap-ui/list-dropdown-menu'
-import { MarkButton } from '@/components/tiptap-ui/mark-button'
-import { TextAlignButton } from '@/components/tiptap-ui/text-align-button'
-import { UndoRedoButton } from '@/components/tiptap-ui/undo-redo-button'
+} from '@/components/ui/tiptap-ui/color-highlight-popover/index'
+import { HeadingDropdownMenu } from '@/components/ui/tiptap-ui/heading-dropdown-menu/index'
+import { ImageUploadButton } from '@/components/ui/tiptap-ui/image-upload-button/index'
+import { LinkButton, LinkContent, LinkPopover } from '@/components/ui/tiptap-ui/link-popover/index'
+import { ListDropdownMenu } from '@/components/ui/tiptap-ui/list-dropdown-menu/index'
+import { MarkButton } from '@/components/ui/tiptap-ui/mark-button/index'
+import { TextAlignButton } from '@/components/ui/tiptap-ui/text-align-button/index'
+import { UndoRedoButton } from '@/components/ui/tiptap-ui/undo-redo-button/index'
 
 // --- Icons ---
-import { ArrowLeftIcon } from '@/components/tiptap-icons/arrow-left-icon'
-import { HighlighterIcon } from '@/components/tiptap-icons/highlighter-icon'
-import { LinkIcon } from '@/components/tiptap-icons/link-icon'
+import { ArrowLeft as ArrowLeftIcon } from 'lucide-react'
+import { Highlighter as HighlighterIcon } from 'lucide-react'
+import { Link as LinkIcon } from 'lucide-react'
 
 // --- Hooks ---
-import { useMobile } from '@/hooks/use-mobile'
+import { useMobile } from '@/libs/hooks/use-mobile'
 
 // --- Components ---
 
 // --- Lib ---
-import { handleImageUpload, MAX_FILE_SIZE } from '@/lib/tiptap-utils'
+import { handleImageUpload, MAX_FILE_SIZE } from '@/libs/utils/tiptap-utils'
 
 // --- Styles ---
 import '@/components/tiptap-templates/simple/simple-editor.scss'
 
 import { OnlyOneHeading, SingleHeadingDocument } from '@/components/tiptap-extension/single-heading-document'
 import { SingleImageDocument } from '@/components/tiptap-extension/single-image-document'
-import { Button as SharedButton } from '@/shared/Button'
-import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
-import { Divider } from '@/shared/divider'
-import Logo from '@/shared/Logo'
-import SwitchDarkMode from '@/shared/SwitchDarkMode'
-import { TagsInput } from '@/shared/TagsInput'
+import { Button as SharedButton } from '@/libs/design/Button'
+import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/libs/design/dialog'
+import { Divider } from '@/libs/design/divider'
+import Logo from '@/components/common/site/Logo'
+import SwitchDarkMode from '@/components/common/site/SwitchDarkMode'
+import { TagsInput } from '@/libs/design/TagsInput'
 import { useRouter } from 'next/navigation'
 
 const MainToolbarContent = ({

@@ -1,7 +1,8 @@
 'use client'
 
-import { useIsHydrated } from '@/hooks/use-is-hydrated'
 import ReactPlayer from 'react-player'
+
+import { useIsHydrated } from '@/libs/hooks/use-is-hydrated'
 
 const VideoPlayer = ({ videoUrl }: { videoUrl: string }) => {
   const isRendered = useIsHydrated()

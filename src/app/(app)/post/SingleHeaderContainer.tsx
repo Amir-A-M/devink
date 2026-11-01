@@ -1,21 +1,24 @@
-import CategoryBadgeList from '@/components/CategoryBadgeList'
-import { type TPostDetail } from '@/data/posts'
-import { Badge } from '@/shared/Badge'
-import { Divider } from '@/shared/divider'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Image from 'next/image'
-import { type FC } from 'react'
-import AudioPlayerButton from './AudioPlayerButton'
-import GalleryImages from './GalleryImages'
-import SingleMeta from './SingleMeta'
-import { SingleMetaAction } from './SingleMetaAction'
-import SingleTitle from './SingleTitle'
-import VideoPlayer from './VideoPlayer'
+
+import type { TPostDetail } from '@/libs/data-layer/posts'
+
+import AudioPlayerButton from '@/app/(app)/post/AudioPlayerButton'
+import GalleryImages from '@/app/(app)/post/GalleryImages'
+import SingleMeta from '@/app/(app)/post/SingleMeta'
+import { SingleMetaAction } from '@/app/(app)/post/SingleMetaAction'
+import SingleTitle from '@/app/(app)/post/SingleTitle'
+import VideoPlayer from '@/app/(app)/post/VideoPlayer'
+import CategoryBadgeList from '@/components/common/categories/CategoryBadgeList'
+import { Badge } from '@/libs/design/Badge'
+import { Divider } from '@/libs/design/divider'
 
 interface Props {
   className?: string
   post: TPostDetail
-  headerStyle?: 'style1' | 'style2' | 'style3' | 'audio' | 'video' | 'gallery'
+  headerStyle?: 'audio' | 'gallery' | 'style1' | 'style2' | 'style3' | 'video'
 }
 
 const TitleAndMeta = ({ className, post }: Omit<Props, 'headerStyle'>) => {
@@ -66,7 +69,7 @@ const HeaderStyle1 = ({ className, post }: Omit<Props, 'defaultStyle'>) => {
               src={featuredImage}
               sizes="(max-width: 1440px) 100vw, 1440px"
               fill
-              priority
+              preload
             />
           </div>
         )}
@@ -99,7 +102,7 @@ const HeaderStyle2 = ({ className, post }: Omit<Props, 'defaultStyle'>) => {
               width={post.featuredImage.width}
               height={post.featuredImage.height}
               sizes="(max-width: 1440px) 100vw, 50vw"
-              priority
+              preload
             />
           </div>
         </div>
@@ -132,15 +135,13 @@ const HeaderStyle3 = ({ post, className }: Omit<Props, 'defaultStyle'>) => {
           <SingleTitle title={title} />
           {excerpt && <p className="text-base text-neutral-300 md:text-lg/relaxed">{excerpt}</p>}
         </div>
-
-        {/* FEATURED IMAGE */}
         <div className="relative my-10 aspect-square lg:aspect-16/9">
           {featuredImage.src && (
             <Image
               alt={featuredImage.alt || title}
               className="rounded-3xl object-cover shadow-xl"
               fill
-              priority
+              preload
               src={featuredImage}
               sizes="(max-width: 1024px) 100vw, 1440px"
             />

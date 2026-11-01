@@ -1,11 +1,14 @@
-import LocalDate from '@/components/LocalDate'
-import { type TPostDetail } from '@/data/posts'
-import Avatar from '@/shared/Avatar'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
 
-interface Props extends Pick<TPostDetail, 'date' | 'author' | 'readingTime'> {
+import type { TPostDetail } from '@/libs/data-layer/posts'
+
+import LocalDate from '@/components/common/general/LocalDate'
+import Avatar from '@/libs/design/Avatar'
+
+interface Props extends Pick<TPostDetail, 'author' | 'date' | 'readingTime'> {
   className?: string
 }
 

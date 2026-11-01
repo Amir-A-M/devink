@@ -1,8 +1,11 @@
-import ButtonPlayMusicPlayer from '@/components/ButtonPlayMusicPlayer'
-import { type TPost } from '@/data/posts'
-import playingIcon from '@/images/icon-playing.gif'
 import clsx from 'clsx'
+import { Play } from 'lucide-react'
 import Image from 'next/image'
+
+import type { TPost } from '@/libs/data-layer/posts'
+
+import playingIcon from '@/assets/icon-playing.gif'
+import ButtonPlayMusicPlayer from '@/components/common/media/ButtonPlayMusicPlayer'
 
 const AudioPlayerButton = ({ post }: { post: TPost }) => {
   const { featuredImage, title } = post
@@ -12,17 +15,7 @@ const AudioPlayerButton = ({ post }: { post: TPost }) => {
       return <Image className="w-7" src={playingIcon} alt="" sizes="30px" />
     }
 
-    return (
-      <svg className="ms-0.5 size-11 rtl:rotate-180" fill="currentColor" viewBox="0 0 24 24">
-        <path
-          stroke="currentColor"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeWidth="1.5"
-          d="M18.25 12L5.75 5.75V18.25L18.25 12Z"
-        ></path>
-      </svg>
-    )
+    return <Play className="ms-0.5 size-11 rtl:rotate-180" fill="currentColor" aria-hidden="true" />
   }
 
   const renderButtonPlay = (playing: boolean) => {
@@ -37,7 +30,7 @@ const AudioPlayerButton = ({ post }: { post: TPost }) => {
           sizes="300px"
           alt={title}
           fill
-          priority
+          preload
         />
 
         <div className="absolute inset-0 flex items-center justify-center">

@@ -1,0 +1,74 @@
+import type { FC } from 'react'
+
+import { PlusIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
+import Link from 'next/link'
+
+import Logo from '@/components/common/site/Logo'
+import AvatarDropdown from '@/components/layout/Header/AvatarDropdown'
+import HamburgerBtnMenu from '@/components/layout/Header/HamburgerBtnMenu'
+import NotifyDropdown from '@/components/layout/Header/NotifyDropdown'
+import SearchModal from '@/components/layout/Header/SearchModal'
+import { getNavigation } from '@/libs/data-layer/navigation'
+import { getAllPosts } from '@/libs/data-layer/posts'
+import { Button } from '@/libs/design/Button'
+
+interface HeaderProps {
+  bottomBorder?: boolean
+  className?: string
+}
+
+const Header: FC<HeaderProps> = async ({ bottomBorder, className }) => {
+  const navigation = await getNavigation()
+  const allPosts = await getAllPosts()
+  const searchSuggestions = allPosts.slice(0, 4)
+
+  return (
+    <header className={clsx('relative z-20', className)}>
+      <div className="container">
+        <div
+          className={clsx(
+            'flex h-20 justify-between gap-x-2.5 border-neutral-200 dark:border-neutral-700',
+            bottomBorder && 'border-b'
+          )}
+        >
+          <div className="flex items-center gap-x-4 sm:gap-x-5 lg:gap-x-7">
+            <Logo />
+            <div className="h-8 border-l"></div>
+            <div className="max-w-xs md:w-60 xl:w-72">
+              <SearchModal type="type2" posts={searchSuggestions} />
+            </div>
+          </div>
+
+          <div className="ms-auto flex items-center justify-end gap-x-0.5">
+            <nav aria-label="Main navigation" className="hidden items-center gap-6 lg:flex">
+              {navigation.map((item) => (
+                <Link
+                  key={item.id}
+                  href={item.href ?? '/'}
+                  className="text-sm font-medium text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-neutral-100"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
+            <div className="ms-6 me-3 hidden h-8 border-l lg:block" />
+            <div className="hidden sm:block">
+              <Button className="h-10 px-3!" href={'/submission'} plain prefetch={false}>
+                <PlusIcon className="size-5!" />
+                Create
+              </Button>
+            </div>
+            <NotifyDropdown className="me-3" />
+            <AvatarDropdown />
+            <div className="ms-2.5 flex lg:hidden">
+              <HamburgerBtnMenu />
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  )
+}
+
+export default Header

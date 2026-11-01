@@ -1,5 +1,6 @@
-import { siteConfig } from '@/lib/site'
 import type { MetadataRoute } from 'next'
+
+import { siteConfig } from '@/config/site'
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -7,7 +8,6 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        // Signed-in surfaces and the search endpoint have nothing to index.
         disallow: ['/dashboard/', '/login', '/signup', '/forgot-password', '/search', '/search-2'],
       },
     ],

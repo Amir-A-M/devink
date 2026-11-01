@@ -1,9 +1,3 @@
-/**
- * The two search routes are the only ones rendered per request, so they are the
- * only place a route-level pending state earns its keep. It sits beside
- * `(search)/layout.tsx`, which means the header and footer stay on screen and
- * only the results area is replaced.
- */
 export default function Loading() {
   return (
     <div className="container py-16 lg:py-24" role="status" aria-live="polite">

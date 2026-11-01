@@ -1,21 +1,25 @@
 'use client'
 
-import CommentCard from '@/components/CommentCard/CommentCard'
-import PostCardCommentBtn from '@/components/PostCardCommentBtn'
-import PostCardLikeBtn from '@/components/PostCardLikeBtn'
-import SingleCommentForm from '@/components/SingleCommentForm'
-import { type TComment, type TPostDetail } from '@/data/posts'
-import useIntersectionObserver from '@/hooks/useIntersectionObserver'
-import Avatar from '@/shared/Avatar'
-import ButtonPrimary from '@/shared/ButtonPrimary'
-import SocialsList from '@/shared/SocialsList'
-import Tag from '@/shared/Tag'
-import { Link } from '@/shared/link'
+import type { FC } from 'react'
+
 import { ArrowUp02Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { type FC, useEffect, useRef, useState } from 'react'
-import { ShareDropdown } from './SingleMetaAction'
-import TheContent from './TheContent'
+import { useEffect, useRef, useState } from 'react'
+
+import type { TComment, TPostDetail } from '@/libs/data-layer/posts'
+
+import { ShareDropdown } from '@/app/(app)/post/SingleMetaAction'
+import TheContent from '@/app/(app)/post/TheContent'
+import CommentCard from '@/components/common/comments/CommentCard/CommentCard'
+import SingleCommentForm from '@/components/common/comments/SingleCommentForm'
+import PostCardCommentBtn from '@/components/common/posts/PostCardCommentBtn'
+import PostCardLikeBtn from '@/components/common/posts/PostCardLikeBtn'
+import SocialsList from '@/components/common/site/SocialsList'
+import Avatar from '@/libs/design/Avatar'
+import ButtonPrimary from '@/libs/design/ButtonPrimary'
+import { Link } from '@/libs/design/link'
+import Tag from '@/libs/design/Tag'
+import useIntersectionObserver from '@/libs/hooks/useIntersectionObserver'
 
 interface Props {
   post: TPostDetail
@@ -27,10 +31,7 @@ const SingleContentContainer: FC<Props> = ({ post, comments, className }) => {
   const endedAnchorRef = useRef<HTMLDivElement>(null)
   const contentRef = useRef<HTMLDivElement>(null)
   const progressRef = useRef<HTMLButtonElement>(null)
-  //
   const [isShowScrollToTop, setIsShowScrollToTop] = useState<boolean>(false)
-  //
-
   const { tags, author, content, likeCount, commentCount, liked, handle } = post
 
   const endedAnchorEntry = useIntersectionObserver(endedAnchorRef, {
@@ -57,7 +58,7 @@ const SingleContentContainer: FC<Props> = ({ post, comments, className }) => {
       const totalEntryH = entryContentTop + window.scrollY + entryContentHeight
       const scrolled = (winScroll / totalEntryH) * 100
 
-      progressBarContent.innerText = scrolled.toFixed(0) + '%'
+      progressBarContent.innerText = `${scrolled.toFixed(0)}%`
 
       if (scrolled >= 100) {
         setIsShowScrollToTop(true)
@@ -82,7 +83,6 @@ const SingleContentContainer: FC<Props> = ({ post, comments, className }) => {
   return (
     <div className={`relative ${className}`}>
       <div className="single-content space-y-10">
-        {/* ENTRY CONTENT */}
         <div
           id="single-entry-content"
           className="mx-auto prose max-w-(--breakpoint-md)! lg:prose-lg dark:prose-invert"
@@ -90,8 +90,6 @@ const SingleContentContainer: FC<Props> = ({ post, comments, className }) => {
         >
           <TheContent content={content} title={post.title} categoryHandle={post.categories?.[0]?.handle} />
         </div>
-
-        {/* TAGS */}
         <div className="mx-auto flex max-w-(--breakpoint-md) flex-wrap">
           {tags.map((tag) => (
             <Tag key={tag.id} className="me-2 mb-2" href={`/tag/${tag.handle}`}>
@@ -99,8 +97,6 @@ const SingleContentContainer: FC<Props> = ({ post, comments, className }) => {
             </Tag>
           ))}
         </div>
-
-        {/* AUTHOR */}
         <div className="mx-auto max-w-(--breakpoint-md) border-t border-b border-neutral-100 dark:border-neutral-700"></div>
         <div className="mx-auto flex max-w-(--breakpoint-md)" id="author">
           <Link href={`/author/${author.handle}`}>
@@ -120,14 +116,10 @@ const SingleContentContainer: FC<Props> = ({ post, comments, className }) => {
             <SocialsList className="mt-2" />
           </div>
         </div>
-
-        {/* COMMENT FORM */}
         <div id="comments" className="mx-auto max-w-(--breakpoint-md) scroll-mt-20 pt-5">
           <h3 className="text-xl font-semibold text-neutral-800 dark:text-neutral-200">Responses ({commentCount})</h3>
           <SingleCommentForm />
         </div>
-
-        {/* COMMENTS LIST */}
         <div className="mx-auto max-w-(--breakpoint-md)">
           <ul className="single-comment-lists space-y-5">
             {comments.map((comment) => (
@@ -138,8 +130,6 @@ const SingleContentContainer: FC<Props> = ({ post, comments, className }) => {
           <div ref={endedAnchorRef}></div>
         </div>
       </div>
-
-      {/* LIKE AND COMMENT STICKY */}
       <div className={`sticky bottom-8 z-11 mt-8 justify-center ${showLikeAndCommentSticky ? 'flex' : 'hidden'}`}>
         <div className="flex items-center justify-center gap-x-2 rounded-full bg-white p-1.5 text-xs shadow-lg ring-1 ring-black/5 dark:bg-neutral-800 dark:ring-white/20">
           <PostCardLikeBtn likeCount={likeCount} liked={liked} />
@@ -150,6 +140,7 @@ const SingleContentContainer: FC<Props> = ({ post, comments, className }) => {
           <div className="h-4 border-s border-neutral-200 dark:border-neutral-700"></div>
 
           <button
+            type="button"
             className={`size-8.5 items-center justify-center rounded-full bg-neutral-50 hover:bg-neutral-100 dark:bg-white/10 dark:hover:bg-white/20 ${
               isShowScrollToTop ? 'flex' : 'hidden'
             }`}
@@ -162,6 +153,7 @@ const SingleContentContainer: FC<Props> = ({ post, comments, className }) => {
           </button>
 
           <button
+            type="button"
             ref={progressRef}
             className={`size-8.5 items-center justify-center ${isShowScrollToTop ? 'hidden' : 'flex'}`}
             title="Go to top"

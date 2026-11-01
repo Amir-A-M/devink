@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: { root: import.meta.dirname },
   // Icon packs are imported through their barrel. Turbopack tree-shakes them in
   // the production build, but this keeps dev and build from walking the whole
   // package on every import.
@@ -8,7 +9,7 @@ const nextConfig = {
   },
   images: {
     loader: 'custom',
-    loaderFile: './src/lib/image-loader.ts',
+    loaderFile: './src/libs/utils/image-loader.ts',
     // `loader: 'custom'` turns the built-in optimizer off entirely — no image
     // goes through /_next/image any more. deviceSizes/imageSizes still matter:
     // they decide the `w` steps in the srcset that the loader passes to the

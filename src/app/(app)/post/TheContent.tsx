@@ -1,43 +1,19 @@
 import Image from 'next/image'
 
-/**
- * Demo article bodies.
- *
- * The post page is the screen a reader spends longest on, so these are written
- * rather than filled, and there are four of them picked by category — opening
- * two articles in a row should not show the same words. Each one exercises the
- * full set of prose styles (headings, lists, a pull quote, a figure, a code
- * block) so the typography is visible without anyone having to hunt for it.
- *
- * To render your own content instead, delete everything below the component and
- * return the `content` prop — it is already passed in:
- *
- *   return <div dangerouslySetInnerHTML={{ __html: content }} />
- *
- * Sanitise it first if it can come from anyone but you.
- */
+type Topic = 'culture' | 'food' | 'technology' | 'travel'
 
-type Topic = 'technology' | 'travel' | 'food' | 'culture'
-
-// Matched against the headline first. The demo fixtures assign categories fairly
-// loosely — a piece on French cuisine is filed under Architecture — and the
-// headline is what a reader has just read, so it is the better signal.
 const TOPIC_BY_KEYWORD: [RegExp, Topic][] = [
-  // Word boundaries on the short ones: without them `art` matches "smarter".
-  // The four bodies are really four voices — craft, attention, practice, rigour
-  // — so a headline is matched to the one that reads naturally beneath it
-  // rather than to a subject that happens to share a word.
-  [/cuisine|food|recipe|cook|chef|coffee|wine/i, 'food'],
+  [/chef|coffee|cook|cuisine|food|recipe|wine/i, 'food'],
   [
-    /travel|destination|journey|mountain|ocean|rainforest|wildlife|asia|architect|urban|\bcity\b|airport|mindful|meditat|sustainab|\bliving\b/i,
+    /airport|architect|asia|\bcity\b|destination|journey|\bliving\b|meditat|mindful|mountain|ocean|rainforest|sustainab|travel|urban|wildlife/i,
     'travel',
   ],
   [
-    /music|jazz|\bbeat|piano|symphon|\brock\b|festival|photograph|\bart\b|\bfilm|album|concert|collier|chopin|tomorrowland|champion|olympic|world cup|fitness/i,
+    /album|\bart\b|\bbeat|champion|chopin|collier|concert|festival|\bfilm|fitness|jazz|music|olympic|photograph|piano|\brock\b|symphon|tomorrowland|world cup/i,
     'culture',
   ],
   [
-    /\bai\b|tech|react|crypto|blockchain|digital|space|mars|science|internet|device|remote work|education|interactive|\bdata\b|software/i,
+    /\bai\b|blockchain|crypto|\bdata\b|device|digital|education|interactive|internet|mars|react|remote work|science|software|space|tech/i,
     'technology',
   ],
 ]
@@ -156,7 +132,6 @@ function TechnologyBody() {
   const res = await fetch(\`/api/items/\${id}\`)
 
   if (!res.ok) {
-    // A result, not a throw: the caller decides what the reader sees.
     return { ok: false, status: res.status }
   }
 
@@ -356,11 +331,8 @@ const BODY_BY_TOPIC: Record<Topic, () => React.JSX.Element> = {
 }
 
 interface Props {
-  /** The post's own body. Unused by the demo — see the note at the top. */
   content: string
-  /** Used to pick a demo body that reads like it belongs under the headline. */
   title?: string
-  /** Handle of the post's primary category; the fallback signal. */
   categoryHandle?: string
 }
 
