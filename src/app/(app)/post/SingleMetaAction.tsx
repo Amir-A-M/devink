@@ -17,14 +17,14 @@ import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
 import { useState } from 'react'
 
-import type { TPostDetail } from '@/data/posts'
+import type { TPostDetail } from '@/libs/data-layer/posts'
 
-import BookmarkBtn from '@/components/BookmarkBtn'
-import PostCardCommentBtn from '@/components/PostCardCommentBtn'
-import PostCardLikeBtn from '@/components/PostCardLikeBtn'
-import { Button } from '@/shared/Button'
-import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
+import BookmarkBtn from '@/components/common/posts/BookmarkBtn'
+import PostCardCommentBtn from '@/components/common/posts/PostCardCommentBtn'
+import PostCardLikeBtn from '@/components/common/posts/PostCardLikeBtn'
+import { Button } from '@/libs/design/Button'
+import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/libs/design/dialog'
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/libs/design/dropdown'
 
 function ActionDropdown({ handle, title, author }: { handle: string; title: string; author: TPostDetail['author'] }) {
   const [isOpenDialogHideAuthor, setIsOpenDialogHideAuthor] = useState(false)

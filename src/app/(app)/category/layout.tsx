@@ -1,10 +1,10 @@
 import type { ReactNode } from 'react'
 
-import { ApplicationLayout } from '@/app/(app)/application-layout'
-import BackgroundSection from '@/components/BackgroundSection'
-import SectionSliderNewAuthors from '@/components/SectionSliderNewAuthors'
-import SectionSubscribe2 from '@/components/SectionSubscribe2'
-import { getAuthors } from '@/data/authors'
+import BackgroundSection from '@/components/common/general/BackgroundSection'
+import SectionSliderNewAuthors from '@/components/common/sections/SectionSliderNewAuthors'
+import SectionSubscribe2 from '@/components/common/sections/SectionSubscribe2'
+import { ApplicationLayout } from '@/components/layout/ApplicationLayout'
+import { getAuthors } from '@/libs/data-layer/authors'
 
 interface Props {
   children: ReactNode

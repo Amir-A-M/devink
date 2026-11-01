@@ -16,16 +16,16 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import { useState } from 'react'
 
-import type { TAuthor } from '@/data/authors'
+import type { TAuthor } from '@/libs/data-layer/authors'
 
-import FollowButton from '@/components/FollowButton'
-import VerifyIcon from '@/components/VerifyIcon'
-import Avatar from '@/shared/Avatar'
-import { Button } from '@/shared/Button'
-import ButtonCircle from '@/shared/ButtonCircle'
-import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
-import SocialsList from '@/shared/SocialsList'
+import FollowButton from '@/components/common/authors/FollowButton'
+import SocialsList from '@/components/common/site/SocialsList'
+import VerifyIcon from '@/components/common/site/VerifyIcon'
+import Avatar from '@/libs/design/Avatar'
+import { Button } from '@/libs/design/Button'
+import ButtonCircle from '@/libs/design/ButtonCircle'
+import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/libs/design/dialog'
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/libs/design/dropdown'
 
 const PageHeader = ({ author, className }: { author: TAuthor; className?: string }) => {
   const { name, description, cover, avatar, handle } = author

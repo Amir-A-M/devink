@@ -3,18 +3,17 @@ import type { FC } from 'react'
 import clsx from 'clsx'
 import Image from 'next/image'
 
-import type { TPostDetail } from '@/data/posts'
+import type { TPostDetail } from '@/libs/data-layer/posts'
 
-import CategoryBadgeList from '@/components/CategoryBadgeList'
-import { Badge } from '@/shared/Badge'
-import { Divider } from '@/shared/divider'
-
-import AudioPlayerButton from './AudioPlayerButton'
-import GalleryImages from './GalleryImages'
-import SingleMeta from './SingleMeta'
-import { SingleMetaAction } from './SingleMetaAction'
-import SingleTitle from './SingleTitle'
-import VideoPlayer from './VideoPlayer'
+import AudioPlayerButton from '@/app/(app)/post/AudioPlayerButton'
+import GalleryImages from '@/app/(app)/post/GalleryImages'
+import SingleMeta from '@/app/(app)/post/SingleMeta'
+import { SingleMetaAction } from '@/app/(app)/post/SingleMetaAction'
+import SingleTitle from '@/app/(app)/post/SingleTitle'
+import VideoPlayer from '@/app/(app)/post/VideoPlayer'
+import CategoryBadgeList from '@/components/common/categories/CategoryBadgeList'
+import { Badge } from '@/libs/design/Badge'
+import { Divider } from '@/libs/design/divider'
 
 interface Props {
   className?: string

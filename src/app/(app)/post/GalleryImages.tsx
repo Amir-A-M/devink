@@ -9,9 +9,9 @@ import useEmblaCarousel from 'embla-carousel-react'
 import Image from 'next/image'
 import { use, useCallback, useEffect, useState } from 'react'
 
-import { ThemeContext } from '@/app/theme-provider'
-import { Button } from '@/shared/Button'
-import ButtonClose from '@/shared/ButtonClose'
+import { Button } from '@/libs/design/Button'
+import ButtonClose from '@/libs/design/ButtonClose'
+import { ThemeContext } from '@/libs/providers/theme-provider'
 
 const EmblaCarousel = ({ images, option }: { images: string[]; option: EmblaOptionsType }) => {
   const theme = use(ThemeContext)
@@ -410,7 +410,6 @@ const GalleryImages = ({ images, gridType = 'grid1' }: Props) => {
       {gridType === 'grid3' && <HeaderGalleryGrid3 images={images} handleOpenDialog={handleOpenDialog} />}
       {gridType === 'grid4' && <HeaderGalleryGrid4 images={images} handleOpenDialog={handleOpenDialog} />}
       <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-        {/* The backdrop, rendered as a fixed sibling to the panel container */}
         <DialogBackdrop className="fixed inset-0 bg-black" />
         <div className="fixed inset-0 flex w-screen items-center justify-center">
           <DialogPanel

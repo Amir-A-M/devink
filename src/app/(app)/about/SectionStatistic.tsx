@@ -1,5 +1,4 @@
 export default function SectionStatistic() {
-  // primary-600), just under AA. Recorded; the panel's tint is the design.
   return (
     <div className="">
       <div className="mx-auto max-w-4xl lg:mx-0">

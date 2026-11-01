@@ -1,16 +1,10 @@
 import type { MetadataRoute } from 'next'
 
-import { getAuthors } from '@/data/authors'
-import { getCategories, getTags } from '@/data/categories'
-import { getAllPosts } from '@/data/posts'
-import { siteConfig } from '@/lib/site'
+import { siteConfig } from '@/config/site'
+import { getAuthors } from '@/libs/data-layer/authors'
+import { getCategories, getTags } from '@/libs/data-layer/categories'
+import { getAllPosts } from '@/libs/data-layer/posts'
 
-/**
- * Only canonical URLs are listed. The template ships alternate designs of the
- * same content — five extra home layouts, two extra post layouts, two extra
- * category layouts — and those all point their canonical at the primary route,
- * so listing them here would ask search engines to index duplicates.
- */
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const [posts, categories, tags, authors] = await Promise.all([
     getAllPosts(),

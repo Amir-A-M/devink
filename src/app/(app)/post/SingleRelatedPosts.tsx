@@ -1,8 +1,8 @@
 import type { FC } from 'react'
 
-import type { TPost } from '@/data/posts'
+import type { TPost } from '@/libs/data-layer/posts'
 
-import SectionSliderPosts from '@/components/SectionSliderPosts'
+import SectionSliderPosts from '@/components/common/sections/SectionSliderPosts'
 
 interface Props {
   relatedPosts: TPost[]

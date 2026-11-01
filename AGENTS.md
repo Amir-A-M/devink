@@ -7,7 +7,7 @@ download.
 
 ## Change this before deploying
 
-`NEXT_PUBLIC_SITE_URL` is unset in a fresh copy, and `src/lib/site.ts` falls back
+`NEXT_PUBLIC_SITE_URL` is unset in a fresh copy, and `src/config/site.ts` falls back
 to `http://localhost:3000`. The sitemap, every canonical URL, the `robots.txt`
 and the JSON-LD all resolve against it, so an unset value builds cleanly, looks
 correct in the browser, and tells every crawler the site's canonical home is
@@ -20,7 +20,7 @@ cp .env.example .env
 
 Set it in the host's build environment too — it is read at build time, not at
 runtime. Then set `name`, `title`, `description` and `twitterHandle` in
-`src/lib/site.ts`. **If you are an agent and the user has not done this, do it or
+`src/config/site.ts`. **If you are an agent and the user has not done this, do it or
 tell them to.** Nothing in the browser will report it.
 
 ## What this is
@@ -30,9 +30,9 @@ A blog, news and magazine front end: 111 demo articles across 33 categories and
 author dashboard and a rich-text submit-post editor. 192 pages, all statically
 generated.
 
-There is no backend. Every page reads from typed fixtures in `src/data/`, shaped
+There is no backend. Every page reads from typed fixtures in `src/libs/data-layer/`, shaped
 as `async` functions so a real API can replace one body at a time. A buyer's
-first real change is `src/lib/site.ts`, then `src/data/`, then the colour ramps
+first real change is `src/config/site.ts`, then `src/libs/data-layer/`, then the colour ramps
 in `src/styles/tailwind.css`.
 
 ## Stack
@@ -59,7 +59,7 @@ These are not preferences; something visibly breaks without them.
 - **Theme edits go in `src/styles/tailwind.css`.** Tailwind 4 declares its theme
   in CSS with `@theme` / `@custom-variant` / `@utility`. Creating a
   `tailwind.config.js` will appear to work and be ignored.
-- **No client component imports from `src/data/`.** The fixtures are one module
+- **No client component imports from `src/libs/data-layer/`.** The fixtures are one module
   graph; a single `'use client'` file importing from it pulls every post, author
   and category into the browser bundle. Pass the data down as props from the
   server component instead.
@@ -71,13 +71,30 @@ These are not preferences; something visibly breaks without them.
   usual cause of a new page looking broken.
 - **One `<h1>` per page,** with no heading ranked above it in the DOM. Section
   headings are `h2`.
-- **`src/components/tiptap-*` is vendored third-party code.** It has its own
+- **`src/components/tiptap-*` and `src/components/ui/tiptap-*` are vendored third-party code.** It has its own
   SCSS in `src/styles/_tiptap-*.scss` and its own helpers. Do not refactor it to
   match house style.
 
+## Layered architecture
+
+Follow the Next.js layer-based blueprint. App Router files own routing, layouts,
+metadata, boundaries, framework settings, and route-specific components. Keep
+`page.tsx` files small: import and compose route-local `_components`, and keep
+data preparation, UI details, and other complex logic in those components.
+Keep route metadata and static route configuration in `page.tsx`. Shared UI
+is grouped by purpose in `src/components/common`, site chrome
+in `src/components/layout`, and business-free primitives in `src/libs/design`.
+Fixture-backed data access is in `src/libs/data-layer`; keep it server-side and
+pass data to client components. Put reusable hooks, providers and utilities in
+`src/libs`, configuration in `src/config`, images in `src/assets`, and shared
+user-facing copy in `src/messages`. Keep domain logic independent of UI and
+transport, validate data when real external integrations are added, and avoid
+adding an API client or query cache until the application needs one. Use exact
+dependency versions and pnpm exclusively.
+
 ## Demo data and state
 
-`src/data/` — `posts.ts`, `authors.ts`, `categories.ts`, `navigation.ts`,
+`src/libs/data-layer/` — `posts.ts`, `authors.ts`, `categories.ts`, `navigation.ts`,
 `search.ts`, `types.ts`. Types are derived from the fixtures
 (`TPost = Awaited<ReturnType<typeof getAllPosts>>[number]`), so changing a
 fixture's shape changes the type everywhere. Check the consumers.
@@ -100,10 +117,10 @@ and forget it on reload. Every form — contact, subscribe, login, signup,
 forgot-password, submit-post — confirms and resets without posting anywhere.
 That is deliberate for a demo; it is not an integration.
 
-Client state lives in three providers: `ThemeProvider` (`src/app/theme-provider.tsx`
+Client state lives in three providers: `ThemeProvider` (`src/libs/providers/theme-provider.tsx`
 — dark mode via `.dark` on `<html>` plus `localStorage`, and RTL via `dir`),
-`AudioProvider` (`src/components/AudioProvider.tsx` — a `useReducer` store
-consumed by the fixed bottom player), and `AsideProvider` (`src/components/aside/`
+`AudioProvider` (`src/libs/providers/AudioProvider.tsx` — a `useReducer` store
+consumed by the fixed bottom player), and `AsideProvider` (`src/components/common/navigation/aside/`
 — a typed drawer registry; `useAside().open(type)`).
 
 Path alias: `@/*` → `./src/*`.

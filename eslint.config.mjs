@@ -27,15 +27,20 @@ const config = defineConfig(
       'node_modules/**',
       'dist/**',
       'src/components/tiptap-*/**',
+      'src/components/ui/tiptap-*/**',
       'src/styles/_tiptap-*.scss',
-      'src/lib/tiptap-utils.ts',
-      'src/hooks/use-menu-navigation.ts',
-      'src/hooks/use-cursor-visibility.ts',
+      'src/libs/utils/tiptap-utils.ts',
+      'src/libs/hooks/use-menu-navigation.ts',
+      'src/libs/hooks/use-cursor-visibility.ts',
     ],
   },
   [
     { ignores: ['.next/**', 'out/**', 'build/**', 'node_modules/**', 'dist/**'] },
     ...hooksConfig,
+    {
+      files: ['src/app/**/page.tsx'],
+      rules: { 'max-lines': ['error', { max: 50, skipBlankLines: true, skipComments: true }] },
+    },
     {
       rules: {
         '@next/next/no-img-element': 'off',
@@ -46,9 +51,10 @@ const config = defineConfig(
       // not maintain. Upstream owns these patterns.
       files: [
         'src/components/tiptap-*/**',
-        'src/hooks/use-cursor-visibility.ts',
-        'src/hooks/use-menu-navigation.ts',
-        'src/lib/tiptap-utils.ts',
+        'src/components/ui/tiptap-*/**',
+        'src/libs/hooks/use-cursor-visibility.ts',
+        'src/libs/hooks/use-menu-navigation.ts',
+        'src/libs/utils/tiptap-utils.ts',
       ],
       rules: reactCompilerRules,
     },
@@ -59,22 +65,22 @@ const config = defineConfig(
       // this case as legitimate.
       files: [
         'src/app/(app)/post/GalleryImages.tsx',
-        'src/hooks/use-carousel-arrow-buttons.ts',
-        'src/hooks/use-carousel-dot-buttons.ts',
-        'src/hooks/useIntersectionObserver.ts',
+        'src/libs/hooks/use-carousel-arrow-buttons.ts',
+        'src/libs/hooks/use-carousel-dot-buttons.ts',
+        'src/libs/hooks/useIntersectionObserver.ts',
       ],
       rules: { 'react-hooks/set-state-in-effect': 'off' },
     },
     {
       // Client-only gate: the theme is read from localStorage on mount, which
       // cannot be derived at render.
-      files: ['src/app/theme-provider.tsx'],
+      files: ['src/libs/providers/theme-provider.tsx'],
       rules: { 'react-hooks/set-state-in-effect': 'off' },
     },
     {
       // False positive: `commentActions` is an array literal. The rule reaches a
       // ref through one of the onClick closures and attributes it to the array.
-      files: ['src/components/CommentCard/CommentCard.tsx'],
+      files: ['src/components/common/comments/CommentCard/CommentCard.tsx'],
       rules: { 'react-hooks/refs': 'off' },
     },
   ]

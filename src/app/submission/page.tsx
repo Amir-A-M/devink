@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 
-import { SimpleEditor } from '@/components/tiptap-templates/simple/simple-editor'
+import PageContent from './_components/PageContent'
+
 import '@/styles/_tiptap-keyframe-animations.scss'
 import '@/styles/_tiptap-variables.scss'
 
@@ -10,13 +11,4 @@ export const metadata: Metadata = {
   alternates: { canonical: '/submission' },
 }
 
-const Page = () => {
-  return (
-    <>
-      <h1 className="sr-only">Submit an article to Devink</h1>
-      <SimpleEditor />
-    </>
-  )
-}
-
-export default Page
+export default PageContent

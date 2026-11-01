@@ -1,10 +1,5 @@
 'use client'
 
-/**
- * Last resort: a throw in the root layout, where no chrome and no stylesheet
- * from the app is available. It has to render its own <html> and <body>, so the
- * styling here is deliberately self-contained.
- */
 export default function GlobalError({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   return (
     <html lang="en">

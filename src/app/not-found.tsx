@@ -1,12 +1,11 @@
 import React from 'react'
 
-import ButtonPrimary from '@/shared/ButtonPrimary'
+import ButtonPrimary from '@/libs/design/ButtonPrimary'
 
 const Page404: React.FC = () => (
   <div className="nc-Page404">
     <div className="relative container py-16 lg:py-20">
       <header className="mx-auto max-w-2xl space-y-7 text-center">
-        {/* Decorative: a heading here would outrank the page's own h1. */}
         <p aria-hidden="true" className="text-7xl md:text-8xl">
           🪔
         </p>

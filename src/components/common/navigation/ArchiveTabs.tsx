@@ -1,0 +1,62 @@
+'use client'
+
+import type { IconSvgElement } from '@hugeicons/react'
+import type { FC } from 'react'
+
+import { HugeiconsIcon } from '@hugeicons/react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { Suspense, useCallback } from 'react'
+
+import { Button } from '@/libs/design/Button'
+
+interface Props {
+  className?: string
+  tabs: { name: string; value: string; icon: IconSvgElement }[]
+}
+
+const ArchiveTabsComponent: FC<Props> = ({ className, tabs }) => {
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+
+  let currentTab = searchParams.get('tab')
+  if (!tabs.some((tab) => tab.value === currentTab)) {
+    currentTab = tabs[0].value
+  }
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams]
+  )
+
+  return (
+    <div className="flex flex-wrap gap-2">
+      {tabs.map((tab) => {
+        const isActive = tab.value === currentTab
+        return isActive ? (
+          <Button color="dark/white" key={tab.value}>
+            <HugeiconsIcon icon={tab.icon} size={20} />
+            {tab.name}
+          </Button>
+        ) : (
+          <Button outline key={tab.value} href={`${pathname}?${createQueryString('tab', tab.value)}`} scroll={false}>
+            <HugeiconsIcon icon={tab.icon} size={20} />
+            {tab.name}
+          </Button>
+        )
+      })}
+    </div>
+  )
+}
+
+export default function ArchiveTabs(props: Props) {
+  return (
+    <Suspense>
+      <ArchiveTabsComponent {...props} />
+    </Suspense>
+  )
+}

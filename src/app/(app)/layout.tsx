@@ -1,6 +1,6 @@
-import Aside from '@/components/aside'
-import { AudioPlayer } from '@/components/audio-player/AudioPlayer'
-import { AudioProvider } from '@/components/AudioProvider'
+import { AudioPlayer } from '@/components/common/audio/audio-player/AudioPlayer'
+import Aside from '@/components/common/navigation/aside/index'
+import { AudioProvider } from '@/libs/providers/AudioProvider'
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   return (

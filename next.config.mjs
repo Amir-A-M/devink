@@ -9,7 +9,7 @@ const nextConfig = {
   },
   images: {
     loader: 'custom',
-    loaderFile: './src/lib/image-loader.ts',
+    loaderFile: './src/libs/utils/image-loader.ts',
     // `loader: 'custom'` turns the built-in optimizer off entirely — no image
     // goes through /_next/image any more. deviceSizes/imageSizes still matter:
     // they decide the `w` steps in the srcset that the loader passes to the

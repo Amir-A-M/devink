@@ -8,9 +8,10 @@ coverage
 **/*.min.*
 pnpm-lock.yaml
 src/components/tiptap-*/
+src/components/ui/tiptap-*/
 src/styles/_tiptap-*.scss
 **/*.map
 **/*.snap
 **/*.tsbuildinfo
-src/images/
+src/assets/
 next-env.d.ts

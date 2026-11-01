@@ -1,20 +1,9 @@
 'use client'
 
-import { useEffect } from 'react'
+import { Button } from '@/libs/design/Button'
+import ButtonPrimary from '@/libs/design/ButtonPrimary'
 
-import { Button } from '@/shared/Button'
-import ButtonPrimary from '@/shared/ButtonPrimary'
-
-/**
- * Shown when a route throws. Drawn to match the 404 screen so a failure still
- * looks like part of the site rather than a stack trace.
- */
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
-  useEffect(() => {
-    // Replace with your error reporter.
-    console.error(error)
-  }, [error])
-
   return (
     <div className="nc-PageError">
       <div className="relative container py-16 lg:py-20">

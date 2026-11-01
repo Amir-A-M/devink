@@ -17,15 +17,15 @@ import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
 import { useState } from 'react'
 
-import type { TCategory } from '@/data/categories'
+import type { TCategory } from '@/libs/data-layer/categories'
 
-import FollowButton from '@/components/FollowButton'
-import Avatar from '@/shared/Avatar'
-import { Badge } from '@/shared/Badge'
-import { Button } from '@/shared/Button'
-import ButtonCircle from '@/shared/ButtonCircle'
-import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
+import FollowButton from '@/components/common/authors/FollowButton'
+import Avatar from '@/libs/design/Avatar'
+import { Badge } from '@/libs/design/Badge'
+import { Button } from '@/libs/design/Button'
+import ButtonCircle from '@/libs/design/ButtonCircle'
+import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/libs/design/dialog'
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/libs/design/dropdown'
 
 const PageHeader = ({
   category,

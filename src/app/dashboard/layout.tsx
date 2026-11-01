@@ -8,11 +8,11 @@ import clsx from 'clsx'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import NotifyDropdown from '@/components/Header/NotifyDropdown'
-import Avatar from '@/shared/Avatar'
-import { Divider } from '@/shared/divider'
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
-import Logo from '@/shared/Logo'
+import Logo from '@/components/common/site/Logo'
+import NotifyDropdown from '@/components/layout/Header/NotifyDropdown'
+import Avatar from '@/libs/design/Avatar'
+import { Divider } from '@/libs/design/divider'
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/libs/design/dropdown'
 
 const user = {
   name: 'John Doe',
