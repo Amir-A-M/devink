@@ -1,11 +1,16 @@
 'use client'
 
-import { Button } from '@/shared/Button'
-import Heading, { type HeadingWithSubProps } from '@/shared/Heading'
-import { ArrowRightIcon } from '@heroicons/react/24/outline'
-import { type FC, type ReactNode, useState } from 'react'
+import type { FC, ReactNode } from 'react'
 
-interface Props extends Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading'> {
+import { ArrowRightIcon } from '@heroicons/react/24/outline'
+import { useState } from 'react'
+
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
+import { Button } from '@/shared/Button'
+import Heading from '@/shared/Heading'
+
+interface Props extends Pick<HeadingWithSubProps, 'dimHeading' | 'subHeading'> {
   tabActive: string
   tabs: string[]
   heading: ReactNode
@@ -26,7 +31,7 @@ const SectionTabHeader: FC<Props> = ({
 
   const handleClickTab = (tab: string) => {
     setCurrentTab(tab)
-    onChangeTab && onChangeTab(tab)
+    onChangeTab?.(tab)
   }
 
   return (

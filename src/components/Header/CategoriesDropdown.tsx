@@ -81,7 +81,7 @@ export default function DropdownTravelers() {
               )
             })}
           </div>
-          {/* FOOTER */}
+
           <div className="bg-neutral-50 p-4 dark:bg-neutral-700">
             <Link
               href="/"

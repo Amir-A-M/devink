@@ -1,12 +1,15 @@
+import type { Metadata } from 'next'
+
+import { AllBookmarkIcon, FolderFavouriteIcon, LicenseIcon } from '@hugeicons/core-free-icons'
+import { notFound } from 'next/navigation'
+
 import ArchiveSortByListBox from '@/components/ArchiveSortByListBox'
 import ArchiveTabs from '@/components/ArchiveTabs'
 import PaginationWrapper from '@/components/PaginationWrapper'
 import Card11 from '@/components/PostCards/Card11'
 import { getAuthorByHandle, getAuthors } from '@/data/authors'
 import { getAllPosts } from '@/data/posts'
-import { AllBookmarkIcon, FolderFavouriteIcon, LicenseIcon } from '@hugeicons/core-free-icons'
-import { type Metadata } from 'next'
-import { notFound } from 'next/navigation'
+
 import PageHeader from '../page-header'
 
 const sortByOptions = [
@@ -71,20 +74,15 @@ const Page = async ({ params }: { params: Promise<{ handle: string }> }) => {
       <PageHeader author={author} />
 
       <div className="container pt-16 lg:pt-20">
-        {/* TABS FILTER */}
         <div className="flex flex-wrap items-center gap-4">
           <ArchiveTabs tabs={filterTabs} />
           <ArchiveSortByListBox className="ms-auto shrink-0" filterOptions={sortByOptions} />
         </div>
-
-        {/* LOOP ITEMS */}
         <div className="mt-8 grid gap-6 sm:grid-cols-2 md:gap-8 lg:mt-10 lg:grid-cols-3 xl:grid-cols-4">
           {posts.map((post) => (
             <Card11 key={post.id} post={post} />
           ))}
         </div>
-
-        {/* PAGINATION */}
         <PaginationWrapper className="mt-20" totalPages={10} />
       </div>
     </div>

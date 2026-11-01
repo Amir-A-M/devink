@@ -1,6 +1,7 @@
 'use client'
 
 import type { Editor } from '@tiptap/react'
+
 import { useCurrentEditor } from '@tiptap/react'
 import * as React from 'react'
 

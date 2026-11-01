@@ -1,21 +1,30 @@
 'use client'
 
-import { ThemeContext } from '@/app/theme-provider'
-import { type TCategory } from '@/data/categories'
-import { useCarouselArrowButtons } from '@/hooks/use-carousel-arrow-buttons'
-import { type HeadingWithSubProps } from '@/shared/Heading'
-import HeadingWithArrowBtns from '@/shared/HeadingWithArrowBtns'
-import clsx from 'clsx'
 import type { EmblaOptionsType } from 'embla-carousel'
+import type { FC } from 'react'
+
+import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
-import { type FC, useContext } from 'react'
+import { use } from 'react'
+
+import type { TCategory } from '@/data/categories'
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
+import { ThemeContext } from '@/app/theme-provider'
+import { useCarouselArrowButtons } from '@/hooks/use-carousel-arrow-buttons'
+import HeadingWithArrowBtns from '@/shared/HeadingWithArrowBtns'
+
 import CardCategory1 from './CategoryCards/CardCategory1'
 import CardCategory2 from './CategoryCards/CardCategory2'
 import CardCategory3 from './CategoryCards/CardCategory3'
 import CardCategory4 from './CategoryCards/CardCategory4'
 import CardCategory5 from './CategoryCards/CardCategory5'
 
-interface Props extends Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading'> {
+const defaultEmblaOptions: EmblaOptionsType = {
+  slidesToScroll: 'auto',
+}
+
+interface Props extends Pick<HeadingWithSubProps, 'dimHeading' | 'subHeading'> {
   className?: string
   heading?: string
   categories: TCategory[]
@@ -30,11 +39,9 @@ const SectionSliderNewCategories: FC<Props> = ({
   className,
   categories,
   categoryCardType = 'card3',
-  emblaOptions = {
-    slidesToScroll: 'auto',
-  },
+  emblaOptions = defaultEmblaOptions,
 }) => {
-  const theme = useContext(ThemeContext)
+  const theme = use(ThemeContext)
   const [emblaRef, emblaApi] = useEmblaCarousel({ ...emblaOptions, direction: theme?.themeDir })
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = useCarouselArrowButtons(emblaApi)
 

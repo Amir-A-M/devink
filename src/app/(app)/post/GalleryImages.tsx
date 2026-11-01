@@ -1,19 +1,20 @@
 'use client'
 
-import { Button } from '@/shared/Button'
-import ButtonClose from '@/shared/ButtonClose'
+import type { EmblaOptionsType } from 'embla-carousel'
+
 import { CloseButton, Dialog, DialogBackdrop, DialogPanel } from '@headlessui/react'
 import { Squares2X2Icon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
+import Image from 'next/image'
+import { use, useCallback, useEffect, useState } from 'react'
 
 import { ThemeContext } from '@/app/theme-provider'
-import { type EmblaOptionsType } from 'embla-carousel'
-import Image from 'next/image'
-import { useCallback, useContext, useEffect, useState } from 'react'
+import { Button } from '@/shared/Button'
+import ButtonClose from '@/shared/ButtonClose'
 
 const EmblaCarousel = ({ images, option }: { images: string[]; option: EmblaOptionsType }) => {
-  const theme = useContext(ThemeContext)
+  const theme = use(ThemeContext)
 
   const [selectedIndex, setSelectedIndex] = useState(0)
   const [emblaMainRef, emblaMainApi] = useEmblaCarousel({
@@ -106,40 +107,6 @@ interface Props {
   images: string[]
   gridType?: 'grid1' | 'grid2' | 'grid3' | 'grid4'
 }
-const GalleryImages = ({ images, gridType = 'grid1' }: Props) => {
-  let [isOpen, setIsOpen] = useState(false)
-  let [startIndex, setStartIndex] = useState(0)
-
-  const handleOpenDialog = (index = 0) => {
-    setStartIndex(index)
-    setIsOpen(true)
-  }
-
-  return (
-    <div className="container mt-10">
-      {gridType === 'grid1' && <HeaderGalleryGrid1 images={images} handleOpenDialog={handleOpenDialog} />}
-      {gridType === 'grid2' && <HeaderGalleryGrid2 images={images} handleOpenDialog={handleOpenDialog} />}
-      {gridType === 'grid3' && <HeaderGalleryGrid3 images={images} handleOpenDialog={handleOpenDialog} />}
-      {gridType === 'grid4' && <HeaderGalleryGrid4 images={images} handleOpenDialog={handleOpenDialog} />}
-
-      {/* Dialog for full-screen image gallery */}
-      <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
-        {/* The backdrop, rendered as a fixed sibling to the panel container */}
-        <DialogBackdrop className="fixed inset-0 bg-black" />
-
-        {/* Full-screen container to center the panel */}
-        <div className="fixed inset-0 flex w-screen items-center justify-center">
-          <DialogPanel
-            transition
-            className="relative mx-auto aspect-[3/2] max-h-full w-full max-w-7xl flex-1 transition data-closed:opacity-0"
-          >
-            <EmblaCarousel images={images} option={{ startIndex, slidesToScroll: 1 }} />
-          </DialogPanel>
-        </div>
-      </Dialog>
-    </div>
-  )
-}
 
 const HeaderGalleryGrid1 = ({
   images,
@@ -195,6 +162,7 @@ const HeaderGalleryGrid1 = ({
     </header>
   )
 }
+
 const HeaderGalleryGrid2 = ({
   images,
   handleOpenDialog,
@@ -250,6 +218,7 @@ const HeaderGalleryGrid2 = ({
     </header>
   )
 }
+
 const HeaderGalleryGrid3 = ({
   images,
   handleOpenDialog,
@@ -337,6 +306,7 @@ const HeaderGalleryGrid3 = ({
     </header>
   )
 }
+
 const HeaderGalleryGrid4 = ({
   images,
   handleOpenDialog,
@@ -422,6 +392,36 @@ const HeaderGalleryGrid4 = ({
         </Button>
       </div>
     </header>
+  )
+}
+const GalleryImages = ({ images, gridType = 'grid1' }: Props) => {
+  const [isOpen, setIsOpen] = useState(false)
+  const [startIndex, setStartIndex] = useState(0)
+
+  const handleOpenDialog = (index = 0) => {
+    setStartIndex(index)
+    setIsOpen(true)
+  }
+
+  return (
+    <div className="container mt-10">
+      {gridType === 'grid1' && <HeaderGalleryGrid1 images={images} handleOpenDialog={handleOpenDialog} />}
+      {gridType === 'grid2' && <HeaderGalleryGrid2 images={images} handleOpenDialog={handleOpenDialog} />}
+      {gridType === 'grid3' && <HeaderGalleryGrid3 images={images} handleOpenDialog={handleOpenDialog} />}
+      {gridType === 'grid4' && <HeaderGalleryGrid4 images={images} handleOpenDialog={handleOpenDialog} />}
+      <Dialog open={isOpen} onClose={() => setIsOpen(false)} className="relative z-50">
+        {/* The backdrop, rendered as a fixed sibling to the panel container */}
+        <DialogBackdrop className="fixed inset-0 bg-black" />
+        <div className="fixed inset-0 flex w-screen items-center justify-center">
+          <DialogPanel
+            transition
+            className="relative mx-auto aspect-[3/2] max-h-full w-full max-w-7xl flex-1 transition data-closed:opacity-0"
+          >
+            <EmblaCarousel images={images} option={{ startIndex, slidesToScroll: 1 }} />
+          </DialogPanel>
+        </div>
+      </Dialog>
+    </div>
   )
 }
 

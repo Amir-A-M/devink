@@ -1,8 +1,12 @@
 'use client'
 
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC, useState } from 'react'
+import { useState } from 'react'
+
+import type { TPost } from '@/data/posts'
+
 import CategoryBadgeList from '../CategoryBadgeList'
 import PostCardMeta2 from '../PostCardMeta/PostCardMeta2'
 import PostCardSaveBtn from '../PostCardSaveBtn'

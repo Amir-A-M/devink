@@ -1,9 +1,10 @@
 'use client'
 
 import type { Editor } from '@tiptap/react'
+
 import * as React from 'react'
 
-type Orientation = 'horizontal' | 'vertical' | 'both'
+type Orientation = 'both' | 'horizontal' | 'vertical'
 
 interface MenuNavigationOptions<T> {
   editor?: Editor | null

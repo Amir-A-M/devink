@@ -1,4 +1,4 @@
-import { type PlayerAPI } from '@/components/AudioProvider'
+import type { PlayerAPI } from '@/components/AudioProvider'
 
 function ForwardIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (

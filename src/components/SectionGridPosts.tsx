@@ -1,9 +1,13 @@
-import { type TPost } from '@/data/posts'
-import ButtonPrimary from '@/shared/ButtonPrimary'
-import HeadingWithSub from '@/shared/Heading'
+import type { FC, ReactNode } from 'react'
+
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { type FC, type ReactNode } from 'react'
+
+import type { TPost } from '@/data/posts'
+
+import ButtonPrimary from '@/shared/ButtonPrimary'
+import HeadingWithSub from '@/shared/Heading'
+
 import Card10 from './PostCards/Card10'
 import Card10V2 from './PostCards/Card10V2'
 import Card11 from './PostCards/Card11'
@@ -21,7 +25,7 @@ interface Props {
   heading?: ReactNode
   subHeading?: ReactNode
   headingIsCenter?: boolean
-  postCardName?: 'card3' | 'card4' | 'card7' | 'card9' | 'card10' | 'card10V2' | 'card11' | 'card14' | 'card15Podcast'
+  postCardName?: 'card10' | 'card10V2' | 'card11' | 'card14' | 'card15Podcast' | 'card3' | 'card4' | 'card7' | 'card9'
 }
 
 const SectionGridPosts: FC<Props> = ({

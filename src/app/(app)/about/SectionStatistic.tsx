@@ -1,5 +1,4 @@
 export default function SectionStatistic() {
-  // Contrast: the body copy under each figure measures 4.21:1 (indigo-200 on
   // primary-600), just under AA. Recorded; the panel's tint is the design.
   return (
     <div className="">

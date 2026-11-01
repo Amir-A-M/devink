@@ -1,5 +1,8 @@
 import React from 'react'
-import { Button, type ButtonProps } from './Button'
+
+import type { ButtonProps } from './Button'
+
+import { Button } from './Button'
 
 const ButtonThird: React.FC<ButtonProps> = ({ color, outline, plain, children, ...props }) => {
   return (

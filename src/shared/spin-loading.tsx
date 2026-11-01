@@ -1,4 +1,4 @@
-import { type FC, type SVGProps } from 'react'
+import type { FC, SVGProps } from 'react'
 
 interface Props extends SVGProps<SVGSVGElement> {
   className?: string

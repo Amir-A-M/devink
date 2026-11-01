@@ -1,8 +1,12 @@
+import type React from 'react'
+
 import { ArrowLeft02Icon, ArrowRight02Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
-import type React from 'react'
+
 import { Button } from './Button'
+
+const defaultChildren = <>&hellip;</>
 
 export function Pagination({
   'aria-label': ariaLabel = 'Page navigation',
@@ -62,7 +66,7 @@ export function PaginationPage({
     <Button
       href={href}
       plain
-      aria-label={`Page ${children}`}
+      aria-label={typeof children === 'string' || typeof children === 'number' ? `Page ${children}` : undefined}
       aria-current={current ? 'page' : undefined}
       className={clsx(
         className,
@@ -77,7 +81,7 @@ export function PaginationPage({
 
 export function PaginationGap({
   className,
-  children = <>&hellip;</>,
+  children = defaultChildren,
   ...props
 }: React.ComponentPropsWithoutRef<'span'>) {
   return (

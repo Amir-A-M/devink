@@ -1,8 +1,12 @@
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
+import clsx from 'clsx'
+
+import type { TPost } from '@/data/posts'
+
 import Avatar from '@/shared/Avatar'
 import { Link } from '@/shared/link'
-import clsx from 'clsx'
-import { type FC } from 'react'
+
 import LocalDate from '../LocalDate'
 
 interface Props {
@@ -25,7 +29,7 @@ const PostCardMeta3: FC<Props> = ({ className, author, readingTime, date }) => {
           <span>
             <LocalDate date={date ?? ''} />
           </span>
-          {readingTime && (
+          {Boolean(readingTime) && (
             <>
               <span className="mx-1">·</span>
               <span>{readingTime} min read</span>

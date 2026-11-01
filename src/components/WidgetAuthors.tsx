@@ -1,6 +1,9 @@
-import { type TAuthor } from '@/data/authors'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TAuthor } from '@/data/authors'
+
 import CardAuthor from './CardAuthorBoxs/CardAuthor'
 import WidgetHeading from './WidgetHeading'
 

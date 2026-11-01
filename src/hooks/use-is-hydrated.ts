@@ -1,6 +1,6 @@
 import { useSyncExternalStore } from 'react'
 
-const subscribe = () => () => {}
+const subscribe = () => () => undefined
 
 /**
  * False while the server renders and during the first client render, true after

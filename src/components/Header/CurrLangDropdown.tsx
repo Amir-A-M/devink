@@ -1,13 +1,13 @@
 'use client'
 
-import { getCurrencies, getLanguages } from '@/data/navigation'
-import { Link } from '@/shared/link'
+import type { PopoverPanelProps } from '@headlessui/react'
+import type { FC } from 'react'
+
 import {
   CloseButton,
   Popover,
   PopoverButton,
   PopoverPanel,
-  type PopoverPanelProps,
   Tab,
   TabGroup,
   TabList,
@@ -17,7 +17,15 @@ import {
 import { BanknotesIcon, GlobeAltIcon, SlashIcon } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { getCurrencies, getLanguages } from '@/data/navigation'
+
+import { Link } from '@/shared/link'
+
+const defaultPanelAnchor: PopoverPanelProps['anchor'] = {
+  to: 'bottom end',
+  gap: 16,
+}
 
 const Currencies = ({ currencies }: { currencies: Awaited<ReturnType<typeof getCurrencies>> }) => {
   return (
@@ -73,10 +81,7 @@ interface Props {
 }
 
 const CurrLangDropdown: FC<Props> = ({
-  panelAnchor = {
-    to: 'bottom end',
-    gap: 16,
-  },
+  panelAnchor = defaultPanelAnchor,
   className,
   languages,
   currencies,

@@ -1,8 +1,9 @@
+import type { MetadataRoute } from 'next'
+
 import { getAuthors } from '@/data/authors'
 import { getCategories, getTags } from '@/data/categories'
 import { getAllPosts } from '@/data/posts'
 import { siteConfig } from '@/lib/site'
-import type { MetadataRoute } from 'next'
 
 /**
  * Only canonical URLs are listed. The template ships alternate designs of the

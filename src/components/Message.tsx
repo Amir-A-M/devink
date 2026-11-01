@@ -1,6 +1,7 @@
 import React from 'react'
+
 export interface MessageProps {
-  type?: 'success' | 'error' | 'warning' | 'info'
+  type?: 'error' | 'info' | 'success' | 'warning'
   children: React.ReactNode
 }
 const Message: React.FC<MessageProps> = ({ children = 'This is a SUCCESS message', type = 'success' }) => {

@@ -1,9 +1,13 @@
-import { type TPost } from '@/data/posts'
-import { Divider } from '@/shared/divider'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
+import { Divider } from '@/shared/divider'
+
 import CategoryBadgeList from '../CategoryBadgeList'
 import PostCardCommentBtn from '../PostCardCommentBtn'
 import PostCardLikeBtn from '../PostCardLikeBtn'
@@ -14,7 +18,7 @@ import PostTypeFeaturedIcon from '../PostTypeFeaturedIcon'
 interface Props {
   className?: string
   post: TPost
-  size?: 'normal' | 'large'
+  size?: 'large' | 'normal'
 }
 
 const Card2: FC<Props> = ({ className, size = 'normal', post }) => {

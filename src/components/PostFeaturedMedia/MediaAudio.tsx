@@ -1,6 +1,9 @@
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
 import ButtonPlayMusicPlayer from '../ButtonPlayMusicPlayer'
 
 interface Props {

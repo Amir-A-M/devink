@@ -1,9 +1,12 @@
 'use client'
 
-import convertNumbThousand from '@/utils/convertNumbThousand'
+import type { FC } from 'react'
+
 import { HeartIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { type FC, useState } from 'react'
+import { useState } from 'react'
+
+import convertNumbThousand from '@/utils/convertNumbThousand'
 
 interface Props {
   className?: string

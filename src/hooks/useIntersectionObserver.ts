@@ -1,4 +1,6 @@
-import { type RefObject, useCallback, useEffect, useState } from 'react'
+import type { RefObject } from 'react'
+
+import { useCallback, useEffect, useState } from 'react'
 
 export interface UseIntersectionObserverArgs extends IntersectionObserverInit {
   freezeOnceVisible?: boolean
@@ -22,9 +24,9 @@ function useIntersectionObserver(
 
   // Memoize the callback to prevent unnecessary re-renders
   const updateEntry = useCallback(
-    ([entry]: IntersectionObserverEntry[]): void => {
-      setEntry(entry)
-      onIntersect?.(entry)
+    ([entryValue]: IntersectionObserverEntry[]): void => {
+      setEntry(entryValue)
+      onIntersect?.(entryValue)
     },
     [onIntersect]
   )

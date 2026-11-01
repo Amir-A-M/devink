@@ -1,11 +1,13 @@
+import type { Metadata } from 'next'
+import type { JSX } from 'react'
+
+import Link from 'next/link'
+
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import DemoForm from '@/shared/DemoForm'
 import { Field, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
 import Logo from '@/shared/Logo'
-import { type Metadata } from 'next'
-import Link from 'next/link'
-import type { JSX } from 'react'
 
 const socials: {
   name: string
@@ -56,7 +58,7 @@ export const metadata: Metadata = {
 const Page = () => {
   return (
     <div className="container">
-      <h1 className="sr-only">Create your Ncmaz account</h1>
+      <h1 className="sr-only">Create your Devink account</h1>
       <div className="my-16 flex justify-center">
         <Logo />
       </div>
@@ -76,14 +78,12 @@ const Page = () => {
             </Link>
           ))}
         </div>
-        {/* OR */}
         <div className="relative text-center">
           <span className="relative z-10 inline-block bg-white px-4 text-sm font-medium dark:bg-neutral-900 dark:text-neutral-400">
             OR
           </span>
           <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 transform border border-neutral-100 dark:border-neutral-800"></div>
         </div>
-        {/* FORM */}
         <DemoForm
           className="grid grid-cols-1 gap-6"
           successMessage="Account created — in the demo. Point this form at your auth provider to make it real."
@@ -107,7 +107,6 @@ const Page = () => {
           <ButtonPrimary type="submit">Continue</ButtonPrimary>
         </DemoForm>
 
-        {/* ==== */}
         <div className="block text-center text-sm text-neutral-700 dark:text-neutral-300">
           Already have an account? {` `}
           <Link href="/login" className="font-medium underline">

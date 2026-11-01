@@ -1,6 +1,9 @@
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
 import Card18 from './PostCards/Card18'
 import Card19 from './PostCards/Card19'
 
@@ -31,7 +34,7 @@ const SectionMagazine10: FC<Props> = ({ posts, className }) => {
           )}
         </div>
 
-        {posts[0] && <Card19 post={posts[0]} priority />}
+        {posts[0] && <Card19 post={posts[0]} preload />}
       </div>
     </div>
   )

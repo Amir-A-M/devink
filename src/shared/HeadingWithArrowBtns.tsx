@@ -1,12 +1,18 @@
-import { NextPrev } from '@/shared/NextPrev'
+import type { HTMLAttributes } from 'react'
+
 import clsx from 'clsx'
-import React, { type HTMLAttributes } from 'react'
-import HeadingWithSub, { type HeadingWithSubProps } from './Heading'
+import React from 'react'
+
+import { NextPrev } from '@/shared/NextPrev'
+
+import type { HeadingWithSubProps } from './Heading'
+
+import HeadingWithSub from './Heading'
 
 interface Props
   extends
     HTMLAttributes<HTMLHeadingElement>,
-    Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading' | 'level' | 'isCenter'> {
+    Pick<HeadingWithSubProps, 'dimHeading' | 'isCenter' | 'level' | 'subHeading'> {
   hasNextPrev?: boolean
   onClickNext?: () => void
   onClickPrev?: () => void

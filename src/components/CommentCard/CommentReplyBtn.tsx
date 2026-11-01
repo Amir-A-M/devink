@@ -1,9 +1,10 @@
 'use client'
 
+import type { FC } from 'react'
+
 import { ArrowTurnBackwardIcon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
-import { type FC } from 'react'
 
 interface Props {
   className?: string

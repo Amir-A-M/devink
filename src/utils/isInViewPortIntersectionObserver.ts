@@ -13,7 +13,7 @@ const checkInViewIntersectionObserver = ({ target, distanceFromEnd, callback }: 
       if (entry.isIntersecting) {
         // NEED CALLBACK WILL RETURN BOOLEAN ---- IF TRUE WE WILL UNOBSERVER AND FALSE IS NO
         const unobserve = callback()
-        unobserve && observer.unobserve(entry.target)
+        if (unobserve) observer.unobserve(entry.target)
       }
       return true
     })
@@ -30,7 +30,7 @@ const checkInViewIntersectionObserver = ({ target, distanceFromEnd, callback }: 
     threshold: 0,
   }
   const observer = new IntersectionObserver(_funCallback, options)
-  target && observer.observe(target)
+  observer.observe(target)
 }
 
 export default checkInViewIntersectionObserver

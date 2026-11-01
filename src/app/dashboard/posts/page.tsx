@@ -1,10 +1,12 @@
+import type { Metadata } from 'next'
+
+import Image from 'next/image'
+import Link from 'next/link'
+
 import LocalDate from '@/components/LocalDate'
 import PaginationWrapper from '@/components/PaginationWrapper'
 import { getAllPosts } from '@/data/posts'
 import { Badge } from '@/shared/Badge'
-import { type Metadata } from 'next'
-import Image from 'next/image'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Posts',

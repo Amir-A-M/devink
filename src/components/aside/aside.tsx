@@ -1,11 +1,19 @@
 'use client'
 
-import Logo from '@/shared/Logo'
+import type { ReactNode } from 'react'
+
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
 import { Cancel01Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
-import { createContext, useContext, useState, type ReactNode } from 'react'
+import { createContext, use, useMemo, useState } from 'react'
+
+import Logo from '@/shared/Logo'
+
+const drawerTransitions = {
+  left: 'data-closed:-translate-x-20 data-closed:opacity-0',
+  right: 'data-closed:translate-x-20 data-closed:opacity-0',
+}
 
 /**
  * Drawer component that opens on user click.
@@ -26,7 +34,7 @@ export function Aside({
 }: {
   heading?: string
   logoOnHeading?: boolean
-  openFrom: 'right' | 'left'
+  openFrom: 'left' | 'right'
   children: React.ReactNode
   type: AsideType
   contentMaxWidthClassName?: string
@@ -37,7 +45,8 @@ export function Aside({
 
   const onClose = close
 
-  const hasHeading = !!heading || logoOnHeading
+  const showTitle = Boolean(heading && !logoOnHeading)
+  const hasHeading = Boolean(heading) || logoOnHeading
 
   return (
     <Dialog as="div" className="relative z-50" onClose={onClose} open={open}>
@@ -54,8 +63,7 @@ export function Aside({
               className={clsx(
                 contentMaxWidthClassName,
                 'h-screen w-screen translate-x-0 overflow-hidden bg-white text-start align-middle shadow-xl transition duration-200 ease-in-out dark:bg-neutral-800',
-                openFrom === 'left' && 'data-closed:-translate-x-20 data-closed:opacity-0',
-                openFrom === 'right' && 'data-closed:translate-x-20 data-closed:opacity-0'
+                drawerTransitions[openFrom]
               )}
             >
               <div className="flex h-full flex-col px-4 md:px-8">
@@ -67,7 +75,7 @@ export function Aside({
                   >
                     {hasHeading && (
                       <>
-                        {!!heading && !logoOnHeading && (
+                        {showTitle && (
                           <DialogTitle>
                             <span className="text-2xl font-medium">{heading}</span>
                           </DialogTitle>
@@ -123,38 +131,32 @@ export function useDrawer(openDefault = false) {
   }
 }
 
-type AsideType = 'search' | 'cart' | 'closed' | 'sidebar-navigation' | 'category-filters' | 'product-quick-view'
-type AsideContextValue = {
+type AsideType = 'cart' | 'category-filters' | 'closed' | 'product-quick-view' | 'search' | 'sidebar-navigation'
+interface AsideContextValue {
   type: AsideType
   open: (mode: AsideType) => void
   close: () => void
   productQuickViewHandle?: string
   setProductQuickViewHandle: (handle: string) => void
 }
-//
 const AsideContext = createContext<AsideContextValue | null>(null)
+
+AsideContext.displayName = 'AsideContext'
 
 export function AsideProvider({ children }: { children: ReactNode }) {
   const [type, setType] = useState<AsideType>('closed')
   const [productQuickViewHandle, setProductQuickViewHandle] = useState<string>()
 
-  return (
-    <AsideContext.Provider
-      value={{
-        type,
-        open: setType,
-        close: () => setType('closed'),
-        productQuickViewHandle,
-        setProductQuickViewHandle,
-      }}
-    >
-      {children}
-    </AsideContext.Provider>
+  const AsideContextValue = useMemo(
+    () => ({ type, open: setType, close: () => setType('closed'), productQuickViewHandle, setProductQuickViewHandle }),
+    [type, productQuickViewHandle]
   )
+
+  return <AsideContext value={AsideContextValue}>{children}</AsideContext>
 }
 
 export function useAside() {
-  const aside = useContext(AsideContext)
+  const aside = use(AsideContext)
   if (!aside) {
     throw new Error('useAside must be used within an AsideProvider')
   }

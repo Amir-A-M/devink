@@ -1,16 +1,19 @@
 'use client'
 
-import { Button } from '@/shared/Button'
-import { Link } from '@/shared/link'
+import type { FC } from 'react'
+
 import { Listbox, ListboxButton, ListboxOption, ListboxOptions, Transition } from '@headlessui/react'
 import { CheckIcon, ChevronDownIcon } from '@heroicons/react/24/solid'
 import { ArrangeByLettersAZIcon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
 import { usePathname, useSearchParams } from 'next/navigation'
-import { type FC, Fragment, Suspense, useCallback } from 'react'
+import { Fragment, Suspense, useCallback } from 'react'
 
-type Props = {
+import { Button } from '@/shared/Button'
+import { Link } from '@/shared/link'
+
+interface Props {
   className?: string
   filterOptions: { name: string; value: string }[]
 }
@@ -58,7 +61,7 @@ const ArchiveSortByListBoxComponent: FC<Props> = ({ className, filterOptions }) 
                     )
                   }
                   value={item.value}
-                  href={pathname + '?' + createQueryString('sort-by', item.value)}
+                  href={`${pathname}?${createQueryString('sort-by', item.value)}`}
                   scroll={false}
                 >
                   {({ selected }) => (

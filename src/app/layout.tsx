@@ -1,9 +1,13 @@
+import type { Metadata, Viewport } from 'next'
+
+import { Be_Vietnam_Pro } from 'next/font/google'
+
+import '@/styles/tailwind.css'
+import { Suspense } from 'react'
+
 import NavigationProgress from '@/components/NavigationProgress'
 import { siteConfig } from '@/lib/site'
-import '@/styles/tailwind.css'
-import { type Metadata, type Viewport } from 'next'
-import { Be_Vietnam_Pro } from 'next/font/google'
-import { Suspense } from 'react'
+
 import ThemeProvider from './theme-provider'
 
 const beVietnamPro = Be_Vietnam_Pro({

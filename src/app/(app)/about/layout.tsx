@@ -1,5 +1,6 @@
+import type { ReactNode } from 'react'
+
 import { ApplicationLayout } from '@/app/(app)/application-layout'
-import { type ReactNode } from 'react'
 
 interface Props {
   children: ReactNode

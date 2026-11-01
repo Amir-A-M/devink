@@ -1,8 +1,12 @@
 'use client'
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC, useState } from 'react'
+import { useState } from 'react'
+
+import type { TPost } from '@/data/posts'
+
 import CategoryBadgeList from '../CategoryBadgeList'
 import NcImage from '../NcImage/NcImage'
 import PostCardMeta3 from '../PostCardMeta/PostCardMeta3'
@@ -114,7 +118,7 @@ const Card10V3: FC<Props> = ({ className, post, galleryType = 1 }) => {
           renderGallery2()
         )}
 
-        {postType === 'gallery' && galleryImgs?.length && (
+        {postType === 'gallery' && Boolean(galleryImgs?.length) && (
           <Link
             href={`/post/${handle}`}
             className="absolute inset-0 bg-neutral-900/20 opacity-0 transition-opacity group-hover:opacity-100"

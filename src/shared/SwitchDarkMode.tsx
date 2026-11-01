@@ -1,16 +1,18 @@
 'use client'
 
-import { ThemeContext } from '@/app/theme-provider'
 import { Moon02Icon, Sun03Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
-import React, { useContext } from 'react'
+import React, { use } from 'react'
+
+import { ThemeContext } from '@/app/theme-provider'
+
 interface Props {
   className?: string
   iconSize?: string
 }
 const SwitchDarkMode: React.FC<Props> = ({ className, iconSize = 'size-7' }) => {
-  const theme = useContext(ThemeContext)
+  const theme = use(ThemeContext)
 
   return (
     <button

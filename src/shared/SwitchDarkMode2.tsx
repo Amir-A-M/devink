@@ -1,15 +1,16 @@
 'use client'
 
-import { ThemeContext } from '@/app/theme-provider'
 import { Switch } from '@headlessui/react'
 import clsx from 'clsx'
-import React, { useContext } from 'react'
+import React, { use } from 'react'
+
+import { ThemeContext } from '@/app/theme-provider'
 
 interface SwitchDarkMode2Props {
   className?: string
 }
 const SwitchDarkMode2: React.FC<SwitchDarkMode2Props> = ({ className }) => {
-  const theme = useContext(ThemeContext)
+  const theme = use(ThemeContext)
 
   return (
     <div className={clsx('inline-flex', className)}>

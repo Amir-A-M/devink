@@ -1,10 +1,12 @@
+import type { Metadata } from 'next'
+
+import Link from 'next/link'
+
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import DemoForm from '@/shared/DemoForm'
 import { Field, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
 import Logo from '@/shared/Logo'
-import { type Metadata } from 'next'
-import Link from 'next/link'
 
 export const metadata: Metadata = {
   title: 'Forgot Password',
@@ -14,13 +16,12 @@ export const metadata: Metadata = {
 const Page = () => {
   return (
     <div className="container">
-      <h1 className="sr-only">Reset your Ncmaz password</h1>
+      <h1 className="sr-only">Reset your Devink password</h1>
       <div className="my-16 flex justify-center">
         <Logo />
       </div>
 
       <div className="mx-auto max-w-md space-y-6">
-        {/* FORM */}
         <DemoForm
           className="grid grid-cols-1 gap-6"
           successMessage="If that address has an account, a reset link is on its way. This demo sends nothing."
@@ -40,7 +41,6 @@ const Page = () => {
           <ButtonPrimary type="submit">Continue</ButtonPrimary>
         </DemoForm>
 
-        {/* ==== */}
         <div className="block text-center text-sm text-neutral-700 dark:text-neutral-300">
           New user? {` `}
           <Link href="/signup" className="font-medium underline">

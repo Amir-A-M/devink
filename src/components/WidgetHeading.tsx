@@ -1,7 +1,9 @@
-import { Button } from '@/shared/Button'
+import type { FC } from 'react'
+
 import { ArrowUpRightIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import { Button } from '@/shared/Button'
 
 interface Props {
   className?: string

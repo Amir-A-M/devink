@@ -1,8 +1,12 @@
-import { type TPost } from '@/data/posts'
-import { Link } from '@/shared/link'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Image from 'next/image'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
+import { Link } from '@/shared/link'
+
 import ButtonPlayMusicPlayer from '../ButtonPlayMusicPlayer'
 import LocalDate from '../LocalDate'
 

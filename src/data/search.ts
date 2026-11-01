@@ -2,7 +2,7 @@ import { getAuthors } from './authors'
 import { getCategories, getTags } from './categories'
 import { getAllPosts } from './posts'
 
-export async function getSearchResults(query: string, type: 'posts' | 'categories' | 'tags' | 'authors') {
+export async function getSearchResults(query: string, type: 'authors' | 'categories' | 'posts' | 'tags') {
   switch (type) {
     case 'categories':
       return {
@@ -25,7 +25,7 @@ export async function getSearchResults(query: string, type: 'posts' | 'categorie
         totalResults: 200,
         recommendedSearches: ['Design', 'Photo', 'Vector', 'Frontend'],
       }
-    default:
+    case 'posts':
       return {
         query,
         posts: (await getAllPosts()).slice(0, 12).sort(() => Math.random() - 0.5),

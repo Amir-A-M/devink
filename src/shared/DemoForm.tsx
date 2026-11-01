@@ -1,7 +1,9 @@
 'use client'
 
+import type { ReactNode, SubmitEvent } from 'react'
+
 import clsx from 'clsx'
-import { type FormEvent, type ReactNode, useState } from 'react'
+import { useState } from 'react'
 
 interface DemoFormProps {
   children: ReactNode
@@ -26,7 +28,7 @@ export default function DemoForm({
 }: DemoFormProps) {
   const [submitted, setSubmitted] = useState(false)
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     setSubmitted(true)
   }

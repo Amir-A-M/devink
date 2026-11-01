@@ -1,8 +1,11 @@
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
 import ButtonPlayMusicPlayer from '../ButtonPlayMusicPlayer'
 import CategoryBadgeList from '../CategoryBadgeList'
 import LocalDate from '../LocalDate'

@@ -17,7 +17,7 @@ import Image from 'next/image'
  * Sanitise it first if it can come from anyone but you.
  */
 
-type Topic = 'technology' | 'travel' | 'food' | 'culture'
+type Topic = 'culture' | 'food' | 'technology' | 'travel'
 
 // Matched against the headline first. The demo fixtures assign categories fairly
 // loosely — a piece on French cuisine is filed under Architecture — and the
@@ -27,17 +27,17 @@ const TOPIC_BY_KEYWORD: [RegExp, Topic][] = [
   // The four bodies are really four voices — craft, attention, practice, rigour
   // — so a headline is matched to the one that reads naturally beneath it
   // rather than to a subject that happens to share a word.
-  [/cuisine|food|recipe|cook|chef|coffee|wine/i, 'food'],
+  [/chef|coffee|cook|cuisine|food|recipe|wine/i, 'food'],
   [
-    /travel|destination|journey|mountain|ocean|rainforest|wildlife|asia|architect|urban|\bcity\b|airport|mindful|meditat|sustainab|\bliving\b/i,
+    /airport|architect|asia|\bcity\b|destination|journey|\bliving\b|meditat|mindful|mountain|ocean|rainforest|sustainab|travel|urban|wildlife/i,
     'travel',
   ],
   [
-    /music|jazz|\bbeat|piano|symphon|\brock\b|festival|photograph|\bart\b|\bfilm|album|concert|collier|chopin|tomorrowland|champion|olympic|world cup|fitness/i,
+    /album|\bart\b|\bbeat|champion|chopin|collier|concert|festival|\bfilm|fitness|jazz|music|olympic|photograph|piano|\brock\b|symphon|tomorrowland|world cup/i,
     'culture',
   ],
   [
-    /\bai\b|tech|react|crypto|blockchain|digital|space|mars|science|internet|device|remote work|education|interactive|\bdata\b|software/i,
+    /\bai\b|blockchain|crypto|\bdata\b|device|digital|education|interactive|internet|mars|react|remote work|science|software|space|tech/i,
     'technology',
   ],
 ]

@@ -1,10 +1,13 @@
-import Card20 from '@/components/PostCards/Card20'
-import { type TNavigationItem } from '@/data/navigation'
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TNavigationItem } from '@/data/navigation'
+import type { TPost } from '@/data/posts'
+
+import Card20 from '@/components/PostCards/Card20'
 
 const Lv1MenuItem = ({ menuItem }: { menuItem: TNavigationItem }) => {
   return (
@@ -13,7 +16,7 @@ const Lv1MenuItem = ({ menuItem }: { menuItem: TNavigationItem }) => {
       href={menuItem.href || '#'}
     >
       {menuItem.name}
-      {menuItem.children?.length && (
+      {Boolean(menuItem.children?.length) && (
         <ChevronDownIcon className="ms-1 -me-1 size-4 text-neutral-400" aria-hidden="true" />
       )}
     </Link>
@@ -66,26 +69,28 @@ const MegaMenu = ({ menuItem, featuredPosts }: { menuItem: TNavigationItem; feat
 }
 
 const DropdownMenu = ({ menuItem }: { menuItem: TNavigationItem }) => {
-  const renderMenuLink = (menuItem: TNavigationItem) => {
+  const renderMenuLink = (menuItemValue: TNavigationItem) => {
     return (
       <Link
         className="flex items-center rounded-md px-4 py-2 font-normal text-neutral-600 hover:bg-neutral-100 hover:text-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-800 dark:hover:text-neutral-200"
-        href={menuItem.href || '#'}
+        href={menuItemValue.href || '#'}
       >
-        {menuItem.name}
-        {menuItem.children?.length && <ChevronDownIcon className="ml-2 h-4 w-4 text-neutral-500" aria-hidden="true" />}
+        {menuItemValue.name}
+        {Boolean(menuItemValue.children?.length) && (
+          <ChevronDownIcon className="ml-2 h-4 w-4 text-neutral-500" aria-hidden="true" />
+        )}
       </Link>
     )
   }
 
-  const renderDropdown = (menuItem: TNavigationItem) => {
+  const renderDropdown = (menuItemValue: TNavigationItem) => {
     return (
-      <li key={menuItem.id} className="menu-dropdown relative menu-item px-2">
-        {renderMenuLink(menuItem)}
-        {menuItem.children?.length && (
+      <li key={menuItemValue.id} className="menu-dropdown relative menu-item px-2">
+        {renderMenuLink(menuItemValue)}
+        {Boolean(menuItemValue.children?.length) && (
           <div className="absolute top-0 left-full z-10 sub-menu w-56 pl-2">
             <ul className="relative grid space-y-1 rounded-lg bg-white py-4 text-sm shadow-lg ring-1 ring-black/5 dark:bg-neutral-900 dark:ring-white/10">
-              {menuItem.children.map((child) => {
+              {menuItemValue.children?.map((child) => {
                 if (child.type === 'dropdown' && child.children?.length) {
                   return renderDropdown(child)
                 }

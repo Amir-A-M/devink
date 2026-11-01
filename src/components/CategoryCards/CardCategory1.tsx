@@ -1,8 +1,11 @@
-import NcImage from '@/components/NcImage/NcImage'
-import { type TCategory } from '@/data/categories'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TCategory } from '@/data/categories'
+
+import NcImage from '@/components/NcImage/NcImage'
 
 interface Props {
   className?: string

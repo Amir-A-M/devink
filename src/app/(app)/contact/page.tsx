@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import SectionSubscribe2 from '@/components/SectionSubscribe2'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import DemoForm from '@/shared/DemoForm'
@@ -6,7 +8,6 @@ import { Field, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
 import SocialsList from '@/shared/SocialsList'
 import Textarea from '@/shared/Textarea'
-import { type Metadata } from 'next'
 
 const info = [
   {
@@ -79,7 +80,6 @@ const PageContact = () => {
         </div>
       </div>
 
-      {/* OTHER SECTIONS */}
       <div className="container mt-20 lg:mt-32">
         <Divider />
         <SectionSubscribe2 className="mt-20 lg:mt-32" />

@@ -1,12 +1,16 @@
-import { type TPost } from '@/data/posts'
-import Avatar from '@/shared/Avatar'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
+import Avatar from '@/shared/Avatar'
+
 import LocalDate from '../LocalDate'
 
 interface Props {
-  meta: Pick<TPost, 'date' | 'author' | 'title' | 'handle'>
+  meta: Pick<TPost, 'author' | 'date' | 'handle' | 'title'>
   className?: string
   avatarSize?: string
 }

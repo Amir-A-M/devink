@@ -1,10 +1,5 @@
 'use client'
 
-import { type TNavigationItem } from '@/data/navigation'
-import { Divider } from '@/shared/divider'
-import { Link } from '@/shared/link'
-import SocialsList from '@/shared/SocialsList'
-import SwitchDarkMode from '@/shared/SwitchDarkMode'
 import { Disclosure, DisclosureButton, DisclosurePanel, useClose } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import { Search01Icon } from '@hugeicons/core-free-icons'
@@ -12,6 +7,13 @@ import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
 import { redirect } from 'next/navigation'
 import React from 'react'
+
+import type { TNavigationItem } from '@/data/navigation'
+
+import { Divider } from '@/shared/divider'
+import { Link } from '@/shared/link'
+import SocialsList from '@/shared/SocialsList'
+import SwitchDarkMode from '@/shared/SwitchDarkMode'
 
 interface Props {
   data: TNavigationItem[]

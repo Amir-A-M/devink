@@ -1,9 +1,12 @@
-import { type TNavigationItem } from '@/data/navigation'
-import { type TPost } from '@/data/posts'
-import { Link } from '@/shared/link'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
+
+import type { TNavigationItem } from '@/data/navigation'
+import type { TPost } from '@/data/posts'
+
+import { Link } from '@/shared/link'
+
 import Card20 from '../PostCards/Card20'
 
 export default function MegaMenuPopover({
@@ -17,7 +20,7 @@ export default function MegaMenuPopover({
 }) {
   const renderNavlink = (item: TNavigationItem) => {
     return (
-      <li key={item.id} className={`${item.isNew ? 'menuIsNew' : ''}`}>
+      <li key={item.id} className={item.isNew ? 'menuIsNew' : ''}>
         <Link
           className="font-normal text-neutral-600 hover:text-black dark:text-neutral-400 dark:hover:text-white"
           href={item.href || '#'}

@@ -1,4 +1,5 @@
 import React from 'react'
+
 export interface HeartIconProps {
   containerClassName?: string
   isLiked?: boolean

@@ -1,5 +1,15 @@
 'use client'
 
+import type { EmblaOptionsType } from 'embla-carousel'
+import type { FC } from 'react'
+
+import clsx from 'clsx'
+import useEmblaCarousel from 'embla-carousel-react'
+import { use } from 'react'
+
+import type { TPost } from '@/data/posts'
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
 import { ThemeContext } from '@/app/theme-provider'
 import Card10 from '@/components/PostCards/Card10'
 import Card10V2 from '@/components/PostCards/Card10V2'
@@ -7,20 +17,18 @@ import Card11 from '@/components/PostCards/Card11'
 import Card4 from '@/components/PostCards/Card4'
 import Card7 from '@/components/PostCards/Card7'
 import Card9 from '@/components/PostCards/Card9'
-import { type TPost } from '@/data/posts'
 import { useCarouselArrowButtons } from '@/hooks/use-carousel-arrow-buttons'
-import { type HeadingWithSubProps } from '@/shared/Heading'
 import HeadingWithArrowBtns from '@/shared/HeadingWithArrowBtns'
-import clsx from 'clsx'
-import { type EmblaOptionsType } from 'embla-carousel'
-import useEmblaCarousel from 'embla-carousel-react'
-import { type FC, useContext } from 'react'
 
-interface Props extends Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading'> {
+const defaultEmblaOptions: EmblaOptionsType = {
+  slidesToScroll: 'auto',
+}
+
+interface Props extends Pick<HeadingWithSubProps, 'dimHeading' | 'subHeading'> {
   className?: string
   heading?: string
   posts: TPost[]
-  postCardName?: 'card4' | 'card7' | 'card9' | 'card10' | 'card10V2' | 'card11'
+  postCardName?: 'card10' | 'card10V2' | 'card11' | 'card4' | 'card7' | 'card9'
   emblaOptions?: EmblaOptionsType
 }
 
@@ -31,11 +39,9 @@ const SectionSliderPosts: FC<Props> = ({
   className,
   posts,
   postCardName = 'card4',
-  emblaOptions = {
-    slidesToScroll: 'auto',
-  },
+  emblaOptions = defaultEmblaOptions,
 }) => {
-  const theme = useContext(ThemeContext)
+  const theme = use(ThemeContext)
   const [emblaRef, emblaApi] = useEmblaCarousel({ ...emblaOptions, direction: theme?.themeDir })
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } = useCarouselArrowButtons(emblaApi)
 

@@ -1,11 +1,15 @@
 'use client'
 
-import { Badge } from '@/shared/Badge'
+import type React from 'react'
+
 import { Combobox, ComboboxInput, ComboboxOption, ComboboxOptions } from '@headlessui/react'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { clsx } from 'clsx'
-import type React from 'react'
 import { useCallback, useState } from 'react'
+
+import { Badge } from '@/shared/Badge'
+
+const defaultValue: Tag[] = []
 
 interface Tag {
   id: string
@@ -24,9 +28,9 @@ interface TagsInputProps {
 }
 
 export function TagsInput({
-  value = [],
+  value = defaultValue,
   onChange,
-  suggestions = [],
+  suggestions = defaultValue,
   placeholder = 'Add tags...',
   maxTags,
   allowCreate = true,
@@ -55,7 +59,7 @@ export function TagsInput({
       // Check if it's a "create new" tag
       if (selectedTag.id === '__create_new__') {
         const newTag: Tag = {
-          id: `tag-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          id: `tag-${Date.now()}-${Math.random().toString(36).slice(2, 11)}`,
           name: query.trim(),
           color: `hsl(${Math.floor(Math.random() * 360)}, 70%, 50%)`,
         }
@@ -92,9 +96,7 @@ export function TagsInput({
     <div className={clsx('w-full', className)}>
       <Combobox value={null} onChange={handleSelect} disabled={isMaxTagsReached}>
         <div className="relative">
-          {/* Tags display and input container */}
           <div className="flex flex-wrap items-center gap-1.5 focus-within:outline-hidden focus-visible:right-0">
-            {/* Render selected tags */}
             {value.map((tag) => (
               <Badge key={tag.id} className="text-sm/6!" color="indigo">
                 {tag.name}
@@ -108,8 +110,6 @@ export function TagsInput({
                 </button>
               </Badge>
             ))}
-
-            {/* Input field */}
             <div className="min-w-32 flex-1 overflow-hidden">
               <ComboboxInput
                 className="w-full truncate border-none bg-transparent px-0 tracking-normal placeholder-neutral-600 outline-none focus-visible:ring-0 focus-visible:outline-hidden disabled:cursor-not-allowed disabled:text-sm dark:placeholder-neutral-300"
@@ -123,8 +123,6 @@ export function TagsInput({
               />
             </div>
           </div>
-
-          {/* Dropdown options */}
           <ComboboxOptions className="absolute z-40 mt-1 hidden-scrollbar max-h-60 w-full overflow-auto rounded-lg border bg-white shadow-lg focus:outline-none dark:bg-neutral-800">
             {filteredSuggestions.length === 0 && !shouldShowCreateOption ? (
               <div className="px-3 py-2 text-sm text-neutral-500">
@@ -132,7 +130,6 @@ export function TagsInput({
               </div>
             ) : (
               <>
-                {/* Existing suggestions */}
                 {filteredSuggestions.map((suggestion) => (
                   <ComboboxOption
                     key={suggestion.id}
@@ -146,8 +143,6 @@ export function TagsInput({
                     <span className="truncate">{suggestion.name}</span>
                   </ComboboxOption>
                 ))}
-
-                {/* Create new tag option */}
                 {shouldShowCreateOption && (
                   <ComboboxOption
                     value={{
@@ -165,16 +160,20 @@ export function TagsInput({
           </ComboboxOptions>
         </div>
       </Combobox>
-
-      {/* Help text */}
-      <p id="tags-help" className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
-        {maxTags && (
-          <>
-            Selected {value.length} of {maxTags} tags.{' '}
-          </>
-        )}
-        Press backspace to remove the last tag.
-      </p>
+      <TagsHelp selected={value.length} maxTags={maxTags} />
     </div>
+  )
+}
+
+function TagsHelp({ selected, maxTags }: { selected: number; maxTags?: number }) {
+  return (
+    <p id="tags-help" className="mt-1 text-xs text-neutral-500 dark:text-neutral-400">
+      {Boolean(maxTags) && (
+        <>
+          Selected {selected} of {maxTags} tags.{' '}
+        </>
+      )}
+      Press backspace to remove the last tag.
+    </p>
   )
 }

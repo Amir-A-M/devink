@@ -1,9 +1,11 @@
 'use client'
 
+import type { FC } from 'react'
+
 import { Bookmark02Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
-import { type FC, useState } from 'react'
+import { useState } from 'react'
 
 interface Props {
   className?: string

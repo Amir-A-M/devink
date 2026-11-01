@@ -1,9 +1,13 @@
-import { type TPost } from '@/data/posts'
-import musicWave from '@/images/musicWave.webp'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
+import musicWave from '@/images/musicWave.webp'
+
 import ButtonPlayMusicPlayer from '../ButtonPlayMusicPlayer'
 import CategoryBadgeList from '../CategoryBadgeList'
 import PostCardCommentBtn from '../PostCardCommentBtn'
@@ -43,13 +47,9 @@ const Card16Podcast: FC<Props> = ({ className, post, ratio = 'aspect-4/3' }) => 
           className="rounded-3xl object-cover brightness-100 transition-[filter] duration-300 group-hover:brightness-75"
         />
       </div>
-
-      {/* ABSOLUTE */}
       <Link href={`/post/${handle}`} className="absolute inset-0" aria-hidden="true" tabIndex={-1}></Link>
 
       <CategoryBadgeList className="absolute inset-x-3 top-3" categories={categories} />
-
-      {/* MAIN CONTENT */}
       <div className="relative -mt-32 w-11/12">
         {postType !== 'audio' && (
           <PostTypeFeaturedIcon

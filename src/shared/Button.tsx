@@ -1,6 +1,7 @@
 import * as Headless from '@headlessui/react'
 import clsx from 'clsx'
-import React, { forwardRef } from 'react'
+import React from 'react'
+
 import { Link } from './link'
 
 const styles = {
@@ -156,8 +157,6 @@ const styles = {
       '[--btn-icon:var(--color-primary-300)] data-active:[--btn-icon:var(--color-primary-200)] data-hover:[--btn-icon:var(--color-primary-200)]',
     ],
   },
-
-  //
   baseForCircle: [
     // Base
     'relative isolate inline-flex shrink-0 items-center justify-center rounded-full border font-medium',
@@ -172,19 +171,23 @@ const styles = {
   ],
 }
 
-export type ButtonProps = (
+export type ButtonProps = { className?: string; children: React.ReactNode } & (
   | { color?: keyof typeof styles.colors; outline?: never; plain?: never }
   | { color?: never; outline: true; plain?: never }
   | { color?: never; outline?: never; plain: true }
-) & { className?: string; children: React.ReactNode } & (
-    Omit<Headless.ButtonProps, 'as' | 'className'> | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>
-  )
+) &
+  (Omit<Headless.ButtonProps, 'as' | 'className'> | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>)
 
-export const Button = forwardRef(function Button(
-  { color, outline, plain, className, children, ...props }: ButtonProps,
-  ref: React.ForwardedRef<HTMLElement>
-) {
-  let classes = clsx(
+export const Button = ({
+  ref,
+  color,
+  outline,
+  plain,
+  className,
+  children,
+  ...props
+}: ButtonProps & { ref?: React.ForwardedRef<HTMLElement> }) => {
+  const classes = clsx(
     className,
     styles.base,
     outline ? styles.outline : plain ? styles.plain : clsx(styles.solid, styles.colors[color ?? 'dark/neutral'])
@@ -199,20 +202,24 @@ export const Button = forwardRef(function Button(
       <TouchTarget>{children}</TouchTarget>
     </Headless.Button>
   )
-})
+}
 
-export type ButtonCircleProps = (
+export type ButtonCircleProps = { className?: string; children?: React.ReactNode } & (
   | { color?: keyof typeof styles.colors; outline?: never; plain?: never }
   | { color?: never; outline: true; plain?: never }
   | { color?: never; outline?: never; plain: true }
-) & { className?: string; children?: React.ReactNode } & (
-    Omit<Headless.ButtonProps, 'as' | 'className'> | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>
-  )
-export const ButtonCircle = forwardRef(function Button(
-  { color, outline, plain, className, children = 'x', ...props }: ButtonCircleProps,
-  ref: React.ForwardedRef<HTMLElement>
-) {
-  let classes = clsx(
+) &
+  (Omit<Headless.ButtonProps, 'as' | 'className'> | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>)
+export const ButtonCircle = ({
+  ref,
+  color,
+  outline,
+  plain,
+  className,
+  children = 'x',
+  ...props
+}: ButtonCircleProps & { ref?: React.ForwardedRef<HTMLElement> }) => {
+  const classes = clsx(
     className,
     styles.baseForCircle,
     outline ? styles.outline : plain ? styles.plain : clsx(styles.solid, styles.colors[color ?? 'dark/neutral'])
@@ -227,7 +234,7 @@ export const ButtonCircle = forwardRef(function Button(
       <TouchTarget>{children}</TouchTarget>
     </Headless.Button>
   )
-})
+}
 
 /**
  * Expand the hit area to at least 44×44px on touch devices

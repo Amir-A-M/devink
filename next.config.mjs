@@ -1,5 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
+  turbopack: { root: import.meta.dirname },
   // Icon packs are imported through their barrel. Turbopack tree-shakes them in
   // the production build, but this keeps dev and build from walking the whole
   // package on every import.

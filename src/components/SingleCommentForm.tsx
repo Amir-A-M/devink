@@ -1,7 +1,10 @@
+import type { FC, SubmitEvent } from 'react'
+
+import React from 'react'
+
 import { Button } from '@/shared/Button'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import Textarea from '@/shared/Textarea'
-import React, { type FC, type FormEvent } from 'react'
 
 interface Props extends React.HTMLAttributes<HTMLTextAreaElement> {
   className?: string
@@ -23,7 +26,7 @@ const SingleCommentForm: FC<Props> = ({
 }) => {
   // No backend: swallow the native submit that would reload the page and drop
   // the comment, and let the parent decide what to show instead.
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = (event: SubmitEvent<HTMLFormElement>) => {
     event.preventDefault()
     onClickSubmit?.()
   }

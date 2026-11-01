@@ -1,14 +1,17 @@
 'use client'
 
+import type { FC } from 'react'
+
+import { PlayIcon } from '@heroicons/react/24/solid'
+import Image from 'next/image'
+import { useState } from 'react'
+
 import { Button } from '@/shared/Button'
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import { Dialog, DialogBody } from '@/shared/dialog'
-import { PlayIcon } from '@heroicons/react/24/solid'
-import Image from 'next/image'
-import { type FC, useState } from 'react'
 
 export interface SectionHero2Props {}
-const SectionHero2: FC<SectionHero2Props> = ({}) => {
+const SectionHero2: FC<SectionHero2Props> = () => {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
@@ -22,7 +25,7 @@ const SectionHero2: FC<SectionHero2Props> = ({}) => {
             src="https://images.pexels.com/photos/4666750/pexels-photo-4666750.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             sizes="(max-width: 768px) 100vw, (max-width: 1280px) 50vw, 60vw"
             alt=""
-            priority
+            preload
           />
         </div>
         <div className="relative z-1 container text-neutral-100">

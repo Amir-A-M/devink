@@ -1,8 +1,10 @@
-import ButtonPlayMusicPlayer from '@/components/ButtonPlayMusicPlayer'
-import { type TPost } from '@/data/posts'
-import playingIcon from '@/images/icon-playing.gif'
 import clsx from 'clsx'
 import Image from 'next/image'
+
+import type { TPost } from '@/data/posts'
+
+import ButtonPlayMusicPlayer from '@/components/ButtonPlayMusicPlayer'
+import playingIcon from '@/images/icon-playing.gif'
 
 const AudioPlayerButton = ({ post }: { post: TPost }) => {
   const { featuredImage, title } = post
@@ -37,7 +39,7 @@ const AudioPlayerButton = ({ post }: { post: TPost }) => {
           sizes="300px"
           alt={title}
           fill
-          priority
+          preload
         />
 
         <div className="absolute inset-0 flex items-center justify-center">

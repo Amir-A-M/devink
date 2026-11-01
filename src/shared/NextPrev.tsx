@@ -1,8 +1,10 @@
 'use client'
 
+import type { FC } from 'react'
+
 import { ArrowLeftIcon, ArrowRightIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
-import React, { type FC } from 'react'
+import React from 'react'
 
 interface Props {
   className?: string
@@ -33,6 +35,7 @@ const NextPrev: FC<Props> = ({
     <div className={clsx('relative flex items-center text-neutral-500 dark:text-neutral-400', className)}>
       {!onlyNext && (
         <button
+          type="button"
           className={clsx(
             'flex items-center justify-center rounded-full border-neutral-200 disabled:cursor-not-allowed dark:border-neutral-600',
             !onlyPrev && 'me-2',
@@ -50,6 +53,7 @@ const NextPrev: FC<Props> = ({
       )}
       {!onlyPrev && (
         <button
+          type="button"
           className={clsx(
             'flex items-center justify-center rounded-full border-neutral-200 disabled:cursor-not-allowed dark:border-neutral-600',
             focus === 'right' && 'border-2',
@@ -86,6 +90,7 @@ const Next: FC<NextProps> = ({
   return (
     <div className={`nc-Next text-neutral-500 dark:text-neutral-400 ${className}`}>
       <button
+        type="button"
         className={clsx(
           'flex items-center justify-center rounded-full border-2 border-transparent hover:border-neutral-200 dark:hover:border-neutral-600',
           btnClassName
@@ -118,6 +123,7 @@ const Prev: FC<PrevProps> = ({
   return (
     <div className={`nc-Prev text-neutral-500 dark:text-neutral-400 ${className}`}>
       <button
+        type="button"
         className={clsx(
           'flex items-center justify-center rounded-full border-2 border-transparent hover:border-neutral-200 dark:hover:border-neutral-600',
           btnClassName

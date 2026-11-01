@@ -1,11 +1,15 @@
 'use client'
 
-import { useIsHydrated } from '@/hooks/use-is-hydrated'
-import HeadingWithSub from '@/shared/Heading'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Image from 'next/image'
-import { type FC, useState } from 'react'
+import { useState } from 'react'
 import ReactPlayer from 'react-player'
+
+import { useIsHydrated } from '@/hooks/use-is-hydrated'
+import HeadingWithSub from '@/shared/Heading'
+
 import NcPlayIcon2 from './NcPlayIcon2'
 
 interface VideoType {
@@ -63,7 +67,7 @@ const SectionVideos: FC<SectionVideosProps> = ({ videos = VIDEOS_DEMO, className
   const renderedVideo = useIsHydrated()
 
   const renderMainVideo = () => {
-    const video = videos.find((video) => video.id === currentVideo) || videos[0]
+    const video = videos.find((videoValue) => videoValue.id === currentVideo) || videos[0]
 
     return (
       <div
@@ -104,7 +108,8 @@ const SectionVideos: FC<SectionVideosProps> = ({ videos = VIDEOS_DEMO, className
 
   const renderSubVideo = (video: VideoType) => {
     return (
-      <div
+      <button
+        type="button"
         className="group aspect-w-16 relative z-0 cursor-pointer overflow-hidden rounded-2xl aspect-h-16 sm:rounded-3xl sm:aspect-h-12 lg:aspect-h-9"
         onClick={() => {
           if (isPlay && currentVideo === video.id) {
@@ -128,7 +133,7 @@ const SectionVideos: FC<SectionVideosProps> = ({ videos = VIDEOS_DEMO, className
           title={video.title || ''}
           alt={video.title || 'Video thumbnail'}
         />
-      </div>
+      </button>
     )
   }
 

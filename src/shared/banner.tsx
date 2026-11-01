@@ -1,8 +1,9 @@
 'use client'
 
-import { Link } from '@/shared/link'
 import { XMarkIcon } from '@heroicons/react/20/solid'
 import { useState } from 'react'
+
+import { Link } from '@/shared/link'
 
 export default function Banner() {
   const [isDismissed, setIsDismissed] = useState(false)

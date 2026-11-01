@@ -1,12 +1,14 @@
+import type { FC } from 'react'
+
+import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import clsx from 'clsx'
+import Image from 'next/image'
+
 import rightImg from '@/images/SVG-subcribe2.webp'
 import { Badge } from '@/shared/Badge'
 import ButtonCircle from '@/shared/ButtonCircle'
 import DemoForm from '@/shared/DemoForm'
 import Input from '@/shared/Input'
-import { ArrowRightIcon } from '@heroicons/react/24/solid'
-import clsx from 'clsx'
-import Image from 'next/image'
-import { type FC } from 'react'
 
 interface Props {
   className?: string

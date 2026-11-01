@@ -1,7 +1,10 @@
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
 import CategoryBadgeList from '../CategoryBadgeList'
 import PostCardMeta3 from '../PostCardMeta/PostCardMeta3'
 

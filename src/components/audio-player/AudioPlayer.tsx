@@ -1,41 +1,43 @@
 'use client'
 
-import { useAudioPlayer } from '@/components/AudioProvider'
-import { ForwardButton } from '@/components/audio-player/ForwardButton'
-import { MuteButton } from '@/components/audio-player/MuteButton'
-import { PlayButton } from '@/components/audio-player/PlayButton'
-import { PlaybackRateButton } from '@/components/audio-player/PlaybackRateButton'
-import { RewindButton } from '@/components/audio-player/RewindButton'
-import { Slider } from '@/components/audio-player/Slider'
 import { HeartIcon } from '@heroicons/react/24/outline'
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import Link from 'next/link'
 import { useRef, useState } from 'react'
+
+import { ForwardButton } from '@/components/audio-player/ForwardButton'
+import { MuteButton } from '@/components/audio-player/MuteButton'
+import { PlaybackRateButton } from '@/components/audio-player/PlaybackRateButton'
+import { PlayButton } from '@/components/audio-player/PlayButton'
+import { RewindButton } from '@/components/audio-player/RewindButton'
+import { Slider } from '@/components/audio-player/Slider'
+import { useAudioPlayer } from '@/components/AudioProvider'
+
 import PostCardLikeBtn from '../PostCardLikeBtn'
 
 function parseTime(seconds: number) {
-  let hours = Math.floor(seconds / 3600)
-  let minutes = Math.floor((seconds - hours * 3600) / 60)
+  const hours = Math.floor(seconds / 3600)
+  const minutes = Math.floor((seconds - hours * 3600) / 60)
   seconds = seconds - hours * 3600 - minutes * 60
   return [hours, minutes, seconds]
 }
 
 function formatHumanTime(seconds: number) {
-  let [h, m, s] = parseTime(seconds)
+  const [h, m, s] = parseTime(seconds)
   return `${h} hour${h === 1 ? '' : 's'}, ${m} minute${m === 1 ? '' : 's'}, ${s} second${s === 1 ? '' : 's'}`
 }
 
 export function AudioPlayer() {
-  let player = useAudioPlayer()
+  const player = useAudioPlayer()
 
-  let wasPlayingRef = useRef(false)
+  const wasPlayingRef = useRef(false)
 
   // While the visitor drags the scrubber, `scrubTime` overrides the real
   // position; it is dropped as soon as playback reports a new time. Comparing
   // against the last tick during render does that without an effect, which
   // otherwise queued a second render pass on every timeupdate.
-  let [scrubTime, setScrubTime] = useState<number | null>(null)
-  let [lastTick, setLastTick] = useState(player.currentTime)
+  const [scrubTime, setScrubTime] = useState<number | null>(null)
+  const [lastTick, setLastTick] = useState(player.currentTime)
 
   if (player.currentTime !== lastTick) {
     setLastTick(player.currentTime)

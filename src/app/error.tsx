@@ -1,8 +1,9 @@
 'use client'
 
+import { useEffect } from 'react'
+
 import { Button } from '@/shared/Button'
 import ButtonPrimary from '@/shared/ButtonPrimary'
-import { useEffect } from 'react'
 
 /**
  * Shown when a route throws. Drawn to match the 404 screen so a failure still

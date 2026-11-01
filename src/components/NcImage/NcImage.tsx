@@ -1,6 +1,8 @@
+import type { ImageProps } from 'next/image'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import Image, { type ImageProps } from 'next/image'
-import { type FC } from 'react'
+import Image from 'next/image'
 
 interface Props extends ImageProps {
   containerClassName?: string

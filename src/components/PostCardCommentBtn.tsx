@@ -1,8 +1,10 @@
-import { Link } from '@/shared/link'
+import type { FC } from 'react'
+
 import { Comment01Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import { Link } from '@/shared/link'
 
 interface Props {
   className?: string
@@ -10,9 +12,6 @@ interface Props {
   handle: string
 }
 
-// Contrast: the hover state measures 3.52:1 (teal-600 on teal-50) while the
-// resting state measures ~17:1 — hover lowers contrast rather than raising it.
-// Recorded, not changed: it is the card's established hover language.
 const PostCardCommentBtn: FC<Props> = ({ className, commentCount, handle }) => {
   return (
     <Link

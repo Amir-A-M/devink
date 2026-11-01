@@ -1,8 +1,11 @@
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
 import PostTypeFeaturedIcon from '../PostTypeFeaturedIcon'
 import GallerySlider from './GallerySlider'
 import MediaAudio from './MediaAudio'
@@ -17,6 +20,20 @@ interface Props {
 const PostFeaturedMedia: FC<Props> = ({ className, post, isHover = false }) => {
   const { featuredImage, postType, videoUrl, galleryImgs, audioUrl, handle, title } = post
 
+  const renderImage = () => {
+    return (
+      <Link href={`/post/${handle}`}>
+        <Image
+          alt={title}
+          fill
+          className="object-cover"
+          src={featuredImage}
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+        />
+        <div className="absolute inset-0 bg-black/25 opacity-0 transition-opacity group-hover:opacity-100" />
+      </Link>
+    )
+  }
   const renderPostGallery = () => {
     if (!galleryImgs) {
       return renderImage()
@@ -64,21 +81,6 @@ const PostFeaturedMedia: FC<Props> = ({ className, post, isHover = false }) => {
           />
         )}
       </>
-    )
-  }
-
-  const renderImage = () => {
-    return (
-      <Link href={`/post/${handle}`}>
-        <Image
-          alt={title}
-          fill
-          className="object-cover"
-          src={featuredImage}
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-        />
-        <div className="absolute inset-0 bg-black/25 opacity-0 transition-opacity group-hover:opacity-100" />
-      </Link>
     )
   }
 

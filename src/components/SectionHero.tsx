@@ -1,7 +1,10 @@
-import ButtonPrimary from '@/shared/ButtonPrimary'
+import type { StaticImageData } from 'next/image'
+import type { FC, ReactNode } from 'react'
+
 import clsx from 'clsx'
-import Image, { type StaticImageData } from 'next/image'
-import { type FC, type ReactNode } from 'react'
+import Image from 'next/image'
+
+import ButtonPrimary from '@/shared/ButtonPrimary'
 
 interface Props {
   className?: string
@@ -22,7 +25,7 @@ const SectionHero: FC<Props> = ({ className, rightImg, heading, subHeading, btnT
           {!!btnText && <ButtonPrimary href={btnHref || '/'}>{btnText}</ButtonPrimary>}
         </div>
         <div className="grow">
-          <Image className="w-full" src={rightImg} alt="" sizes="(max-width: 1024px) 100vw, 60vw" priority />
+          <Image className="w-full" src={rightImg} alt="" sizes="(max-width: 1024px) 100vw, 60vw" preload />
         </div>
       </div>
     </div>

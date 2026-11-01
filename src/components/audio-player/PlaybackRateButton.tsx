@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
-import { type PlayerAPI } from '@/components/AudioProvider'
+import type { PlayerAPI } from '@/components/AudioProvider'
 
 const playbackRates = [
   {
     value: 1,
-    icon: function PlaybackIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+    icon: function icon(props: React.ComponentPropsWithoutRef<'svg'>) {
       return (
         <svg
           aria-hidden="true"
@@ -32,7 +32,7 @@ const playbackRates = [
   },
   {
     value: 1.5,
-    icon: function PlaybackIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+    icon: function icon(props: React.ComponentPropsWithoutRef<'svg'>) {
       return (
         <svg
           aria-hidden="true"
@@ -62,7 +62,7 @@ const playbackRates = [
   },
   {
     value: 2,
-    icon: function PlaybackIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
+    icon: function icon(props: React.ComponentPropsWithoutRef<'svg'>) {
       return (
         <svg
           aria-hidden="true"
@@ -90,7 +90,7 @@ const playbackRates = [
 ]
 
 export function PlaybackRateButton({ player }: { player: PlayerAPI }) {
-  let [playbackRate, setPlaybackRate] = useState(playbackRates[0])
+  const [playbackRate, setPlaybackRate] = useState(playbackRates[0])
 
   return (
     <button
@@ -98,9 +98,9 @@ export function PlaybackRateButton({ player }: { player: PlayerAPI }) {
       className="relative flex size-6 items-center justify-center rounded-md text-slate-500 hover:bg-slate-100 hover:text-slate-700 focus:ring-2 focus:ring-slate-500 focus-visible:outline-hidden dark:hover:bg-neutral-800 dark:hover:text-slate-400"
       onClick={() => {
         setPlaybackRate((rate) => {
-          let existingIdx = playbackRates.indexOf(rate)
-          let idx = (existingIdx + 1) % playbackRates.length
-          let next = playbackRates[idx]
+          const existingIdx = playbackRates.indexOf(rate)
+          const idx = (existingIdx + 1) % playbackRates.length
+          const next = playbackRates[idx]
 
           player.playbackRate(next.value)
 

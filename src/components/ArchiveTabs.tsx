@@ -1,11 +1,15 @@
 'use client'
 
-import { Button } from '@/shared/Button'
-import { HugeiconsIcon, type IconSvgElement } from '@hugeicons/react'
-import { usePathname, useSearchParams } from 'next/navigation'
-import { type FC, Suspense, useCallback } from 'react'
+import type { IconSvgElement } from '@hugeicons/react'
+import type { FC } from 'react'
 
-type Props = {
+import { HugeiconsIcon } from '@hugeicons/react'
+import { usePathname, useSearchParams } from 'next/navigation'
+import { Suspense, useCallback } from 'react'
+
+import { Button } from '@/shared/Button'
+
+interface Props {
   className?: string
   tabs: { name: string; value: string; icon: IconSvgElement }[]
 }
@@ -41,7 +45,7 @@ const ArchiveTabsComponent: FC<Props> = ({ className, tabs }) => {
             {tab.name}
           </Button>
         ) : (
-          <Button outline key={tab.value} href={pathname + '?' + createQueryString('tab', tab.value)} scroll={false}>
+          <Button outline key={tab.value} href={`${pathname}?${createQueryString('tab', tab.value)}`} scroll={false}>
             <HugeiconsIcon icon={tab.icon} size={20} />
             {tab.name}
           </Button>

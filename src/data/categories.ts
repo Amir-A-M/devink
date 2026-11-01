@@ -1,4 +1,6 @@
-import { getAllPosts, getPostsDefault, type TPost } from './posts'
+import type { TPost } from './posts'
+
+import { getAllPosts, getPostsDefault } from './posts'
 
 // Demo imagery, served straight from Unsplash. Point these at your own CDN
 // and add the host to `remotePatterns` in next.config.mjs.
@@ -17,185 +19,187 @@ const _demo_category_image_urls = [
 ]
 
 // CATEGORIES
-export async function getCategories() {
-  return [
-    {
-      id: 'category-1',
-      name: 'Garden',
-      handle: 'garden',
-      description:
-        'Explore the world of gardening, from planting to harvesting and everything in between. Discover tips, tricks, and expert advice to make your garden thrive.',
-      color: 'indigo',
-      count: 13,
-      date: '2025-06-10',
-      thumbnail: {
-        src: _demo_category_image_urls[0],
-        alt: 'Garden',
-        width: 1920,
-        height: 1080,
-      },
+const getCategoriesFixtures = [
+  {
+    id: 'category-1',
+    name: 'Garden',
+    handle: 'garden',
+    description:
+      'Explore the world of gardening, from planting to harvesting and everything in between. Discover tips, tricks, and expert advice to make your garden thrive.',
+    color: 'indigo',
+    count: 13,
+    date: '2025-06-10',
+    thumbnail: {
+      src: _demo_category_image_urls[0],
+      alt: 'Garden',
+      width: 1920,
+      height: 1080,
     },
-    {
-      id: 'category-2',
-      name: 'Technology',
-      handle: 'technology',
-      description:
-        'Stay updated with the latest technology news, trends, and innovations. Explore the world of AI, blockchain, and the future of technology.',
-      color: 'blue',
-      count: 25,
-      date: '2025-05-15',
-      thumbnail: {
-        src: _demo_category_image_urls[1],
-        alt: 'Technology',
-        width: 1920,
-        height: 1080,
-      },
+  },
+  {
+    id: 'category-2',
+    name: 'Technology',
+    handle: 'technology',
+    description:
+      'Stay updated with the latest technology news, trends, and innovations. Explore the world of AI, blockchain, and the future of technology.',
+    color: 'blue',
+    count: 25,
+    date: '2025-05-15',
+    thumbnail: {
+      src: _demo_category_image_urls[1],
+      alt: 'Technology',
+      width: 1920,
+      height: 1080,
     },
-    {
-      id: 'category-3',
-      name: 'Fitness',
-      handle: 'fitness',
-      description:
-        'Discover workout routines, health tips, and wellness advice for a better lifestyle. Stay fit and healthy with our expert tips and advice.',
-      color: 'red',
-      count: 18,
-      date: '2025-04-20',
-      thumbnail: {
-        src: _demo_category_image_urls[2],
-        alt: 'Fitness',
-        width: 1920,
-        height: 1080,
-      },
+  },
+  {
+    id: 'category-3',
+    name: 'Fitness',
+    handle: 'fitness',
+    description:
+      'Discover workout routines, health tips, and wellness advice for a better lifestyle. Stay fit and healthy with our expert tips and advice.',
+    color: 'red',
+    count: 18,
+    date: '2025-04-20',
+    thumbnail: {
+      src: _demo_category_image_urls[2],
+      alt: 'Fitness',
+      width: 1920,
+      height: 1080,
     },
-    {
-      id: 'category-4',
-      name: 'Finance',
-      handle: 'finance',
-      description:
-        'Stay updated with financial news, investment strategies, and money management tips. Make informed decisions with our expert advice.',
-      color: 'green',
-      count: 22,
-      date: '2025-03-05',
-      thumbnail: {
-        src: _demo_category_image_urls[3],
-        alt: 'Finance',
-        width: 1920,
-        height: 1080,
-      },
+  },
+  {
+    id: 'category-4',
+    name: 'Finance',
+    handle: 'finance',
+    description:
+      'Stay updated with financial news, investment strategies, and money management tips. Make informed decisions with our expert advice.',
+    color: 'green',
+    count: 22,
+    date: '2025-03-05',
+    thumbnail: {
+      src: _demo_category_image_urls[3],
+      alt: 'Finance',
+      width: 1920,
+      height: 1080,
     },
-    {
-      id: 'category-5',
-      name: 'Travel',
-      handle: 'travel',
-      description:
-        'Explore travel guides, destination reviews, and adventure stories from around the world. Plan your next adventure with our expert tips and advice.',
-      color: 'yellow',
-      count: 30,
-      date: '2025-02-15',
-      thumbnail: {
-        src: _demo_category_image_urls[4],
-        alt: 'Travel',
-        width: 1920,
-        height: 1080,
-      },
+  },
+  {
+    id: 'category-5',
+    name: 'Travel',
+    handle: 'travel',
+    description:
+      'Explore travel guides, destination reviews, and adventure stories from around the world. Plan your next adventure with our expert tips and advice.',
+    color: 'yellow',
+    count: 30,
+    date: '2025-02-15',
+    thumbnail: {
+      src: _demo_category_image_urls[4],
+      alt: 'Travel',
+      width: 1920,
+      height: 1080,
     },
-    {
-      id: 'category-6',
-      name: 'Photography',
-      handle: 'photography',
-      description:
-        'Discover the art of photography, from landscape shots to portrait techniques and editing tips. Capture the beauty of the world with our expert tips and advice.',
-      color: 'purple',
-      count: 28,
-      date: '2025-01-20',
-      thumbnail: {
-        src: _demo_category_image_urls[5],
-        alt: 'Photography',
-        width: 1920,
-        height: 1080,
-      },
+  },
+  {
+    id: 'category-6',
+    name: 'Photography',
+    handle: 'photography',
+    description:
+      'Discover the art of photography, from landscape shots to portrait techniques and editing tips. Capture the beauty of the world with our expert tips and advice.',
+    color: 'purple',
+    count: 28,
+    date: '2025-01-20',
+    thumbnail: {
+      src: _demo_category_image_urls[5],
+      alt: 'Photography',
+      width: 1920,
+      height: 1080,
     },
-    {
-      id: 'category-7',
-      name: 'Music',
-      handle: 'music',
-      description:
-        'Explore music reviews, artist interviews, and the latest trends in the music industry. Stay updated with the latest music news and trends.',
-      color: 'pink',
-      count: 35,
-      date: '2025-01-15',
-      thumbnail: {
-        src: _demo_category_image_urls[6],
-        alt: 'Music',
-        width: 1920,
-        height: 1080,
-      },
+  },
+  {
+    id: 'category-7',
+    name: 'Music',
+    handle: 'music',
+    description:
+      'Explore music reviews, artist interviews, and the latest trends in the music industry. Stay updated with the latest music news and trends.',
+    color: 'pink',
+    count: 35,
+    date: '2025-01-15',
+    thumbnail: {
+      src: _demo_category_image_urls[6],
+      alt: 'Music',
+      width: 1920,
+      height: 1080,
     },
-    {
-      id: 'category-8',
-      name: 'Architecture',
-      handle: 'architecture',
-      description:
-        'Discover architectural marvels, design trends, and insights into the world of building and construction. Explore the world of architecture with our expert tips and advice.',
-      color: 'gray',
-      count: 22,
-      date: '2025-01-10',
-      thumbnail: {
-        src: _demo_category_image_urls[7],
-        alt: 'Architecture',
-        width: 1920,
-        height: 1080,
-      },
+  },
+  {
+    id: 'category-8',
+    name: 'Architecture',
+    handle: 'architecture',
+    description:
+      'Discover architectural marvels, design trends, and insights into the world of building and construction. Explore the world of architecture with our expert tips and advice.',
+    color: 'gray',
+    count: 22,
+    date: '2025-01-10',
+    thumbnail: {
+      src: _demo_category_image_urls[7],
+      alt: 'Architecture',
+      width: 1920,
+      height: 1080,
     },
-    {
-      id: 'category-9',
-      name: 'Wellness',
-      handle: 'wellness',
-      description:
-        'Find tips and advice for mental and physical wellness, including meditation, yoga, and healthy living. Stay fit and healthy with our expert tips and advice.',
-      color: 'teal',
-      count: 27,
-      date: '2025-01-05',
-      thumbnail: {
-        src: _demo_category_image_urls[8],
-        alt: 'Wellness',
-        width: 1920,
-        height: 1080,
-      },
+  },
+  {
+    id: 'category-9',
+    name: 'Wellness',
+    handle: 'wellness',
+    description:
+      'Find tips and advice for mental and physical wellness, including meditation, yoga, and healthy living. Stay fit and healthy with our expert tips and advice.',
+    color: 'teal',
+    count: 27,
+    date: '2025-01-05',
+    thumbnail: {
+      src: _demo_category_image_urls[8],
+      alt: 'Wellness',
+      width: 1920,
+      height: 1080,
     },
-    {
-      id: 'category-10',
-      name: 'Education',
-      handle: 'education',
-      description:
-        'Stay informed about educational trends, learning resources, and academic insights. Stay updated with the latest educational news and trends.',
-      color: 'orange',
-      count: 31,
-      date: '2025-01-01',
-      thumbnail: {
-        src: _demo_category_image_urls[9],
-        alt: 'Education',
-        width: 1920,
-        height: 1080,
-      },
+  },
+  {
+    id: 'category-10',
+    name: 'Education',
+    handle: 'education',
+    description:
+      'Stay informed about educational trends, learning resources, and academic insights. Stay updated with the latest educational news and trends.',
+    color: 'orange',
+    count: 31,
+    date: '2025-01-01',
+    thumbnail: {
+      src: _demo_category_image_urls[9],
+      alt: 'Education',
+      width: 1920,
+      height: 1080,
     },
-    {
-      id: 'category-11',
-      name: 'Typography',
-      handle: 'typography',
-      description:
-        'Stay informed about educational trends, learning resources, and academic insights. Stay updated with the latest educational news and trends.',
-      color: 'sky',
-      count: 31,
-      date: '2025-06-15',
-      thumbnail: {
-        src: _demo_category_image_urls[1],
-        alt: 'Education',
-        width: 1920,
-        height: 1080,
-      },
+  },
+  {
+    id: 'category-11',
+    name: 'Typography',
+    handle: 'typography',
+    description:
+      'Stay informed about educational trends, learning resources, and academic insights. Stay updated with the latest educational news and trends.',
+    color: 'sky',
+    count: 31,
+    date: '2025-06-15',
+    thumbnail: {
+      src: _demo_category_image_urls[1],
+      alt: 'Education',
+      width: 1920,
+      height: 1080,
     },
-  ]
+  },
+]
+
+export function getCategories() {
+  return Promise.resolve(getCategoriesFixtures)
 }
 
 export async function getCategoryByHandle(handle: string) {
@@ -232,7 +236,7 @@ export async function getCategoryByHandle(handle: string) {
 
   // get all categories
   const categories = await getCategories()
-  let category = categories.find((category) => category.handle === handle)
+  let category = categories.find((categoryValue) => categoryValue.handle === handle)
   if (!category) {
     // return null
     // for demo purpose, return the first category
@@ -254,95 +258,97 @@ export async function getCategoriesWithPosts() {
 }
 
 // TAGS
-export async function getTags() {
-  return [
-    {
-      id: 'tag-1',
-      name: 'Technology',
-      handle: 'technology',
-      description: 'Explore the latest innovations, gadgets, and tech trends shaping our digital future.',
-      count: 10,
-    },
-    {
-      id: 'tag-2',
-      name: 'Travel',
-      handle: 'travel',
-      description: 'Explore travel guides, destination reviews, and adventure stories from around the world.',
-      count: 10,
-    },
-    {
-      id: 'tag-3',
-      name: 'Food',
-      handle: 'food',
-      description: 'Discover the best food and drink experiences, from local cuisine to gourmet dining.',
-      count: 10,
-    },
-    {
-      id: 'tag-4',
-      name: 'Health',
-      handle: 'health',
-      description: 'Stay updated with health and wellness news, tips, and expert advice.',
-      count: 10,
-    },
-    {
-      id: 'tag-5',
-      name: 'Science',
-      handle: 'science',
-      description: 'Explore the latest scientific discoveries, research, and breakthroughs.',
-      count: 10,
-    },
-    {
-      id: 'tag-6',
-      name: 'History',
-      handle: 'history',
-      description: 'Discover historical events, cultural heritage, and the stories of our past.',
-      count: 10,
-    },
-    {
-      id: 'tag-7',
-      name: 'Art',
-      handle: 'art',
-      description: 'Explore the world of art, from painting to sculpture and everything in between.',
-      count: 10,
-    },
-    {
-      id: 'tag-8',
-      name: 'Photography',
-      handle: 'photography',
-      description: 'Discover the art of photography, from landscape shots to portrait techniques and editing tips.',
-      count: 15,
-    },
-    {
-      id: 'tag-9',
-      name: 'Music',
-      handle: 'music',
-      description: 'Explore music reviews, artist interviews, and the latest trends in the music industry.',
-      count: 12,
-    },
-    {
-      id: 'tag-10',
-      name: 'Architecture',
-      handle: 'architecture',
-      description:
-        'Discover architectural marvels, design trends, and insights into the world of building and construction.',
-      count: 8,
-    },
-    {
-      id: 'tag-11',
-      name: 'Wellness',
-      handle: 'wellness',
-      description:
-        'Find tips and advice for mental and physical wellness, including meditation, yoga, and healthy living.',
-      count: 14,
-    },
-    {
-      id: 'tag-12',
-      name: 'Education',
-      handle: 'education',
-      description: 'Stay informed about educational trends, learning resources, and academic insights.',
-      count: 11,
-    },
-  ]
+const getTagsFixtures = [
+  {
+    id: 'tag-1',
+    name: 'Technology',
+    handle: 'technology',
+    description: 'Explore the latest innovations, gadgets, and tech trends shaping our digital future.',
+    count: 10,
+  },
+  {
+    id: 'tag-2',
+    name: 'Travel',
+    handle: 'travel',
+    description: 'Explore travel guides, destination reviews, and adventure stories from around the world.',
+    count: 10,
+  },
+  {
+    id: 'tag-3',
+    name: 'Food',
+    handle: 'food',
+    description: 'Discover the best food and drink experiences, from local cuisine to gourmet dining.',
+    count: 10,
+  },
+  {
+    id: 'tag-4',
+    name: 'Health',
+    handle: 'health',
+    description: 'Stay updated with health and wellness news, tips, and expert advice.',
+    count: 10,
+  },
+  {
+    id: 'tag-5',
+    name: 'Science',
+    handle: 'science',
+    description: 'Explore the latest scientific discoveries, research, and breakthroughs.',
+    count: 10,
+  },
+  {
+    id: 'tag-6',
+    name: 'History',
+    handle: 'history',
+    description: 'Discover historical events, cultural heritage, and the stories of our past.',
+    count: 10,
+  },
+  {
+    id: 'tag-7',
+    name: 'Art',
+    handle: 'art',
+    description: 'Explore the world of art, from painting to sculpture and everything in between.',
+    count: 10,
+  },
+  {
+    id: 'tag-8',
+    name: 'Photography',
+    handle: 'photography',
+    description: 'Discover the art of photography, from landscape shots to portrait techniques and editing tips.',
+    count: 15,
+  },
+  {
+    id: 'tag-9',
+    name: 'Music',
+    handle: 'music',
+    description: 'Explore music reviews, artist interviews, and the latest trends in the music industry.',
+    count: 12,
+  },
+  {
+    id: 'tag-10',
+    name: 'Architecture',
+    handle: 'architecture',
+    description:
+      'Discover architectural marvels, design trends, and insights into the world of building and construction.',
+    count: 8,
+  },
+  {
+    id: 'tag-11',
+    name: 'Wellness',
+    handle: 'wellness',
+    description:
+      'Find tips and advice for mental and physical wellness, including meditation, yoga, and healthy living.',
+    count: 14,
+  },
+  {
+    id: 'tag-12',
+    name: 'Education',
+    handle: 'education',
+    description: 'Stay informed about educational trends, learning resources, and academic insights.',
+    count: 11,
+  },
+]
+
+export function getTags() {
+  return Promise.resolve(getTagsFixtures)
 }
 
 export async function getTagsWithPosts() {
@@ -372,7 +378,7 @@ export async function getTagByHandle(handle: string) {
   }
 
   const tags = await getTags()
-  let tag = tags.find((tag) => tag.handle === handle)
+  let tag = tags.find((tagValue) => tagValue.handle === handle)
   if (!tag) {
     // return null
     // for demo purpose, return the first tag

@@ -1,9 +1,14 @@
-import { type TAuthor } from '@/data/authors'
-import { type TCategory, type TTag } from '@/data/categories'
-import { type TPost } from '@/data/posts'
-import HeadingWithSub, { type HeadingWithSubProps } from '@/shared/Heading'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TAuthor } from '@/data/authors'
+import type { TCategory, TTag } from '@/data/categories'
+import type { TPost } from '@/data/posts'
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
+import HeadingWithSub from '@/shared/Heading'
+
 import PaginationWrapper from './PaginationWrapper'
 import Card10 from './PostCards/Card10'
 import Card11 from './PostCards/Card11'
@@ -17,12 +22,12 @@ import WidgetCategories from './WidgetCategories'
 import WidgetPosts from './WidgetPosts'
 import WidgetTags from './WidgetTags'
 
-interface Props extends Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading'> {
+interface Props extends Pick<HeadingWithSubProps, 'dimHeading' | 'subHeading'> {
   posts: TPost[]
   gridClass?: string
   className?: string
   heading?: string
-  postCardName?: 'card3' | 'card4' | 'card7' | 'card9' | 'card10' | 'card11' | 'card14'
+  postCardName?: 'card10' | 'card11' | 'card14' | 'card3' | 'card4' | 'card7' | 'card9'
   widgetCategories?: TCategory[]
   widgetAuthors?: TAuthor[]
   widgetTags?: TTag[]

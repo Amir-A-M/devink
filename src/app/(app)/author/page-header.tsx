@@ -1,14 +1,5 @@
 'use client'
 
-import FollowButton from '@/components/FollowButton'
-import VerifyIcon from '@/components/VerifyIcon'
-import { type TAuthor } from '@/data/authors'
-import Avatar from '@/shared/Avatar'
-import { Button } from '@/shared/Button'
-import ButtonCircle from '@/shared/ButtonCircle'
-import SocialsList from '@/shared/SocialsList'
-import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
 import { GlobeAltIcon } from '@heroicons/react/24/outline'
 import {
   CopyLinkIcon,
@@ -25,17 +16,27 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import { useState } from 'react'
 
+import type { TAuthor } from '@/data/authors'
+
+import FollowButton from '@/components/FollowButton'
+import VerifyIcon from '@/components/VerifyIcon'
+import Avatar from '@/shared/Avatar'
+import { Button } from '@/shared/Button'
+import ButtonCircle from '@/shared/ButtonCircle'
+import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
+import SocialsList from '@/shared/SocialsList'
+
 const PageHeader = ({ author, className }: { author: TAuthor; className?: string }) => {
   const { name, description, cover, avatar, handle } = author
 
   return (
     <div className={clsx('w-full', className)}>
       <div className="relative h-40 w-full md:h-60 2xl:h-72">
-        <Image alt={cover.alt || 'Cover'} sizes="100vw" src={cover.src} className="object-cover" fill priority />
+        <Image alt={cover.alt || 'Cover'} sizes="100vw" src={cover.src} className="object-cover" fill preload />
       </div>
       <div className="container -mt-10 lg:-mt-16">
         <div className="relative flex flex-col items-start gap-6 rounded-3xl border border-transparent bg-white p-5 shadow-xl md:flex-row md:rounded-4xl lg:p-8 dark:border-neutral-700 dark:bg-neutral-900">
-          {/* AVATAR */}
           <Avatar
             alt={author.name || 'Avatar'}
             src={avatar.src}
@@ -44,8 +45,6 @@ const PageHeader = ({ author, className }: { author: TAuthor; className?: string
             className="shrink-0 rounded-full shadow-2xl ring-4 ring-white lg:w-32"
             sizes="128px"
           />
-
-          {/* INFO */}
           <div className="grow lg:ps-2">
             <div className="max-w-(--breakpoint-sm) space-y-3.5">
               <div className="flex items-center lg:gap-x-0.5">
@@ -65,8 +64,6 @@ const PageHeader = ({ author, className }: { author: TAuthor; className?: string
               <SocialsList />
             </div>
           </div>
-
-          {/* ACTIONS */}
           <div className="flex gap-x-2">
             <FollowButton className="py-[calc(--spacing(2)-1px)]!" />
             <ShareDropdown handle={handle} />
@@ -123,7 +120,7 @@ function ActionDropdown({ handle, author }: { handle: string; author: TAuthor })
       name: 'Copy link',
       icon: CopyLinkIcon,
       onClick: () => {
-        navigator.clipboard.writeText(window.location.href)
+        void navigator.clipboard.writeText(window.location.href)
       },
     },
     {
@@ -156,8 +153,6 @@ function ActionDropdown({ handle, author }: { handle: string; author: TAuthor })
           ))}
         </DropdownMenu>
       </Dropdown>
-
-      {/* DIALOG HIDE AUTHOR */}
       <Dialog open={isOpenDialogHideAuthor} onClose={() => setIsOpenDialogHideAuthor(false)}>
         <DialogTitle>
           Hide this author? <span className="font-semibold">({author.name.trim()})</span>
@@ -175,8 +170,6 @@ function ActionDropdown({ handle, author }: { handle: string; author: TAuthor })
           <Button onClick={() => setIsOpenDialogHideAuthor(false)}>Hide</Button>
         </DialogActions>
       </Dialog>
-
-      {/* DIALOG REPORT POST */}
       <Dialog open={isOpenDialogReportPost} onClose={() => setIsOpenDialogReportPost(false)}>
         <DialogTitle>Report this author?</DialogTitle>
         <DialogBody>

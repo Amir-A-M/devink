@@ -1,8 +1,8 @@
+import type { Metadata } from 'next'
+
 import BackgroundSection from '@/components/BackgroundSection'
-import SectionBecomeAnAuthor from '@/components/SectionBecomeAnAuthor'
 import SectionGridAuthorBox from '@/components/SectionGridAuthorBox'
 import SectionLargeSlider from '@/components/SectionLargeSlider'
-import SectionMagazine2 from '@/components/SectionMagazine2'
 import SectionMagazine5 from '@/components/SectionMagazine5'
 import SectionPostsWithWidgets from '@/components/SectionPostsWithWidgets'
 import SectionSliderNewCategories from '@/components/SectionSliderNewCategories'
@@ -10,8 +10,7 @@ import SectionSliderPosts from '@/components/SectionSliderPosts'
 import SectionSubscribe2 from '@/components/SectionSubscribe2'
 import { getAuthors } from '@/data/authors'
 import { getCategories, getTags } from '@/data/categories'
-import { getAllPosts, getPostsAudio, getPostsGallery, getPostsVideo } from '@/data/posts'
-import { type Metadata } from 'next'
+import { getAllPosts, getPostsAudio } from '@/data/posts'
 
 export const metadata: Metadata = {
   title: 'Home',
@@ -25,15 +24,13 @@ export const metadata: Metadata = {
 const Page = async () => {
   const posts = await getAllPosts()
   const audioPosts = await getPostsAudio()
-  const videoPosts = await getPostsVideo()
-  const galleryPosts = await getPostsGallery()
   const authors = await getAuthors()
   const categories = await getCategories()
   const tags = await getTags()
 
   return (
     <div className="relative pb-28 lg:pb-32">
-      <h1 className="sr-only">Ncmaz — reporting, interviews, audio and video</h1>
+      <h1 className="sr-only">Devink — reporting, interviews, audio and video</h1>
       <div className="relative container space-y-28 lg:space-y-32">
         <SectionLargeSlider
           heading="Editor's pick"
@@ -61,10 +58,7 @@ const Page = async () => {
 
       <div className="my-28 bg-neutral-100 py-28 lg:py-32 dark:bg-neutral-900">
         <div className="relative container">
-          <SectionMagazine5
-            heading="Most viewed articles"
-            posts={posts.slice(0, 5)}
-          />
+          <SectionMagazine5 heading="Most viewed articles" posts={posts.slice(0, 5)} />
         </div>
       </div>
 
@@ -74,13 +68,6 @@ const Page = async () => {
           heading="Top authors of the month"
           subHeading="Discover the most popular authors of the month"
         />
-
-        <div className="relative py-16 lg:py-20">
-          <BackgroundSection />
-          <SectionBecomeAnAuthor />
-        </div>
-
-
 
         <SectionPostsWithWidgets
           posts={posts.slice(0, 6)}
@@ -93,7 +80,6 @@ const Page = async () => {
         />
 
         <SectionSubscribe2 className="pt-8" />
-
       </div>
     </div>
   )

@@ -1,21 +1,22 @@
 'use client'
 
-import { createContext, useCallback, useEffect, useState } from 'react'
+import { createContext, useCallback, useEffect, useMemo, useState } from 'react'
 
 interface ThemeContextValue {
   isDarkMode: boolean
   toggleDarkMode: () => void
-  themeDir: 'rtl' | 'ltr'
-  setThemeDir: (value: 'rtl' | 'ltr') => void
+  themeDir: 'ltr' | 'rtl'
+  setThemeDir: (value: 'ltr' | 'rtl') => void
 }
 
 export const ThemeContext = createContext<ThemeContextValue | null>(null)
 
+ThemeContext.displayName = 'ThemeContext'
+
 export default function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [isDarkMode, setIsDarkMode] = useState<boolean>(false)
-  const [themeDir, setThemeDir] = useState<'rtl' | 'ltr'>('ltr')
+  const [themeDir, setThemeDir] = useState<'ltr' | 'rtl'>('ltr')
 
-  // themeMode
   useEffect(() => {
     if (localStorage.getItem('theme') === 'dark-mode') {
       setIsDarkMode(true)
@@ -32,25 +33,18 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     }
   }, [])
 
-  // themeDir
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      document.documentElement.getAttribute('dir') === 'rtl' ? setThemeDir('rtl') : setThemeDir('ltr')
+      setThemeDir(document.documentElement.getAttribute('dir') === 'rtl' ? 'rtl' : 'ltr')
     }
   }, [])
 
-  // Update themeDir when it changes
-  // This ensures that the document's direction is set correctly
-  // when the themeDir state changes.
   useEffect(() => {
     if (typeof window !== 'undefined') {
       document.documentElement.setAttribute('dir', themeDir)
     }
   }, [themeDir])
 
-  // toggleDarkMode
-  // This function toggles the dark mode state and updates the localStorage
-  // and the HTML class accordingly
   // Driven by the class actually on <html>, not by the stored string: on a first
   // visit nothing is stored, and keying off `=== 'light-mode'` made the first
   // click a no-op.
@@ -62,18 +56,10 @@ export default function ThemeProvider({ children }: { children: React.ReactNode 
     setIsDarkMode(next)
     localStorage.setItem('theme', next ? 'dark-mode' : 'light-mode')
   }, [])
-
-  //
-  return (
-    <ThemeContext.Provider
-      value={{
-        isDarkMode,
-        toggleDarkMode,
-        themeDir,
-        setThemeDir,
-      }}
-    >
-      {children}
-    </ThemeContext.Provider>
+  const ThemeContextValue = useMemo(
+    () => ({ isDarkMode, toggleDarkMode, themeDir, setThemeDir }),
+    [isDarkMode, toggleDarkMode, themeDir]
   )
+
+  return <ThemeContext value={ThemeContextValue}>{children}</ThemeContext>
 }

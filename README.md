@@ -1,20 +1,20 @@
-# Ncmaz — Next.js blog, news & magazine template
+# Devink — Next.js blog, news & magazine template
 
 Next.js 16 (App Router) · React 19 · Tailwind CSS 4 · TypeScript
 
 ## Getting started
 
 ```bash
-npm install
-npm run dev
+pnpm install
+pnpm dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
 ```bash
-npm run build     # production build
-npm run start     # serve the production build
-npm run lint      # ESLint
+pnpm build     # production build
+pnpm start     # serve the production build
+pnpm lint      # ESLint
 ```
 
 ## Before you deploy
@@ -79,4 +79,17 @@ manifest, Open Graph, canonicals, Article structured data).
   layout works without a second stylesheet.
 - Remote image hosts are allow-listed in `next.config.mjs`. Add yours before
   pointing the data layer at your own CDN, or builds will fail on unknown hosts.
-- Formatting is Prettier with the Tailwind class-sorting plugin: `npx prettier --write .`
+- Formatting is Prettier with the Tailwind class-sorting plugin: `pnpm exec prettier --write .`
+
+## Code quality
+
+Use pnpm (the version is pinned in `package.json`). Run `pnpm quality:check`
+for ESLint, formatting, spelling, and TypeScript checks; `pnpm check` builds
+production pages, followed by `pnpm check:links` to validate internal routes.
+`pnpm lint:fix` and `pnpm format` apply fixes. Pre-commit runs lint-staged
+on staged files through Husky. Vendored Tiptap UI is excluded from cleanup.
+
+The FullstacksJS baseline introduces stricter rules. Existing violations are
+reported without suppressing them; resolve them before enforcing the aggregate
+check in CI. The spelling dictionary is `.cspell/project-words.txt` and the
+shared spelling exclusions are `.cspellignore`.

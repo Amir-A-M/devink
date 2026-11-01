@@ -1,7 +1,7 @@
 export default function getTwClassByNumber(
   index: number,
-  type: 'grid-cols' | 'gap',
-  screen?: 'sm' | 'md' | 'lg' | 'xl' | '2xl'
+  type: 'gap' | 'grid-cols',
+  screen?: '2xl' | 'lg' | 'md' | 'sm' | 'xl'
 ) {
   if (type === 'grid-cols') {
     switch (screen) {
@@ -15,7 +15,7 @@ export default function getTwClassByNumber(
         return _gridColsXL(index)
       case '2xl':
         return _gridCols2XL(index)
-      default:
+      case undefined:
         return _gridCols(index)
     }
   }

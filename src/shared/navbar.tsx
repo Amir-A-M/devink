@@ -2,8 +2,9 @@
 
 import * as Headless from '@headlessui/react'
 import clsx from 'clsx'
-import { LayoutGroup, MotionConfig, motion } from 'framer-motion'
-import React, { forwardRef, useId } from 'react'
+import { LayoutGroup, motion, MotionConfig } from 'framer-motion'
+import React, { useId } from 'react'
+
 import { TouchTarget } from './Button'
 import { Link } from './link'
 
@@ -18,7 +19,7 @@ export function NavbarDivider({ className, ...props }: React.ComponentPropsWitho
 }
 
 export function NavbarSection({ className, ...props }: React.ComponentPropsWithoutRef<'div'>) {
-  let id = useId()
+  const id = useId()
 
   return (
     <MotionConfig reducedMotion="user">
@@ -33,18 +34,18 @@ export function NavbarSpacer({ className, ...props }: React.ComponentPropsWithou
   return <div aria-hidden="true" {...props} className={clsx(className, '-ml-4 flex-1')} />
 }
 
-export const NavbarItem = forwardRef(function NavbarItem(
-  {
-    current,
-    className,
-    children,
-    ...props
-  }: { current?: boolean; className?: string; children: React.ReactNode } & (
+export const NavbarItem = ({
+  ref,
+  current,
+  className,
+  children,
+  ...props
+}: { current?: boolean; className?: string; children: React.ReactNode } & {
+  ref?: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>
+} & (
     Omit<Headless.ButtonProps, 'as' | 'className'> | Omit<React.ComponentPropsWithoutRef<typeof Link>, 'className'>
-  ),
-  ref: React.ForwardedRef<HTMLAnchorElement | HTMLButtonElement>
-) {
-  let classes = clsx(
+  )) => {
+  const classes = clsx(
     // Base
     'relative flex min-w-0 items-center gap-3 rounded-lg p-2 text-left text-base/6 font-medium text-neutral-950 sm:text-sm/5 rtl:text-right',
     // Leading icon/icon-only
@@ -92,7 +93,7 @@ export const NavbarItem = forwardRef(function NavbarItem(
       )}
     </span>
   )
-})
+}
 
 export function NavbarLabel({ className, ...props }: React.ComponentPropsWithoutRef<'span'>) {
   return <span {...props} className={clsx(className, 'truncate')} />

@@ -36,7 +36,7 @@ export function getActiveMarkAttrs(editor: Editor | null, markName: string): Att
   if (!editor) return null
   const { state } = editor
   const marks = state.storedMarks || state.selection.$from.marks()
-  const mark = marks.find((mark) => mark.type.name === markName)
+  const mark = marks.find((markValue) => markValue.type.name === markName)
 
   return mark?.attrs ?? null
 }
@@ -55,7 +55,7 @@ export function isEmptyNode(node?: Node | null): boolean {
  * @param classes - List of class name strings or falsey values.
  * @returns A single space-separated string of valid class names.
  */
-export function cn(...classes: (string | boolean | undefined | null)[]): string {
+export function cn(...classes: (boolean | string | null | undefined)[]): string {
   return classes.filter(Boolean).join(' ')
 }
 
@@ -74,7 +74,7 @@ export function findNodePosition(props: {
 }): { pos: number; node: Node } | null {
   const { editor, node, nodePos } = props
 
-  if (!editor || !editor.state?.doc) return null
+  if (!editor?.state?.doc) return null
 
   // Zero is valid position
   const hasValidNode = node !== undefined && node !== null
@@ -86,9 +86,9 @@ export function findNodePosition(props: {
 
   if (hasValidPos) {
     try {
-      const nodeAtPos = editor.state.doc.nodeAt(nodePos!)
+      const nodeAtPos = editor.state.doc.nodeAt(nodePos)
       if (nodeAtPos) {
-        return { pos: nodePos!, node: nodeAtPos }
+        return { pos: nodePos, node: nodeAtPos }
       }
     } catch (error) {
       console.error('Error checking node at position:', error)

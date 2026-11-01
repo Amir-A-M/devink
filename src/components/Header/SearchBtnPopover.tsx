@@ -1,11 +1,12 @@
 'use client'
 
-import { Divider } from '@/shared/divider'
-import { Link } from '@/shared/link'
 import { CloseButton, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { Cancel01Icon, Search01Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import { redirect } from 'next/navigation'
+
+import { Divider } from '@/shared/divider'
+import { Link } from '@/shared/link'
 
 const SearchBtnPopover = () => {
   return (

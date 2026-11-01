@@ -1,4 +1,4 @@
-import { type PlayerAPI } from '@/components/AudioProvider'
+import type { PlayerAPI } from '@/components/AudioProvider'
 
 function RewindIcon(props: React.ComponentPropsWithoutRef<'svg'>) {
   return (

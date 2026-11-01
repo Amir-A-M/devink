@@ -1,6 +1,9 @@
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
 import Card3Small from './PostCards/Card3Small'
 import WidgetHeading from './WidgetHeading'
 

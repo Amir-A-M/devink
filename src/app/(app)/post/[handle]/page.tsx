@@ -1,3 +1,5 @@
+import type { Metadata } from 'next'
+
 import WidgetAuthors from '@/components/WidgetAuthors'
 import WidgetCategories from '@/components/WidgetCategories'
 import WidgetPosts from '@/components/WidgetPosts'
@@ -6,7 +8,7 @@ import { getAuthors } from '@/data/authors'
 import { getCategories, getTags } from '@/data/categories'
 import { getAllPosts, getCommentsByPostId, getPostByHandle } from '@/data/posts'
 import { buildArticleJsonLd, buildPostMetadata } from '@/lib/post-metadata'
-import { type Metadata } from 'next'
+
 import SingleContentContainer from '../SingleContentContainer'
 import SingleHeaderContainer from '../SingleHeaderContainer'
 import SingleRelatedPosts from '../SingleRelatedPosts'

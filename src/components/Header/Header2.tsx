@@ -1,10 +1,13 @@
+import type { FC } from 'react'
+
+import { PlusIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
+
 import { getNavigation } from '@/data/navigation'
 import { getAllPosts } from '@/data/posts'
 import { Button } from '@/shared/Button'
 import Logo from '@/shared/Logo'
-import { PlusIcon } from '@heroicons/react/24/outline'
-import clsx from 'clsx'
-import { type FC } from 'react'
+
 import AvatarDropdown from './AvatarDropdown'
 import HamburgerBtnMenu from './HamburgerBtnMenu'
 import Navigation from './Navigation/Navigation'

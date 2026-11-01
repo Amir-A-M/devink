@@ -1,11 +1,7 @@
 'use client'
 
-import { type TComment } from '@/data/posts'
-import Avatar from '@/shared/Avatar'
-import { Button } from '@/shared/Button'
-import Textarea from '@/shared/Textarea'
-import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
+import type { FC } from 'react'
+
 import {
   ArrowTurnBackwardIcon,
   Delete03Icon,
@@ -16,7 +12,16 @@ import {
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC, useRef, useState } from 'react'
+import { useRef, useState } from 'react'
+
+import type { TComment } from '@/data/posts'
+
+import Avatar from '@/shared/Avatar'
+import { Button } from '@/shared/Button'
+import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
+import Textarea from '@/shared/Textarea'
+
 import SingleCommentForm from '../SingleCommentForm'
 import CommentLikeBtn from './CommentLikeBtn'
 import CommentReplyBtn from './CommentReplyBtn'
@@ -38,7 +43,7 @@ const CommentCard: FC<Props> = ({ className, comment }) => {
   const openReplyForm = () => {
     setIsReplying(true)
     setTimeout(() => {
-      textareaRef.current && (textareaRef.current as HTMLTextAreaElement).focus()
+      textareaRef.current?.focus()
     }, 20)
   }
   const closeReplyForm = () => {
@@ -87,25 +92,9 @@ const CommentCard: FC<Props> = ({ className, comment }) => {
       <div className={clsx(`comment-card flex ${className}`)}>
         <Avatar className="size-8 rounded-full" src={author.avatar.src} alt="" width={32} height={32} sizes="32px" />
         <div className="ms-2 flex grow flex-col rounded-xl border border-neutral-200 p-4 text-sm sm:ms-3 sm:text-base dark:border-neutral-700">
-          {/* AUTHOR INFOR */}
           <div className="relative flex items-center pe-6">
             <div className="absolute -end-3 -top-3">
-              <Dropdown>
-                <DropdownButton
-                  as="button"
-                  className="flex size-8.5 items-center justify-center rounded-lg bg-neutral-100 transition-colors duration-300 hover:bg-neutral-200 dark:bg-white/10 dark:hover:bg-white/20"
-                >
-                  <HugeiconsIcon icon={MoreHorizontalIcon} size={20} />
-                </DropdownButton>
-                <DropdownMenu>
-                  {commentActions.map((item, index) => (
-                    <DropdownItem key={index} onClick={item.onClick}>
-                      <HugeiconsIcon icon={item.icon} size={20} data-slot="icon" />
-                      {item.name}
-                    </DropdownItem>
-                  ))}
-                </DropdownMenu>
-              </Dropdown>
+              <CommentActions actions={commentActions} />
             </div>
             <Link
               className="shrink-0 font-semibold text-neutral-800 dark:text-neutral-100"
@@ -125,12 +114,9 @@ const CommentCard: FC<Props> = ({ className, comment }) => {
             </span>
           </div>
 
-          {/* CONTENT */}
           <p className="mt-2 mb-3 text-base/relaxed text-neutral-700 sm:mt-3 sm:mb-4 dark:text-neutral-300">
             {content}
           </p>
-
-          {/* ACTION LIKE REPLY */}
           {isReplying ? (
             <SingleCommentForm
               textareaRef={textareaRef}
@@ -146,8 +132,6 @@ const CommentCard: FC<Props> = ({ className, comment }) => {
           )}
         </div>
       </div>
-
-      {/* DIALOG DELETE COMMENT */}
       <Dialog open={isDeleting} onClose={closeModalDeleteComment}>
         <DialogTitle>Delete comment?</DialogTitle>
         <DialogBody>
@@ -160,8 +144,6 @@ const CommentCard: FC<Props> = ({ className, comment }) => {
           <Button onClick={closeModalDeleteComment}>Delete</Button>
         </DialogActions>
       </Dialog>
-
-      {/* DIALOG EDIT COMMENT */}
       <Dialog size="3xl" open={isEditting} onClose={closeModalEditComment}>
         <DialogTitle>Edit comment</DialogTitle>
         <DialogBody>
@@ -182,8 +164,6 @@ const CommentCard: FC<Props> = ({ className, comment }) => {
           <Button onClick={closeModalEditComment}>Save</Button>
         </DialogActions>
       </Dialog>
-
-      {/* DIALOG REPORT COMMENT */}
       <Dialog open={isOpenDialogReportComment} onClose={() => setIsOpenDialogReportComment(false)}>
         <DialogTitle>Report this comment?</DialogTitle>
         <DialogBody>
@@ -201,3 +181,28 @@ const CommentCard: FC<Props> = ({ className, comment }) => {
 }
 
 export default CommentCard
+
+function CommentActions({
+  actions,
+}: {
+  actions: { name: string; icon: typeof ArrowTurnBackwardIcon; onClick: () => void }[]
+}) {
+  return (
+    <Dropdown>
+      <DropdownButton
+        as="button"
+        className="flex size-8.5 items-center justify-center rounded-lg bg-neutral-100 transition-colors duration-300 hover:bg-neutral-200 dark:bg-white/10 dark:hover:bg-white/20"
+      >
+        <HugeiconsIcon icon={MoreHorizontalIcon} size={20} />
+      </DropdownButton>
+      <DropdownMenu>
+        {actions.map((item, index) => (
+          <DropdownItem key={index} onClick={item.onClick}>
+            <HugeiconsIcon icon={item.icon} size={20} data-slot="icon" />
+            {item.name}
+          </DropdownItem>
+        ))}
+      </DropdownMenu>
+    </Dropdown>
+  )
+}

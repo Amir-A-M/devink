@@ -1,8 +1,11 @@
+import type { StaticImageData } from 'next/image'
+import type { FC } from 'react'
+
+import clsx from 'clsx'
+import Image from 'next/image'
+
 import imgAdsDef from '@/images/ads.webp'
 import { Link } from '@/shared/link'
-import clsx from 'clsx'
-import Image, { type StaticImageData } from 'next/image'
-import { type FC } from 'react'
 
 interface Props {
   className?: string

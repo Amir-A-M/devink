@@ -1,10 +1,13 @@
 'use client'
 
-import { Link } from '@/shared/link'
+import type { FC } from 'react'
+
 import { SpeakerWaveIcon, SpeakerXMarkIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { type FC, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import ReactPlayer from 'react-player'
+
+import { Link } from '@/shared/link'
 
 interface Props {
   videoUrl: string
@@ -104,29 +107,43 @@ const MediaVideo: FC<Props> = ({ videoUrl, isHover, handle }) => {
         </div>
       ) : null}
 
-      {isReady ? (
-        <button
-          type="button"
-          onClick={() => setIsMuted((muted) => !muted)}
-          aria-pressed={!isMuted}
-          aria-label={isMuted ? 'Unmute preview' : 'Mute preview'}
-          className={clsx(
-            'absolute start-2 bottom-2 z-10 flex h-6 items-center justify-center rounded-full bg-black/70 text-sm text-white transition-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
-            showUnmuteHint ? 'ps-1.5 pe-2' : 'w-6 hover:scale-125'
-          )}
-        >
-          {isMuted ? (
-            <>
-              <SpeakerXMarkIcon className="size-3.5" aria-hidden="true" />
-              {showUnmuteHint ? <span className="ms-1 inline-block text-[9px]">Click here to unmute</span> : null}
-            </>
-          ) : (
-            <SpeakerWaveIcon className="size-3.5" aria-hidden="true" />
-          )}
-        </button>
-      ) : null}
+      {isReady && (
+        <MuteButton isMuted={isMuted} showUnmuteHint={showUnmuteHint} onToggle={() => setIsMuted((muted) => !muted)} />
+      )}
     </div>
   )
 }
 
 export default MediaVideo
+
+function MuteButton({
+  isMuted,
+  showUnmuteHint,
+  onToggle,
+}: {
+  isMuted: boolean
+  showUnmuteHint: boolean
+  onToggle: () => void
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onToggle}
+      aria-pressed={!isMuted}
+      aria-label={isMuted ? 'Unmute preview' : 'Mute preview'}
+      className={clsx(
+        'absolute start-2 bottom-2 z-10 flex h-6 items-center justify-center rounded-full bg-black/70 text-sm text-white transition-transform focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white',
+        showUnmuteHint ? 'ps-1.5 pe-2' : 'w-6 hover:scale-125'
+      )}
+    >
+      {isMuted ? (
+        <>
+          <SpeakerXMarkIcon className="size-3.5" aria-hidden="true" />
+          {showUnmuteHint ? <span className="ms-1 inline-block text-[9px]">Click here to unmute</span> : null}
+        </>
+      ) : (
+        <SpeakerWaveIcon className="size-3.5" aria-hidden="true" />
+      )}
+    </button>
+  )
+}

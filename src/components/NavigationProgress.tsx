@@ -5,6 +5,29 @@ import { useEffect, useRef, useState } from 'react'
 
 const routeKey = (pathname: string, search: string) => `${pathname}?${new URLSearchParams(search)}`
 
+function isModifiedClick(event: MouseEvent) {
+  return event.metaKey || event.ctrlKey || event.shiftKey || event.altKey
+}
+
+function navigationTarget(event: MouseEvent) {
+  // Let the browser have anything that is not a plain left-click.
+  if (event.defaultPrevented || event.button !== 0) return null
+  if (isModifiedClick(event)) return null
+
+  const anchor = (event.target as Element | null)?.closest?.('a')
+  if (!anchor) return null
+
+  const href = anchor.getAttribute('href')
+  if (!href || anchor.hasAttribute('download') || anchor.target === '_blank') return null
+
+  const url = new URL(anchor.href, location.href)
+  // Another origin, or the same page: no route transition follows.
+  if (url.origin !== location.origin) return null
+  if (url.pathname === location.pathname && url.search === location.search) return null
+
+  return url
+}
+
 /**
  * A slim bar across the top of the viewport while a route transition is in
  * flight.
@@ -34,7 +57,9 @@ export default function NavigationProgress() {
   // Bumped per navigation so that creep timers left over from an abandoned one
   // cannot move the bar for the navigation that replaced it.
   const navId = useRef(0)
-  const timers = useRef<ReturnType<typeof setTimeout>[]>([])
+  const firstTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const secondTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
+  const thirdTimer = useRef<ReturnType<typeof setTimeout> | undefined>(undefined)
 
   if (leavingFrom !== null && leavingFrom !== route) {
     setLeavingFrom(null)
@@ -44,46 +69,35 @@ export default function NavigationProgress() {
 
   useEffect(() => {
     const onClick = (event: MouseEvent) => {
-      // Let the browser have anything that is not a plain left-click.
-      if (event.defaultPrevented || event.button !== 0) return
-      if (event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
-
-      const anchor = (event.target as Element | null)?.closest?.('a')
-      if (!anchor) return
-
-      const href = anchor.getAttribute('href')
-      if (!href || anchor.hasAttribute('download') || anchor.target === '_blank') return
-
-      const url = new URL(anchor.href, location.href)
-      // Another origin, or the same page: no route transition follows.
-      if (url.origin !== location.origin) return
-      if (url.pathname === location.pathname && url.search === location.search) return
+      if (!navigationTarget(event)) return
 
       const id = ++navId.current
-      timers.current.forEach(clearTimeout)
-      timers.current = []
+      clearTimeout(firstTimer.current)
+      clearTimeout(secondTimer.current)
+      clearTimeout(thirdTimer.current)
 
       setLeavingFrom(routeKey(location.pathname, location.search))
       setFinishing(false)
       setProgress(8)
 
       // Creep toward, but never reach, the end: the real duration is unknown.
-      const creep = (to: number, after: number) =>
-        timers.current.push(
-          setTimeout(() => {
-            if (navId.current === id) setProgress(to)
-          }, after)
-        )
-      creep(45, 90)
-      creep(72, 320)
-      creep(88, 900)
+      firstTimer.current = setTimeout(() => {
+        if (navId.current === id) setProgress(45)
+      }, 90)
+      secondTimer.current = setTimeout(() => {
+        if (navId.current === id) setProgress(72)
+      }, 320)
+      thirdTimer.current = setTimeout(() => {
+        if (navId.current === id) setProgress(88)
+      }, 900)
     }
 
     document.addEventListener('click', onClick, { capture: true })
     return () => {
       document.removeEventListener('click', onClick, { capture: true })
-      timers.current.forEach(clearTimeout)
-      timers.current = []
+      clearTimeout(firstTimer.current)
+      clearTimeout(secondTimer.current)
+      clearTimeout(thirdTimer.current)
     }
   }, [])
 
@@ -95,8 +109,9 @@ export default function NavigationProgress() {
 
     // Kill the creep timers first: the route has landed, and one firing now
     // would walk the width backwards while the bar fades.
-    timers.current.forEach(clearTimeout)
-    timers.current = []
+    clearTimeout(firstTimer.current)
+    clearTimeout(secondTimer.current)
+    clearTimeout(thirdTimer.current)
 
     const id = setTimeout(() => {
       setFinishing(false)

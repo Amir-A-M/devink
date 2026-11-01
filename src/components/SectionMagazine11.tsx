@@ -1,13 +1,18 @@
-import { type TCategory } from '@/data/categories'
-import { Badge } from '@/shared/Badge'
-import HeadingWithSub, { type HeadingWithSubProps } from '@/shared/Heading'
+import type { FC } from 'react'
+
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TCategory } from '@/data/categories'
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
+import { Badge } from '@/shared/Badge'
+import HeadingWithSub from '@/shared/Heading'
+
 import Card18 from './PostCards/Card18'
 
-interface Props extends Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading'> {
+interface Props extends Pick<HeadingWithSubProps, 'dimHeading' | 'subHeading'> {
   className?: string
   categories: TCategory[]
   heading?: string

@@ -1,9 +1,8 @@
 'use client'
 
-import type { TPost } from '@/data/posts'
-import { Button } from '@/shared/Button'
-import ButtonCircle from '@/shared/ButtonCircle'
-import { Link } from '@/shared/link'
+import type { IconSvgElement } from '@hugeicons/react'
+import type { FC } from 'react'
+
 import {
   Combobox,
   ComboboxInput,
@@ -16,17 +15,26 @@ import {
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { ArrowUpRightIcon, XMarkIcon } from '@heroicons/react/24/outline'
 import { FolderDetailsIcon, Search01Icon, Tag02Icon, UserSearchIcon } from '@hugeicons/core-free-icons'
-import { HugeiconsIcon, type IconSvgElement } from '@hugeicons/react'
+import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
 import Image from 'next/image'
 import { useRouter } from 'next/navigation'
-import { type FC, useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+
+import type { TPost } from '@/data/posts'
+
+import { Button } from '@/shared/Button'
+import ButtonCircle from '@/shared/ButtonCircle'
+import { Link } from '@/shared/link'
+
 import CategoryBadgeList from '../CategoryBadgeList'
 import LocalDate from '../LocalDate'
 import PostTypeFeaturedIcon from '../PostTypeFeaturedIcon'
 
+const defaultPosts: TPost[] = []
+
 interface Option {
-  type: 'recommended_searches' | 'quick-action'
+  type: 'quick-action' | 'recommended_searches'
   name: string
   icon: IconSvgElement
   uri: string
@@ -86,7 +94,6 @@ const quickActions: Option[] = [
   },
 ]
 
-// A whole lodash build used to ship for this one function.
 function debounce<TArgs extends unknown[]>(fn: (...args: TArgs) => void, wait: number) {
   let timer: ReturnType<typeof setTimeout> | undefined
 
@@ -105,10 +112,123 @@ interface Props {
   posts?: TPost[]
 }
 
-// Contrast: the input placeholder measures 2.60:1, and the result-group labels
-// and the "Esc" hint 2.54:1, all on white. Below AA; measured, put to the
-// designer, and kept — this is the established weight of the search chrome.
-const SearchModal: FC<Props> = ({ type = 'type1', posts = [] }) => {
+function SearchResults({ query, posts }: { query: string; posts: TPost[] }) {
+  return (
+    <ComboboxOptions
+      static
+      as="ul"
+      className="hidden-scrollbar max-h-[70vh] scroll-py-2 divide-y divide-gray-100 overflow-y-auto dark:divide-gray-700"
+    >
+      {query !== '' && (
+        <li className="p-2">
+          <ul className="divide-y divide-gray-100 text-sm text-gray-700 dark:divide-gray-700 dark:text-gray-300">
+            {posts.length ? (
+              posts.map((post) => (
+                <ComboboxOption
+                  as={'li'}
+                  key={post.handle}
+                  value={post}
+                  className={({ focus }) =>
+                    clsx(
+                      'relative flex cursor-default items-center select-none',
+                      focus && 'bg-neutral-100 dark:bg-neutral-700'
+                    )
+                  }
+                >
+                  <CardPost post={post} />
+                </ComboboxOption>
+              ))
+            ) : (
+              <div className="py-5">
+                <p>No posts found</p>
+              </div>
+            )}
+          </ul>
+        </li>
+      )}
+
+      {query === '' && (
+        <li className="p-2">
+          <h2 className="mt-4 mb-2 px-3 text-xs font-medium text-gray-500 dark:text-gray-300">Recommended searches</h2>
+
+          <ul className="text-sm text-gray-700 dark:text-gray-300">
+            {recommended_searches.map((item) => (
+              <ComboboxOption
+                as={'li'}
+                key={item.name}
+                value={item}
+                className={({ focus }) =>
+                  clsx(
+                    'flex cursor-default items-center rounded-md px-3 py-2 select-none',
+                    focus && 'bg-neutral-100 dark:bg-neutral-700'
+                  )
+                }
+              >
+                {({ focus }) => (
+                  <>
+                    <HugeiconsIcon
+                      icon={item.icon}
+                      size={24}
+                      className={clsx('h-6 w-6 flex-none text-neutral-400 dark:text-gray-300')}
+                    />
+
+                    <span className="ms-3 flex-auto truncate">{item.name}</span>
+                    {focus && (
+                      <span className="ms-3 flex-none text-neutral-500 dark:text-gray-400">
+                        <ArrowUpRightIcon className="inline-block h-4 w-4" />
+                      </span>
+                    )}
+                  </>
+                )}
+              </ComboboxOption>
+            ))}
+          </ul>
+        </li>
+      )}
+
+      <li className="p-2">
+        <h2 className="sr-only">Quick actions</h2>
+        <ul className="text-sm text-gray-700 dark:text-gray-300">
+          {quickActions.map((action) => (
+            <ComboboxOption
+              as={'li'}
+              key={action.name}
+              value={action}
+              className={({ focus }) =>
+                clsx(
+                  'flex cursor-default items-center rounded-md px-3 py-2 select-none',
+                  focus && 'bg-neutral-100 dark:bg-neutral-700'
+                )
+              }
+            >
+              {({ focus }) => (
+                <>
+                  <HugeiconsIcon
+                    icon={action.icon}
+                    size={24}
+                    className={clsx('h-6 w-6 flex-none text-neutral-400 dark:text-gray-300')}
+                  />
+
+                  <span className="ms-3 flex-auto truncate">{action.name}</span>
+                  <span
+                    className={clsx(
+                      'ms-3 flex-none text-xs font-semibold text-neutral-400 dark:text-gray-300',
+                      focus ? '' : ''
+                    )}
+                  >
+                    <ArrowUpRightIcon className="inline-block h-4 w-4" />
+                  </span>
+                </>
+              )}
+            </ComboboxOption>
+          ))}
+        </ul>
+      </li>
+    </ComboboxOptions>
+  )
+}
+
+const SearchModal: FC<Props> = ({ type = 'type1', posts = defaultPosts }) => {
   const router = useRouter()
   const [open, setOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -216,119 +336,7 @@ const SearchModal: FC<Props> = ({ type = 'type1', posts = [] }) => {
                 </button>
               </div>
 
-              <ComboboxOptions
-                static
-                as="ul"
-                className="hidden-scrollbar max-h-[70vh] scroll-py-2 divide-y divide-gray-100 overflow-y-auto dark:divide-gray-700"
-              >
-                {query !== '' && (
-                  <li className="p-2">
-                    <ul className="divide-y divide-gray-100 text-sm text-gray-700 dark:divide-gray-700 dark:text-gray-300">
-                      {posts.length ? (
-                        posts.map((post) => (
-                          <ComboboxOption
-                            as={'li'}
-                            key={post.handle}
-                            value={post}
-                            className={({ focus }) =>
-                              clsx(
-                                'relative flex cursor-default items-center select-none',
-                                focus && 'bg-neutral-100 dark:bg-neutral-700'
-                              )
-                            }
-                          >
-                            <CardPost post={post} />
-                          </ComboboxOption>
-                        ))
-                      ) : (
-                        <div className="py-5">
-                          <p>No posts found</p>
-                        </div>
-                      )}
-                    </ul>
-                  </li>
-                )}
-
-                {query === '' && (
-                  <li className="p-2">
-                    <h2 className="mt-4 mb-2 px-3 text-xs font-medium text-gray-500 dark:text-gray-300">
-                      Recommended searches
-                    </h2>
-
-                    <ul className="text-sm text-gray-700 dark:text-gray-300">
-                      {recommended_searches.map((item) => (
-                        <ComboboxOption
-                          as={'li'}
-                          key={item.name}
-                          value={item}
-                          className={({ focus }) =>
-                            clsx(
-                              'flex cursor-default items-center rounded-md px-3 py-2 select-none',
-                              focus && 'bg-neutral-100 dark:bg-neutral-700'
-                            )
-                          }
-                        >
-                          {({ focus }) => (
-                            <>
-                              <HugeiconsIcon
-                                icon={item.icon}
-                                size={24}
-                                className={clsx('h-6 w-6 flex-none text-neutral-400 dark:text-gray-300')}
-                              />
-
-                              <span className="ms-3 flex-auto truncate">{item.name}</span>
-                              {focus && (
-                                <span className="ms-3 flex-none text-neutral-500 dark:text-gray-400">
-                                  <ArrowUpRightIcon className="inline-block h-4 w-4" />
-                                </span>
-                              )}
-                            </>
-                          )}
-                        </ComboboxOption>
-                      ))}
-                    </ul>
-                  </li>
-                )}
-
-                <li className="p-2">
-                  <h2 className="sr-only">Quick actions</h2>
-                  <ul className="text-sm text-gray-700 dark:text-gray-300">
-                    {quickActions.map((action) => (
-                      <ComboboxOption
-                        as={'li'}
-                        key={action.name}
-                        value={action}
-                        className={({ focus }) =>
-                          clsx(
-                            'flex cursor-default items-center rounded-md px-3 py-2 select-none',
-                            focus && 'bg-neutral-100 dark:bg-neutral-700'
-                          )
-                        }
-                      >
-                        {({ focus }) => (
-                          <>
-                            <HugeiconsIcon
-                              icon={action.icon}
-                              size={24}
-                              className={clsx('h-6 w-6 flex-none text-neutral-400 dark:text-gray-300')}
-                            />
-
-                            <span className="ms-3 flex-auto truncate">{action.name}</span>
-                            <span
-                              className={clsx(
-                                'ms-3 flex-none text-xs font-semibold text-neutral-400 dark:text-gray-300',
-                                focus ? '' : ''
-                              )}
-                            >
-                              <ArrowUpRightIcon className="inline-block h-4 w-4" />
-                            </span>
-                          </>
-                        )}
-                      </ComboboxOption>
-                    ))}
-                  </ul>
-                </li>
-              </ComboboxOptions>
+              <SearchResults query={query} posts={posts} />
             </Combobox>
           </DialogPanel>
         </div>
@@ -337,7 +345,7 @@ const SearchModal: FC<Props> = ({ type = 'type1', posts = [] }) => {
   )
 }
 
-const CardPost = ({ post }: { post: TPost }) => {
+function CardPost({ post }: { post: TPost }) {
   const { title, date, categories, author, featuredImage, postType } = post
 
   return (

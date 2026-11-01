@@ -1,13 +1,15 @@
 import * as Headless from '@headlessui/react'
 import clsx from 'clsx'
-import React, { forwardRef } from 'react'
+import React from 'react'
 
-// Contrast: the placeholder measures 4.83:1 in light and 3.22:1 on the dark
-// panel, which has no dark: variant of its own — below AA in dark mode.
-const Select = forwardRef(function Select(
-  { className, multiple, ...props }: { className?: string } & Omit<Headless.SelectProps, 'as' | 'className'>,
-  ref: React.ForwardedRef<HTMLSelectElement>
-) {
+const Select = ({
+  ref,
+  className,
+  multiple,
+  ...props
+}: Omit<Headless.SelectProps, 'as' | 'className'> & { className?: string } & {
+  ref?: React.ForwardedRef<HTMLSelectElement>
+}) => {
   return (
     <span
       data-slot="control"
@@ -65,6 +67,6 @@ const Select = forwardRef(function Select(
       )} */}
     </span>
   )
-})
+}
 
 export default Select

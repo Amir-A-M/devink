@@ -1,11 +1,12 @@
 import clsx from 'clsx'
 
-type HeadingProps = { level?: 1 | 2 | 3 | 4 | 5 | 6; dimHeading?: string } & React.ComponentPropsWithoutRef<
-  'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'
->
+type HeadingProps = React.ComponentPropsWithoutRef<'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6'> & {
+  level?: 1 | 2 | 3 | 4 | 5 | 6
+  dimHeading?: string
+}
 
 export function Heading({ className, level = 2, dimHeading, children, ...props }: HeadingProps) {
-  let Element: `h${typeof level}` = `h${level}`
+  const Element: `h${typeof level}` = `h${level}`
 
   return (
     <Element
@@ -27,7 +28,7 @@ export function Heading({ className, level = 2, dimHeading, children, ...props }
 }
 
 export function Subheading({ className, level = 3, ...props }: HeadingProps) {
-  let Element: `h${typeof level}` = `h${level}`
+  const Element: `h${typeof level}` = `h${level}`
 
   return (
     <Element

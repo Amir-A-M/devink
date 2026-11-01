@@ -1,14 +1,18 @@
-import { type TPost } from '@/data/posts'
-import ButtonPrimary from '@/shared/ButtonPrimary'
-import { type HeadingWithSubProps } from '@/shared/Heading'
+import type { FC } from 'react'
+
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
+import ButtonPrimary from '@/shared/ButtonPrimary'
+
 import Card8 from './PostCards/Card8'
 import Card9 from './PostCards/Card9'
 import SectionTabHeader from './SectionTabHeader'
 
-type Props = Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading'> & {
+type Props = Pick<HeadingWithSubProps, 'dimHeading' | 'subHeading'> & {
   posts: TPost[]
   className?: string
   heading?: string

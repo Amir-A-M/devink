@@ -1,10 +1,13 @@
-import NcImage from '@/components/NcImage/NcImage'
-import { type TAuthor } from '@/data/authors'
-import Avatar from '@/shared/Avatar'
-import { Link } from '@/shared/link'
+import type { FC } from 'react'
+
 import { ArrowRightIcon } from '@heroicons/react/20/solid'
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TAuthor } from '@/data/authors'
+
+import NcImage from '@/components/NcImage/NcImage'
+import Avatar from '@/shared/Avatar'
+import { Link } from '@/shared/link'
 
 interface Props {
   className?: string

@@ -1,12 +1,14 @@
 'use client'
 
-import ButtonCircle from '@/shared/ButtonCircle'
+import type { FC } from 'react'
+
 import { CloseButton, Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import { Notification02Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import Image from 'next/image'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import ButtonCircle from '@/shared/ButtonCircle'
 
 const _defaultNotifications = [
   {

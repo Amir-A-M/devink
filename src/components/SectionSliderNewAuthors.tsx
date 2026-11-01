@@ -1,17 +1,26 @@
 'use client'
 
-import { ThemeContext } from '@/app/theme-provider'
-import { type TAuthor } from '@/data/authors'
-import { useCarouselArrowButtons } from '@/hooks/use-carousel-arrow-buttons'
-import { type HeadingWithSubProps } from '@/shared/Heading'
-import HeadingWithArrowBtns from '@/shared/HeadingWithArrowBtns'
-import clsx from 'clsx'
 import type { EmblaOptionsType } from 'embla-carousel'
+import type { FC } from 'react'
+
+import clsx from 'clsx'
 import useEmblaCarousel from 'embla-carousel-react'
-import { type FC, useContext } from 'react'
+import { use } from 'react'
+
+import type { TAuthor } from '@/data/authors'
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
+import { ThemeContext } from '@/app/theme-provider'
+import { useCarouselArrowButtons } from '@/hooks/use-carousel-arrow-buttons'
+import HeadingWithArrowBtns from '@/shared/HeadingWithArrowBtns'
+
 import CardAuthorBox2 from './CardAuthorBoxs/CardAuthorBox2'
 
-interface Props extends Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading'> {
+const defaultEmblaOptions: EmblaOptionsType = {
+  slidesToScroll: 'auto',
+}
+
+interface Props extends Pick<HeadingWithSubProps, 'dimHeading' | 'subHeading'> {
   className?: string
   heading?: string
   authors: TAuthor[]
@@ -24,11 +33,9 @@ const SectionSliderNewAuthors: FC<Props> = ({
   dimHeading,
   authors,
   heading,
-  emblaOptions = {
-    slidesToScroll: 'auto',
-  },
+  emblaOptions = defaultEmblaOptions,
 }) => {
-  const theme = useContext(ThemeContext)
+  const theme = use(ThemeContext)
   const [emblaRef, emblaApi] = useEmblaCarousel({
     ...emblaOptions,
     direction: theme?.themeDir,

@@ -1,10 +1,11 @@
-import ButtonClose from '@/shared/ButtonClose'
 import React from 'react'
+
+import ButtonClose from '@/shared/ButtonClose'
 
 export interface AlertProps {
   children: React.ReactNode
   containerClassName?: string
-  type?: 'default' | 'warning' | 'info' | 'success' | 'error'
+  type?: 'default' | 'error' | 'info' | 'success' | 'warning'
 }
 
 export const Alert: React.FC<AlertProps> = ({ children = 'Alert Text', containerClassName = '', type = 'default' }) => {

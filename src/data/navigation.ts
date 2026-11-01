@@ -1,257 +1,12 @@
-export async function getNavigation(): Promise<TNavigationItem[]> {
-  return [
-    {
-      id: '1',
-      href: '/',
-      name: 'Home',
-      type: 'dropdown',
-      children: [
-        {
-          id: '1-0',
-          href: '/',
-          name: 'Home demo 1',
-        },
-        {
-          id: '1-1',
-          href: '/home-2',
-          name: 'Home demo 2',
-        },
-        {
-          id: '1-2',
-          href: '/home-3',
-          name: 'Home demo 3 ',
-        },
-        {
-          id: '1-3',
-          href: '/home-4',
-          name: 'Home demo 4 ',
-        },
-        {
-          id: '1-4',
-          href: '/home-5',
-          name: 'Home demo 5',
-        },
-        {
-          id: '1-5',
-          href: '/home-3',
-          name: 'Header style 2',
-        },
-      ],
-    },
-    {
-      id: '2',
-      href: '/search?s=technology',
-      name: 'Search',
-    },
-    {
-      id: '4',
-      href: '/category/travel',
-      name: 'Travel',
-    },
-    {
-      id: '5',
-      href: '/',
-      name: 'Templates',
-      type: 'mega-menu',
-      children: [
-        {
-          id: '1',
-          href: '#',
-          name: 'Home pages',
-          children: [
-            {
-              id: '1-0',
-              href: '/',
-              name: 'Home 1',
-            },
-            {
-              id: '1-1',
-              href: '/home-2',
-              name: 'Home 2',
-            },
-            {
-              id: '1-2',
-              href: '/home-3',
-              name: 'Home 3 ',
-            },
-            {
-              id: '1-3',
-              href: '/home-4',
-              name: 'Home 4 ',
-            },
-            {
-              id: '1-4',
-              href: '/home-5',
-              name: 'Home 5',
-            },
-            {
-              id: '1-5',
-              href: '/home-3',
-              name: 'Header style 2',
-            },
-            {
-              id: '1-6',
-              href: '#',
-              name: 'Coming soon',
-            },
-          ],
-        },
-        {
-          id: '2',
-          href: '#',
-          name: 'Archive pages',
-          children: [
-            {
-              id: '2-0',
-              href: '/category/technology',
-              name: 'Category',
-            },
-            {
-              id: '2-1',
-              href: '/tag/food',
-              name: 'Tag page',
-            },
-            {
-              id: '2-2',
-              href: '/author/john-doe',
-              name: 'Author page',
-            },
-            {
-              id: '2-3',
-              href: '/search?s=technology',
-              name: 'Search page',
-            },
-            {
-              id: '2-4',
-              href: '/search-2?s=technology',
-              name: 'Search page 2',
-            },
-            {
-              id: '2-5',
-              href: '/search-2?s=john&tab=authors',
-              name: 'Search author',
-            },
-            {
-              id: '2-6',
-              href: '/search-2?s=technology&tab=categories',
-              name: 'Search categories',
-            },
-          ],
-        },
-        {
-          id: '3',
-          href: '#',
-          name: 'Single pages',
-          children: [
-            {
-              id: '3-0',
-              href: '/post/page-style-3/future-of-remote-work-2025',
-              name: 'Single type 1',
-            },
-            {
-              id: '3-1',
-              href: '/post/jazz-night-live-miles-davis-tribute',
-              name: 'Single audio',
-            },
-            {
-              id: '3-2',
-              href: '/post/wildlife-wonders-hidden-life-of-rainforests',
-              name: 'Single video',
-            },
-            {
-              id: '3-3',
-              href: '/post/girls-in-ocean-science-conference-a-first-at-maritime-museum',
-              name: 'Single gallery',
-            },
-            {
-              id: '3-4',
-              href: '/post/page-style-2/future-of-remote-work-2025',
-              name: 'Single type 2',
-            },
-            {
-              id: '3-5',
-              href: '/post/future-of-remote-work-2025',
-              name: 'Single type 3',
-            },
-            {
-              id: '3-6',
-              href: '#',
-              name: 'Coming soon',
-            },
-          ],
-        },
-        {
-          id: '4',
-          href: '/#',
-          name: 'Other pages',
-          type: 'dropdown',
-          children: [
-            { id: '4-1', href: '/contact', name: 'Contact' },
-            { id: '4-2', href: '/login', name: 'Login/signup' },
-            { id: '4-3', href: '/search', name: 'Search' },
-            { id: '4-4', href: '/submission', name: '+ Submission' },
-            { id: '4-5', href: '/dashboard/posts', name: 'Dashboard' },
-            { id: '4-6', href: '/author/john-doe', name: 'Account' },
-            { id: '4-7', href: '/about', name: 'About us' },
-          ],
-        },
-      ],
-    },
-    {
-      id: '6',
-      href: '/',
-      name: 'Explore',
-      type: 'dropdown',
-      children: [
-        {
-          id: '1',
-          href: '/category/technology',
-          name: 'Category page',
-        },
-        {
-          id: '2',
-          href: '/author/john-doe',
-          name: 'Author page',
-        },
-        {
-          id: '3',
-          href: '/search?s=technology',
-          name: 'Search page',
-        },
-        {
-          id: '4',
-          href: '/search-2?s=technology',
-          name: 'Search page 2',
-        },
-        {
-          id: '5',
-          href: '/submission',
-          name: '+ Submission',
-        },
-        {
-          id: '6',
-          href: '/post/page-style-3/future-of-remote-work-2025',
-          name: 'Single page',
-        },
-        {
-          id: '7',
-          href: '/login',
-          name: 'Login/Signup',
-        },
-      ],
-    },
-  ]
+export function getNavigation(): Promise<TNavigationItem[]> {
+  return Promise.resolve([
+    { id: 'home', href: '/', name: 'Home' },
+    { id: 'explore', href: '/search', name: 'Explore' },
+    { id: 'about', href: '/about', name: 'About' },
+    { id: 'contact', href: '/contact', name: 'Contact' },
+  ])
 }
 
-export async function getNavMegaMenu(): Promise<TNavigationItem> {
-  const navigation = await getNavigation()
-
-  // Find the mega menu item in the navigation array
-  // for demo purposes, we assume the mega menu is the one with name 'Templates'
-  return navigation.find((item) => item.type === 'mega-menu' && item.name === 'Templates') || {}
-}
-
-// ============ TYPE =============
 export type TNavigationItem = Partial<{
   id: string
   href: string
@@ -261,8 +16,8 @@ export type TNavigationItem = Partial<{
   children?: TNavigationItem[]
 }>
 
-export const getLanguages = async () => {
-  return [
+export const getLanguages = () => {
+  return Promise.resolve([
     {
       id: 'English',
       name: 'English',
@@ -300,10 +55,10 @@ export const getLanguages = async () => {
       description: 'Canada',
       href: '#',
     },
-  ]
+  ])
 }
-export const getCurrencies = async () => {
-  return [
+export const getCurrencies = () => {
+  return Promise.resolve([
     {
       id: 'EUR',
       name: 'EUR',
@@ -359,11 +114,11 @@ export const getCurrencies = async () => {
     <path d="M9 7.5C9.2 8.41667 10.08 10.5 12 11.5M12 11.5C13.92 10.5 14.8 8.41667 15 7.5M12 11.5V16.5M14.5 13.5H9.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"></path>
 </svg>`,
     },
-  ]
+  ])
 }
 
-export const getHeaderDropdownCategories = async () => {
-  return [
+export const getHeaderDropdownCategories = () => {
+  return Promise.resolve([
     {
       name: 'Women',
       handle: 'all',
@@ -420,5 +175,5 @@ export const getHeaderDropdownCategories = async () => {
     </svg>
      `,
     },
-  ]
+  ])
 }

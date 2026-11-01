@@ -1,10 +1,15 @@
-import { type TAuthor } from '@/data/authors'
-import HeadingWithSub, { type HeadingWithSubProps } from '@/shared/Heading'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TAuthor } from '@/data/authors'
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
+import HeadingWithSub from '@/shared/Heading'
+
 import CardAuthorBox from './CardAuthorBoxs/CardAuthorBox'
 
-interface Props extends Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading'> {
+interface Props extends Pick<HeadingWithSubProps, 'dimHeading' | 'subHeading'> {
   className?: string
   authors: TAuthor[]
   heading?: string

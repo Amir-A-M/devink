@@ -1,0 +1,16 @@
+node_modules
+.next
+out
+build
+dist
+coverage
+**/*.generated.*
+**/*.min.*
+pnpm-lock.yaml
+src/components/tiptap-*/
+src/styles/_tiptap-*.scss
+**/*.map
+**/*.snap
+**/*.tsbuildinfo
+src/images/
+next-env.d.ts

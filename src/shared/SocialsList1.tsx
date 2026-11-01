@@ -1,8 +1,9 @@
+import type { FC } from 'react'
+
 import { Facebook01Icon, Mail01Icon, NewTwitterIcon, YoutubeIcon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
 
 interface Props {
   className?: string

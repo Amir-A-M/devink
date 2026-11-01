@@ -1,3 +1,11 @@
+import type { Metadata } from 'next'
+
+import { ArrowRightIcon } from '@heroicons/react/24/solid'
+import { Folder02Icon, LicenseIcon, Search01Icon, Tag02Icon, UserListIcon } from '@hugeicons/core-free-icons'
+import { HugeiconsIcon } from '@hugeicons/react'
+import Image from 'next/image'
+import { redirect } from 'next/navigation'
+
 import ArchiveSortByListBox from '@/components/ArchiveSortByListBox'
 import ArchiveTabs from '@/components/ArchiveTabs'
 import CardAuthorBox2 from '@/components/CardAuthorBoxs/CardAuthorBox2'
@@ -7,14 +15,8 @@ import Card11 from '@/components/PostCards/Card11'
 import { getSearchResults } from '@/data/search'
 import { ButtonCircle } from '@/shared/Button'
 import Input from '@/shared/Input'
-import Tag from '@/shared/Tag'
 import { Link } from '@/shared/link'
-import { ArrowRightIcon } from '@heroicons/react/24/solid'
-import { Folder02Icon, LicenseIcon, Search01Icon, Tag02Icon, UserListIcon } from '@hugeicons/core-free-icons'
-import { HugeiconsIcon } from '@hugeicons/react'
-import { type Metadata } from 'next'
-import Image from 'next/image'
-import { redirect } from 'next/navigation'
+import Tag from '@/shared/Tag'
 
 const sortByOptions = [
   { name: 'Most recent', value: 'most-recent' },
@@ -35,7 +37,7 @@ const filterTabs = [
   { name: 'Authors', value: 'authors', icon: UserListIcon },
 ]
 
-type SearchParams = Promise<{ [key: string]: string | string[] | undefined }>
+type SearchParams = Promise<Record<string, string | string[] | undefined>>
 
 export async function generateMetadata({ searchParams }: { searchParams: SearchParams }): Promise<Metadata> {
   // The form and the redirect both use `s`, so that is the key to read here.
@@ -67,9 +69,10 @@ const PageSearch = async ({
 }) => {
   async function handleSearch(formData: FormData) {
     'use server'
+    const currentSearchParams = await searchParams
 
     const searchQuery = formData.get('s') as string
-    const searchTab = formData.get('tab') as string
+    const searchTab = (formData.get('tab') || currentSearchParams.tab || 'posts') as string
     redirect(`/search?s=${searchQuery}&tab=${searchTab}`)
   }
 
@@ -92,7 +95,7 @@ const PageSearch = async ({
 
   const { posts, categories, tags, authors, totalResults, recommendedSearches } = await getSearchResults(
     searchQuery || '',
-    searchTab as 'posts' | 'categories' | 'tags' | 'authors'
+    searchTab as 'authors' | 'categories' | 'posts' | 'tags'
   )
 
   const renderLoopItems = () => {
@@ -124,7 +127,7 @@ const PageSearch = async ({
             ))}
           </div>
         )
-      default:
+      case undefined:
         return (
           <div className="mt-8 grid grid-cols-1 gap-5 sm:grid-cols-2 md:gap-8 lg:mt-10 lg:grid-cols-3 xl:grid-cols-4">
             {posts?.map((post) => (
@@ -137,7 +140,6 @@ const PageSearch = async ({
 
   return (
     <div className="search-page">
-      {/* HEADER */}
       <div className="mx-auto w-screen px-2 xl:max-w-(--breakpoint-2xl)">
         <div className="relative aspect-16/9 lg:aspect-16/5">
           <Image
@@ -146,11 +148,10 @@ const PageSearch = async ({
             src="https://images.pexels.com/photos/2138922/pexels-photo-2138922.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
             className="rounded-3xl object-cover md:rounded-[40px]"
             sizes="(max-width: 1600px) 100vw, 95vw"
-            priority
+            preload
           />
         </div>
 
-        {/* CONTENT */}
         <div className="relative -mt-14 sm:container sm:-mt-36 lg:-mt-48">
           <div className="flex items-center rounded-3xl bg-white px-2.5 py-5 shadow-2xl sm:rounded-4xl sm:px-5 lg:py-14 dark:border dark:bg-neutral-900">
             <header className="mx-auto flex w-full max-w-3xl flex-col items-center text-center">
@@ -197,11 +198,7 @@ const PageSearch = async ({
           <ArchiveTabs tabs={filterTabs} />
           <ArchiveSortByListBox className="ms-auto shrink-0" filterOptions={sortByOptions} />
         </div>
-
-        {/* LOOP ITEMS */}
         {renderLoopItems()}
-
-        {/* PAGINATION */}
         <PaginationWrapper className="mt-20" />
       </div>
     </div>

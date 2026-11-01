@@ -1,13 +1,17 @@
-import { type TPost } from '@/data/posts'
-import Avatar from '@/shared/Avatar'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
+import Avatar from '@/shared/Avatar'
+
 import LocalDate from '../LocalDate'
 
 interface Props {
   className?: string
-  meta: Pick<TPost, 'date' | 'author'>
+  meta: Pick<TPost, 'author' | 'date'>
   hiddenAvatar?: boolean
   avatarSize?: string
 }
@@ -22,12 +26,10 @@ const PostCardMeta: FC<Props> = ({ className, meta, hiddenAvatar = false, avatar
         {!hiddenAvatar && <Avatar className={avatarSize} src={author.avatar.src} alt="" />}
         <span className="block font-semibold text-neutral-900 dark:text-neutral-300">{author.name}</span>
       </div>
-      <>
-        <span className="mx-1.5 font-medium text-neutral-500 dark:text-neutral-400">·</span>
-        <span className="font-normal text-neutral-500 dark:text-neutral-400">
-          <LocalDate date={date} />
-        </span>
-      </>
+      <span className="mx-1.5 font-medium text-neutral-500 dark:text-neutral-400">·</span>
+      <span className="font-normal text-neutral-500 dark:text-neutral-400">
+        <LocalDate date={date} />
+      </span>
     </div>
   )
 }

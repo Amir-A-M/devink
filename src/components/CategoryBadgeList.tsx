@@ -1,6 +1,8 @@
-import { BadgeButton } from '@/shared/Badge'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import { BadgeButton } from '@/shared/Badge'
 
 interface Props {
   className?: string

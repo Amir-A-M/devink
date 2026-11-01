@@ -11,13 +11,13 @@ export function Listbox<T>({
   'aria-label': ariaLabel,
   children: options,
   ...props
-}: {
+}: Omit<Headless.ListboxProps<typeof Fragment, T>, 'as' | 'multiple'> & {
   className?: string
   placeholder?: React.ReactNode
   autoFocus?: boolean
   'aria-label'?: string
   children?: React.ReactNode
-} & Omit<Headless.ListboxProps<typeof Fragment, T>, 'as' | 'multiple'>) {
+}) {
   return (
     <Headless.Listbox {...props} multiple={false}>
       <Headless.ListboxButton
@@ -41,7 +41,7 @@ export function Listbox<T>({
         <Headless.ListboxSelectedOption
           as="span"
           options={options}
-          placeholder={placeholder && <span className="block truncate text-neutral-500">{placeholder}</span>}
+          placeholder={Boolean(placeholder) && <span className="block truncate text-neutral-500">{placeholder}</span>}
           className={clsx([
             // Basic layout
             'relative block w-full appearance-none rounded-full px-3.5 py-2',
@@ -103,11 +103,11 @@ export function ListboxOption<T>({
   children,
   className,
   ...props
-}: { className?: string; children?: React.ReactNode } & Omit<
-  Headless.ListboxOptionProps<'div', T>,
-  'as' | 'className'
->) {
-  let sharedClasses = clsx(
+}: Omit<Headless.ListboxOptionProps<'div', T>, 'as' | 'className'> & {
+  className?: string
+  children?: React.ReactNode
+}) {
+  const sharedClasses = clsx(
     // Base
     'flex min-w-0 items-center',
     // Icons

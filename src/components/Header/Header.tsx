@@ -1,13 +1,16 @@
-import { getNavMegaMenu } from '@/data/navigation'
+import type { FC } from 'react'
+
+import { PlusIcon } from '@heroicons/react/24/outline'
+import clsx from 'clsx'
+import Link from 'next/link'
+
+import { getNavigation } from '@/data/navigation'
 import { getAllPosts } from '@/data/posts'
 import { Button } from '@/shared/Button'
 import Logo from '@/shared/Logo'
-import { PlusIcon } from '@heroicons/react/24/outline'
-import clsx from 'clsx'
-import { type FC } from 'react'
+
 import AvatarDropdown from './AvatarDropdown'
 import HamburgerBtnMenu from './HamburgerBtnMenu'
-import MegaMenuPopover from './MegaMenuPopover'
 import NotifyDropdown from './NotifyDropdown'
 import SearchModal from './SearchModal'
 
@@ -17,9 +20,8 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = async ({ bottomBorder, className }) => {
-  const megamenu = await getNavMegaMenu()
+  const navigation = await getNavigation()
   const allPosts = await getAllPosts()
-  const featuredPosts = allPosts.slice(0, 2)
   const searchSuggestions = allPosts.slice(0, 4)
 
   return (
@@ -28,8 +30,7 @@ const Header: FC<HeaderProps> = async ({ bottomBorder, className }) => {
         <div
           className={clsx(
             'flex h-20 justify-between gap-x-2.5 border-neutral-200 dark:border-neutral-700',
-            bottomBorder && 'border-b',
-            !bottomBorder && 'has-[.header-popover-full-panel]:border-b'
+            bottomBorder && 'border-b'
           )}
         >
           <div className="flex items-center gap-x-4 sm:gap-x-5 lg:gap-x-7">
@@ -41,7 +42,17 @@ const Header: FC<HeaderProps> = async ({ bottomBorder, className }) => {
           </div>
 
           <div className="ms-auto flex items-center justify-end gap-x-0.5">
-            <MegaMenuPopover megamenu={megamenu} featuredPosts={featuredPosts} className="hidden lg:block" />
+            <nav aria-label="Main navigation" className="hidden items-center gap-6 lg:flex">
+              {navigation.map((item) => (
+                <Link
+                  key={item.id}
+                  href={item.href ?? '/'}
+                  className="text-sm font-medium text-neutral-700 hover:text-neutral-950 dark:text-neutral-300 dark:hover:text-neutral-100"
+                >
+                  {item.name}
+                </Link>
+              ))}
+            </nav>
             <div className="ms-6 me-3 hidden h-8 border-l lg:block" />
             <div className="hidden sm:block">
               <Button className="h-10 px-3!" href={'/submission'} plain prefetch={false}>

@@ -1,6 +1,8 @@
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
 
 interface Props {
   className?: string
@@ -107,16 +109,19 @@ const PostTypeFeaturedIcon: FC<Props> = ({
   }
 
   return (
-    <div className={clsx(className)} onClick={onClick}>
+    <div className={clsx(className)}>
       {!!postType && postType !== 'standard' ? (
-        <span
+        <button
+          type="button"
+          onClick={onClick}
+          aria-label={`Play ${postType}`}
           className={clsx(
             'flex items-center justify-center rounded-full border border-white bg-neutral-900/60 text-xl text-white rtl:rotate-180',
             wrapSize
           )}
         >
           {renderMediaIcon()}
-        </span>
+        </button>
       ) : null}
     </div>
   )

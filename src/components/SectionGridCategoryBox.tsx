@@ -1,13 +1,17 @@
-import { type TCategory } from '@/data/categories'
-import HeadingWithSub, { type HeadingWithSubProps } from '@/shared/Heading'
 import clsx from 'clsx'
+
+import type { TCategory } from '@/data/categories'
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
+import HeadingWithSub from '@/shared/Heading'
+
 import CardCategory1 from './CategoryCards/CardCategory1'
 import CardCategory2 from './CategoryCards/CardCategory2'
 import CardCategory3 from './CategoryCards/CardCategory3'
 import CardCategory4 from './CategoryCards/CardCategory4'
 import CardCategory5 from './CategoryCards/CardCategory5'
 
-interface Props extends Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading' | 'isCenter'> {
+interface Props extends Pick<HeadingWithSubProps, 'dimHeading' | 'isCenter' | 'subHeading'> {
   categories?: TCategory[]
   heading?: string
   categoryCardType?: 'card1' | 'card2' | 'card3' | 'card4' | 'card5'

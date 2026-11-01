@@ -1,6 +1,7 @@
+import type React from 'react'
+
 import * as Headless from '@headlessui/react'
 import clsx from 'clsx'
-import type React from 'react'
 
 const sizes = {
   xs: 'sm:max-w-xs',
@@ -19,10 +20,11 @@ export function Dialog({
   className,
   children,
   ...props
-}: { size?: keyof typeof sizes; className?: string; children: React.ReactNode } & Omit<
-  Headless.DialogProps,
-  'as' | 'className'
->) {
+}: Omit<Headless.DialogProps, 'as' | 'className'> & {
+  size?: keyof typeof sizes
+  className?: string
+  children: React.ReactNode
+}) {
   return (
     <Headless.Dialog {...props}>
       <Headless.DialogBackdrop
@@ -52,7 +54,7 @@ export function Dialog({
 export function DialogTitle({
   className,
   ...props
-}: { className?: string } & Omit<Headless.DialogTitleProps, 'as' | 'className'>) {
+}: Omit<Headless.DialogTitleProps, 'as' | 'className'> & { className?: string }) {
   return (
     <Headless.DialogTitle
       {...props}
@@ -67,7 +69,7 @@ export function DialogTitle({
 export function DialogDescription({
   className,
   ...props
-}: { className?: string } & Omit<Headless.DescriptionProps<'p'>, 'as' | 'className'>) {
+}: Omit<Headless.DescriptionProps, 'as' | 'className'> & { className?: string }) {
   return <Headless.Description as={'p'} {...props} className={clsx(className, 'mt-2 text-pretty')} />
 }
 

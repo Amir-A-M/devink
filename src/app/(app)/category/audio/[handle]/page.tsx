@@ -1,3 +1,7 @@
+import type { Metadata } from 'next'
+
+import { notFound } from 'next/navigation'
+
 import ArchiveSortByListBox from '@/components/ArchiveSortByListBox'
 import ModalCategories from '@/components/ModalCategories'
 import ModalTags from '@/components/ModalTags'
@@ -6,8 +10,7 @@ import Card15Podcast from '@/components/PostCards/Card15Podcast'
 import Card16Podcast from '@/components/PostCards/Card16Podcast'
 import { getCategories, getCategoryByHandle, getTags } from '@/data/categories'
 import { getPostsAudio } from '@/data/posts'
-import { type Metadata } from 'next'
-import { notFound } from 'next/navigation'
+
 import PageHeader from '../../page-header'
 
 export async function generateStaticParams() {
@@ -73,8 +76,6 @@ const Page = async ({ params }: { params: Promise<{ handle: string }> }) => {
             <ArchiveSortByListBox filterOptions={filterOptions} />
           </div>
         </div>
-
-        {/* LOOP ITEMS */}
         <div className="mt-8 grid gap-6 md:grid-cols-2 md:gap-8 lg:mt-10 lg:grid-cols-3">
           {posts.slice(0, 3).map((post) => (
             <Card16Podcast key={post.id} post={post} />
@@ -87,8 +88,6 @@ const Page = async ({ params }: { params: Promise<{ handle: string }> }) => {
             </div>
           </div>
         </div>
-
-        {/* PAGINATIONS */}
         <PaginationWrapper className="mt-20" />
       </div>
     </div>

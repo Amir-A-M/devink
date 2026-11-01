@@ -1,12 +1,7 @@
 'use client'
 
-import BookmarkBtn from '@/components/BookmarkBtn'
-import PostCardCommentBtn from '@/components/PostCardCommentBtn'
-import PostCardLikeBtn from '@/components/PostCardLikeBtn'
-import { type TPostDetail } from '@/data/posts'
-import { Button } from '@/shared/Button'
-import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
-import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
+import type { FC } from 'react'
+
 import {
   ClipboardIcon,
   Comment01Icon,
@@ -20,7 +15,16 @@ import {
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
 import clsx from 'clsx'
-import { type FC, useState } from 'react'
+import { useState } from 'react'
+
+import type { TPostDetail } from '@/data/posts'
+
+import BookmarkBtn from '@/components/BookmarkBtn'
+import PostCardCommentBtn from '@/components/PostCardCommentBtn'
+import PostCardLikeBtn from '@/components/PostCardLikeBtn'
+import { Button } from '@/shared/Button'
+import { Dialog, DialogActions, DialogBody, DialogTitle } from '@/shared/dialog'
+import { Dropdown, DropdownButton, DropdownItem, DropdownMenu } from '@/shared/dropdown'
 
 function ActionDropdown({ handle, title, author }: { handle: string; title: string; author: TPostDetail['author'] }) {
   const [isOpenDialogHideAuthor, setIsOpenDialogHideAuthor] = useState(false)
@@ -31,7 +35,7 @@ function ActionDropdown({ handle, title, author }: { handle: string; title: stri
       name: 'Copy link',
       icon: ClipboardIcon,
       onClick: () => {
-        navigator.clipboard.writeText(window.location.href)
+        void navigator.clipboard.writeText(window.location.href)
       },
     },
     {
@@ -80,8 +84,6 @@ function ActionDropdown({ handle, title, author }: { handle: string; title: stri
           )}
         </DropdownMenu>
       </Dropdown>
-
-      {/* DIALOG HIDE AUTHOR */}
       <Dialog open={isOpenDialogHideAuthor} onClose={() => setIsOpenDialogHideAuthor(false)}>
         <DialogTitle>
           Hide this author? <span className="font-semibold">({author.name.trim()})</span>
@@ -99,8 +101,6 @@ function ActionDropdown({ handle, title, author }: { handle: string; title: stri
           <Button onClick={() => setIsOpenDialogHideAuthor(false)}>Hide</Button>
         </DialogActions>
       </Dialog>
-
-      {/* DIALOG REPORT POST */}
       <Dialog open={isOpenDialogReportPost} onClose={() => setIsOpenDialogReportPost(false)}>
         <DialogTitle>Report this post?</DialogTitle>
         <DialogBody>
@@ -159,7 +159,7 @@ function ShareDropdown({ handle }: { handle: string }) {
   )
 }
 
-interface Props extends Pick<TPostDetail, 'likeCount' | 'liked' | 'commentCount' | 'handle' | 'title' | 'author'> {
+interface Props extends Pick<TPostDetail, 'author' | 'commentCount' | 'handle' | 'likeCount' | 'liked' | 'title'> {
   className?: string
 }
 

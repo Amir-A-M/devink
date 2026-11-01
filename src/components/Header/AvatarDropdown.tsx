@@ -1,10 +1,5 @@
 'use client'
 
-import Avatar from '@/shared/Avatar'
-import ButtonCircle from '@/shared/ButtonCircle'
-import { Divider } from '@/shared/divider'
-import { Link } from '@/shared/link'
-import SwitchDarkMode2 from '@/shared/SwitchDarkMode2'
 import { Popover, PopoverButton, PopoverPanel } from '@headlessui/react'
 import {
   BulbChargingIcon,
@@ -16,6 +11,12 @@ import {
   UserIcon,
 } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
+
+import Avatar from '@/shared/Avatar'
+import ButtonCircle from '@/shared/ButtonCircle'
+import { Divider } from '@/shared/divider'
+import { Link } from '@/shared/link'
+import SwitchDarkMode2 from '@/shared/SwitchDarkMode2'
 
 interface Props {
   className?: string
@@ -61,7 +62,6 @@ export default function AvatarDropdown({ className }: Props) {
 
             <Divider />
 
-            {/* ------------------ 1 --------------------- */}
             <Link
               href={'/author/john-doe'}
               className="-m-3 flex items-center gap-x-4 rounded-lg p-2 transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-orange-500/50 dark:hover:bg-neutral-700"
@@ -72,7 +72,6 @@ export default function AvatarDropdown({ className }: Props) {
               <p className="text-sm font-medium">My Account</p>
             </Link>
 
-            {/* ------------------ 2 --------------------- */}
             <Link
               href={'/dashboard/posts'}
               className="-m-3 flex items-center gap-x-4 rounded-lg p-2 transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-orange-500/50 dark:hover:bg-neutral-700"
@@ -83,7 +82,6 @@ export default function AvatarDropdown({ className }: Props) {
               <p className="text-sm font-medium">My Posts</p>
             </Link>
 
-            {/* ------------------ 2 --------------------- */}
             <Link
               href={`/author/${user.handle}?tab=favorites`}
               className="-m-3 flex items-center gap-x-4 rounded-lg p-2 transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-orange-500/50 dark:hover:bg-neutral-700"
@@ -94,7 +92,6 @@ export default function AvatarDropdown({ className }: Props) {
               <p className="text-sm font-medium">Favorites</p>
             </Link>
 
-            {/* ------------------ 2 --------------------- */}
             <Link
               href={`/submission`}
               prefetch={false}
@@ -108,7 +105,6 @@ export default function AvatarDropdown({ className }: Props) {
 
             <Divider />
 
-            {/* ------------------ 2 --------------------- */}
             <div className="focus-visible:ring-opacity-50 -m-3 flex items-center justify-between rounded-lg p-2 hover:bg-neutral-100 focus:outline-none focus-visible:ring focus-visible:ring-orange-500 dark:hover:bg-neutral-700">
               <div className="flex items-center">
                 <div className="flex flex-shrink-0 items-center justify-center text-neutral-500 dark:text-neutral-300">
@@ -118,8 +114,6 @@ export default function AvatarDropdown({ className }: Props) {
               </div>
               <SwitchDarkMode2 />
             </div>
-
-            {/* ------------------ 2 --------------------- */}
 
             <Link
               href={'#'}
@@ -131,7 +125,6 @@ export default function AvatarDropdown({ className }: Props) {
               <p className="ms-4 text-sm font-medium">{'Help'}</p>
             </Link>
 
-            {/* ------------------ 2 --------------------- */}
             <Link
               href={'#'}
               className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-orange-500/50 dark:hover:bg-neutral-700"

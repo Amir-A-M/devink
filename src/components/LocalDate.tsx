@@ -1,4 +1,6 @@
-import { type FC } from 'react'
+import type { FC } from 'react'
+
+const defaultOptions: Intl.DateTimeFormatOptions = { month: 'short', day: 'numeric', year: 'numeric' }
 
 interface Props {
   date: string
@@ -6,7 +8,7 @@ interface Props {
   options?: Intl.DateTimeFormatOptions
 }
 
-const LocalDate: FC<Props> = ({ date, className, options = { month: 'short', day: 'numeric', year: 'numeric' } }) => {
+const LocalDate: FC<Props> = ({ date, className, options = defaultOptions }) => {
   return (
     <time dateTime={date} className={className}>
       {new Date(date).toLocaleDateString('en-US', options)}

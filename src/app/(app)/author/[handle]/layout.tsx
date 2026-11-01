@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react'
+
 import { ApplicationLayout } from '@/app/(app)/application-layout'
 import BackgroundSection from '@/components/BackgroundSection'
 import SectionGridCategoryBox from '@/components/SectionGridCategoryBox'
@@ -6,7 +8,6 @@ import SectionSubscribe2 from '@/components/SectionSubscribe2'
 import { getAuthors } from '@/data/authors'
 import { getCategories } from '@/data/categories'
 import ButtonPrimary from '@/shared/ButtonPrimary'
-import { type ReactNode } from 'react'
 
 interface Props {
   children: ReactNode

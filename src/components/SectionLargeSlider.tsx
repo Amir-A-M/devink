@@ -1,14 +1,19 @@
 'use client'
 
-import { type TPost } from '@/data/posts'
-import { type HeadingWithSubProps } from '@/shared/Heading'
-import HeadingWithArrowBtns from '@/shared/HeadingWithArrowBtns'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC, useState } from 'react'
+import { useState } from 'react'
 import { useSwipeable } from 'react-swipeable'
+
+import type { TPost } from '@/data/posts'
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
+import HeadingWithArrowBtns from '@/shared/HeadingWithArrowBtns'
+
 import CardLarge1 from './PostCards/CardLarge1'
 
-interface Props extends Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading'> {
+interface Props extends Pick<HeadingWithSubProps, 'dimHeading' | 'subHeading'> {
   className?: string
   heading?: string
   posts: TPost[]

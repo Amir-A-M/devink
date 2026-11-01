@@ -1,9 +1,12 @@
-import { type TAuthor } from '@/data/authors'
-import Avatar from '@/shared/Avatar'
+import type { FC } from 'react'
+
 import { ArrowRightIcon } from '@heroicons/react/24/outline'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TAuthor } from '@/data/authors'
+
+import Avatar from '@/shared/Avatar'
 
 interface Props {
   className?: string

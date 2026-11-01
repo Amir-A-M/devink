@@ -1,4 +1,4 @@
-# Ncmaz
+# Devink
 
 A Next.js 16 + React 19 + Tailwind CSS 4 magazine template. This file is for the
 coding agent working in this repo — Claude Code, Cursor, Copilot, whichever. It
@@ -111,13 +111,13 @@ Path alias: `@/*` → `./src/*`.
 ## Commands
 
 ```bash
-npm install
-npm run dev          # next dev --turbopack
-npm run build
-npm run start
-npm run lint
-npm run check        # what CI should run: a production build
-npm run check:links  # after a build — finds internal links that will 404
+pnpm install
+pnpm dev          # next dev --turbopack
+pnpm build
+pnpm start
+pnpm lint
+pnpm check        # what CI should run: a production build
+pnpm check:links  # after a build — finds internal links that will 404
 ```
 
 `check:links` matters more than it sounds. The dynamic routes set

@@ -1,10 +1,14 @@
-import CategoryBadgeList from '@/components/CategoryBadgeList'
-import { type TPostDetail } from '@/data/posts'
-import { Badge } from '@/shared/Badge'
-import { Divider } from '@/shared/divider'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Image from 'next/image'
-import { type FC } from 'react'
+
+import type { TPostDetail } from '@/data/posts'
+
+import CategoryBadgeList from '@/components/CategoryBadgeList'
+import { Badge } from '@/shared/Badge'
+import { Divider } from '@/shared/divider'
+
 import AudioPlayerButton from './AudioPlayerButton'
 import GalleryImages from './GalleryImages'
 import SingleMeta from './SingleMeta'
@@ -15,7 +19,7 @@ import VideoPlayer from './VideoPlayer'
 interface Props {
   className?: string
   post: TPostDetail
-  headerStyle?: 'style1' | 'style2' | 'style3' | 'audio' | 'video' | 'gallery'
+  headerStyle?: 'audio' | 'gallery' | 'style1' | 'style2' | 'style3' | 'video'
 }
 
 const TitleAndMeta = ({ className, post }: Omit<Props, 'headerStyle'>) => {
@@ -66,7 +70,7 @@ const HeaderStyle1 = ({ className, post }: Omit<Props, 'defaultStyle'>) => {
               src={featuredImage}
               sizes="(max-width: 1440px) 100vw, 1440px"
               fill
-              priority
+              preload
             />
           </div>
         )}
@@ -99,7 +103,7 @@ const HeaderStyle2 = ({ className, post }: Omit<Props, 'defaultStyle'>) => {
               width={post.featuredImage.width}
               height={post.featuredImage.height}
               sizes="(max-width: 1440px) 100vw, 50vw"
-              priority
+              preload
             />
           </div>
         </div>
@@ -132,15 +136,13 @@ const HeaderStyle3 = ({ post, className }: Omit<Props, 'defaultStyle'>) => {
           <SingleTitle title={title} />
           {excerpt && <p className="text-base text-neutral-300 md:text-lg/relaxed">{excerpt}</p>}
         </div>
-
-        {/* FEATURED IMAGE */}
         <div className="relative my-10 aspect-square lg:aspect-16/9">
           {featuredImage.src && (
             <Image
               alt={featuredImage.alt || title}
               className="rounded-3xl object-cover shadow-xl"
               fill
-              priority
+              preload
               src={featuredImage}
               sizes="(max-width: 1024px) 100vw, 1440px"
             />

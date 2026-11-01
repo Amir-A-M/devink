@@ -1,7 +1,8 @@
 'use client'
 
-import { type TPost } from '@/data/posts'
-import { createContext, useContext, useMemo, useReducer, useRef, useState } from 'react'
+import { createContext, use, useMemo, useReducer, useRef, useState } from 'react'
+
+import type { TPost } from '@/data/posts'
 
 interface PlayerState {
   playing: boolean
@@ -36,14 +37,16 @@ const enum ActionKind {
 }
 
 type Action =
-  | { type: ActionKind.SET_META; payload: TPost }
-  | { type: ActionKind.PLAY }
+  | { type: ActionKind.HIDE }
   | { type: ActionKind.PAUSE }
-  | { type: ActionKind.TOGGLE_MUTE }
+  | { type: ActionKind.PLAY }
   | { type: ActionKind.SET_CURRENT_TIME; payload: number }
   | { type: ActionKind.SET_DURATION; payload: number }
-  | { type: ActionKind.HIDE }
+  | { type: ActionKind.SET_META; payload: TPost }
+  | { type: ActionKind.TOGGLE_MUTE }
 const AudioPlayerContext = createContext<PlayerAPI | null>(null)
+
+AudioPlayerContext.displayName = 'AudioPlayerContext'
 
 function audioReducer(state: PlayerState, action: Action): PlayerState {
   switch (action.type) {
@@ -71,16 +74,16 @@ function audioReducer(state: PlayerState, action: Action): PlayerState {
 }
 
 export function AudioProvider({ children }: { children: React.ReactNode }) {
-  let [state, dispatch] = useReducer(audioReducer, {
+  const [state, dispatch] = useReducer(audioReducer, {
     playing: false,
     muted: false,
     duration: 0,
     currentTime: 0,
     episode: null,
   })
-  let playerRef = useRef<HTMLAudioElement>(null)
+  const playerRef = useRef<HTMLAudioElement>(null)
   const [audioKey, setAudioKey] = useState(0)
-  let actions = useMemo<PublicPlayerActions>(() => {
+  const actions = useMemo<PublicPlayerActions>(() => {
     return {
       play(episode) {
         if (episode) {
@@ -91,7 +94,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
             playerRef.current &&
             episode.handle !== state.episode?.handle
           ) {
-            let playbackRate = playerRef.current.playbackRate
+            const playbackRate = playerRef.current.playbackRate
             playerRef.current.src = episode.audioUrl || ''
             playerRef.current.load()
             playerRef.current.pause()
@@ -100,13 +103,14 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
           }
         }
 
-        playerRef.current?.play()
+        void playerRef.current?.play().catch(() => dispatch({ type: ActionKind.PAUSE }))
       },
       pause() {
         playerRef.current?.pause()
       },
       toggle(episode) {
-        this.isPlaying(episode) ? actions.pause() : actions.play(episode)
+        if (this.isPlaying(episode)) actions.pause()
+        else actions.play(episode)
       },
       seekBy(amount) {
         if (playerRef.current) {
@@ -147,11 +151,11 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
     }
   }, [state.playing, state.episode?.handle])
 
-  let api = useMemo<PlayerAPI>(() => ({ ...state, ...actions }), [state, actions])
+  const api = useMemo<PlayerAPI>(() => ({ ...state, ...actions }), [state, actions])
 
   return (
     <>
-      <AudioPlayerContext.Provider value={api}>{children}</AudioPlayerContext.Provider>
+      <AudioPlayerContext value={api}>{children}</AudioPlayerContext>
       <audio
         key={audioKey}
         ref={playerRef}
@@ -176,7 +180,7 @@ export function AudioProvider({ children }: { children: React.ReactNode }) {
 }
 
 export function useAudioPlayer(episode?: TPost) {
-  let player = useContext(AudioPlayerContext)
+  const player = use(AudioPlayerContext)
 
   return useMemo<PlayerAPI>(
     () => ({

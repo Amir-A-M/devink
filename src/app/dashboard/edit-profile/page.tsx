@@ -1,8 +1,9 @@
+import type { Metadata } from 'next'
+
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import DemoForm from '@/shared/DemoForm'
 import { Field, Fieldset, Label } from '@/shared/fieldset'
 import Input from '@/shared/Input'
-import { type Metadata } from 'next'
 
 export const metadata: Metadata = {
   title: 'Edit profile',

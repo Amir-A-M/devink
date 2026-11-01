@@ -1,3 +1,7 @@
+import type { Metadata } from 'next'
+
+import { notFound } from 'next/navigation'
+
 import ArchiveSortByListBox from '@/components/ArchiveSortByListBox'
 import ModalCategories from '@/components/ModalCategories'
 import ModalTags from '@/components/ModalTags'
@@ -5,8 +9,7 @@ import PaginationWrapper from '@/components/PaginationWrapper'
 import Card10V2 from '@/components/PostCards/Card10V2'
 import { getCategories, getCategoryByHandle, getTags } from '@/data/categories'
 import { getPostsVideo } from '@/data/posts'
-import { type Metadata } from 'next'
-import { notFound } from 'next/navigation'
+
 import PageHeader from '../../page-header'
 
 export async function generateStaticParams() {
@@ -72,15 +75,11 @@ const Page = async ({ params }: { params: Promise<{ handle: string }> }) => {
             <ArchiveSortByListBox filterOptions={filterOptions} />
           </div>
         </div>
-
-        {/* LOOP ITEMS */}
         <div className="mt-8 grid gap-x-6 gap-y-8 sm:grid-cols-2 md:gap-x-8 md:gap-y-10 lg:mt-10 lg:grid-cols-3">
           {posts.map((post) => (
             <Card10V2 ratio="aspect-square sm:aspect-16/9" key={post.id} post={post} />
           ))}
         </div>
-
-        {/* PAGINATIONS */}
         <PaginationWrapper className="mt-20" />
       </div>
     </div>

@@ -1,7 +1,9 @@
-import { type TPost } from '@/data/posts'
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
+
+import type { TPost } from '@/data/posts'
+
 import CategoryBadgeList from '../CategoryBadgeList'
 import LocalDate from '../LocalDate'
 

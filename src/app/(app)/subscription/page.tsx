@@ -1,7 +1,9 @@
+import type { Metadata } from 'next'
+
+import { CheckIcon } from '@heroicons/react/24/solid'
+
 import ButtonPrimary from '@/shared/ButtonPrimary'
 import ButtonSecondary from '@/shared/ButtonSecondary'
-import { CheckIcon } from '@heroicons/react/24/solid'
-import { type Metadata } from 'next'
 
 const pricings = [
   {
@@ -59,8 +61,8 @@ const Page = () => {
           </h2>
         </div>
         <nav className="mb-8 space-y-4">
-          {pricing.features.map((item, index) => (
-            <li className="flex items-center" key={index}>
+          {pricing.features.map((item, indexValue) => (
+            <li className="flex items-center" key={indexValue}>
               <span className="me-4 inline-flex shrink-0 text-primary-600">
                 <CheckIcon className="h-5 w-5" aria-hidden="true" />
               </span>

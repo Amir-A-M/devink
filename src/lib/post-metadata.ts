@@ -1,6 +1,8 @@
-import { type TPost } from '@/data/posts'
+import type { Metadata } from 'next'
+
+import type { TPost } from '@/data/posts'
+
 import { absoluteUrl, siteConfig } from '@/lib/site'
-import { type Metadata } from 'next'
 
 /**
  * Shared by all three post layouts. The canonical always names `/post/<handle>`

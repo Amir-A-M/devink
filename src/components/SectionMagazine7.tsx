@@ -1,11 +1,16 @@
-import { type TPost } from '@/data/posts'
-import HeadingWithSub, { type HeadingWithSubProps } from '@/shared/Heading'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+import type { HeadingWithSubProps } from '@/shared/Heading'
+
+import HeadingWithSub from '@/shared/Heading'
+
 import Card10 from './PostCards/Card10'
 import Card10V3 from './PostCards/Card10V3'
 
-type Props = Pick<HeadingWithSubProps, 'subHeading' | 'dimHeading'> & {
+type Props = Pick<HeadingWithSubProps, 'dimHeading' | 'subHeading'> & {
   posts: TPost[]
   className?: string
   heading?: string

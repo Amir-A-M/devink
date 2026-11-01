@@ -1,6 +1,7 @@
+import type { FC } from 'react'
+
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
-import { type FC } from 'react'
 
 interface Props {
   className?: string

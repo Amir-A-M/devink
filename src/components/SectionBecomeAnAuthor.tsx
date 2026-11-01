@@ -1,16 +1,17 @@
+import type { StaticImageData } from 'next/image'
+import type { FC } from 'react'
+
+import clsx from 'clsx'
+import Image from 'next/image'
+
 import rightImgDemo from '@/images/BecomeAnAuthorImg.webp'
 import ButtonPrimary from '@/shared/ButtonPrimary'
-import clsx from 'clsx'
-import Image, { type StaticImageData } from 'next/image'
-import { type FC } from 'react'
 
 interface Props {
   className?: string
   rightImg?: string | StaticImageData
 }
 
-// Contrast: the eyebrow label above the heading measures 2.54:1 on white.
-// Below AA; measured and kept as the design's own emphasis order.
 const SectionBecomeAnAuthor: FC<Props> = ({ className, rightImg = rightImgDemo }) => {
   return (
     <div className={clsx('section-become-an-author relative flex flex-col items-center lg:flex-row', className)}>

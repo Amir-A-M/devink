@@ -1,6 +1,7 @@
 import { getNavigation } from '@/data/navigation'
-import SidebarNavigation from './Header/Navigation/SidebarNavigation'
+
 import Aside from './aside'
+import SidebarNavigation from './Header/Navigation/SidebarNavigation'
 
 interface Props {
   className?: string

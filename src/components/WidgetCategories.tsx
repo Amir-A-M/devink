@@ -1,6 +1,9 @@
-import { type TCategory } from '@/data/categories'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TCategory } from '@/data/categories'
+
 import CardCategory1 from './CategoryCards/CardCategory1'
 import WidgetHeading from './WidgetHeading'
 

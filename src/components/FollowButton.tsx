@@ -1,8 +1,11 @@
 'use client'
 
-import { Button } from '@/shared/Button'
+import type { FC } from 'react'
+
 import { PlusIcon } from '@heroicons/react/24/solid'
-import { type FC, useState } from 'react'
+import { useState } from 'react'
+
+import { Button } from '@/shared/Button'
 
 interface Props {
   following?: boolean

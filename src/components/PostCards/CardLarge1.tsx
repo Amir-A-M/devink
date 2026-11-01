@@ -1,9 +1,13 @@
-import NcImage from '@/components/NcImage/NcImage'
-import { type TPost } from '@/data/posts'
-import { NextPrev } from '@/shared/NextPrev'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
+import NcImage from '@/components/NcImage/NcImage'
+import { NextPrev } from '@/shared/NextPrev'
+
 import CategoryBadgeList from '../CategoryBadgeList'
 import PostCardCommentBtn from '../PostCardCommentBtn'
 import PostCardLikeBtn from '../PostCardLikeBtn'
@@ -75,9 +79,8 @@ const CardLarge1: FC<Props> = ({ className, post, onClickNext, onClickPrev }) =>
             alt={title}
             fill
             sizes="(max-width: 768px) 100vw, 50vw"
-            priority
+            preload
           />
-          {/* META TYPE */}
           <PostTypeFeaturedIcon postType={post.postType} className="absolute end-5 top-5" />
         </Link>
       </div>

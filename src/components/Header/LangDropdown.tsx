@@ -1,5 +1,7 @@
 'use client'
 
+import type { FC } from 'react'
+
 import {
   Popover,
   PopoverButton,
@@ -20,7 +22,7 @@ import {
   GlobeAltIcon,
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon } from '@heroicons/react/24/solid'
-import { type FC, Fragment } from 'react'
+import { Fragment } from 'react'
 
 export const headerCurrency = [
   {

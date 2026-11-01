@@ -1,9 +1,12 @@
+import type { FC } from 'react'
+
+import clsx from 'clsx'
+
+import type { TCategory } from '@/data/categories'
+
 import NcImage from '@/components/NcImage/NcImage'
-import { type TCategory } from '@/data/categories'
 import { Badge } from '@/shared/Badge'
 import { Link } from '@/shared/link'
-import clsx from 'clsx'
-import { type FC } from 'react'
 
 interface Props {
   className?: string

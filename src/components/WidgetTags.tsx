@@ -1,7 +1,11 @@
-import { type TTag } from '@/data/categories'
-import Tag from '@/shared/Tag'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TTag } from '@/data/categories'
+
+import Tag from '@/shared/Tag'
+
 import WidgetHeading from './WidgetHeading'
 
 interface Props {

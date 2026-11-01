@@ -1,6 +1,9 @@
 import { Cancel01Icon } from '@hugeicons/core-free-icons'
 import { HugeiconsIcon } from '@hugeicons/react'
-import { type ButtonCircleProps, ButtonCircle as ButtonCircleUI } from './Button'
+
+import type { ButtonCircleProps } from './Button'
+
+import { ButtonCircle as ButtonCircleUI } from './Button'
 
 const ButtonClose = ({ className, ...props }: ButtonCircleProps & {}) => {
   return (

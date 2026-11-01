@@ -1,9 +1,13 @@
 'use client'
 
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC, useState } from 'react'
+import { useState } from 'react'
+
+import type { TPost } from '@/data/posts'
+
 import CategoryBadgeList from '../CategoryBadgeList'
 import PostCardCommentBtn from '../PostCardCommentBtn'
 import PostCardLikeBtn from '../PostCardLikeBtn'

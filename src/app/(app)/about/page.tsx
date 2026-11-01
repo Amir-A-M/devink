@@ -1,11 +1,13 @@
+import type { Metadata } from 'next'
+
 import SectionHero from '@/components/SectionHero'
 import rightImg from '@/images/about-hero-right.webp'
 import { Button } from '@/shared/Button'
 import DemoForm from '@/shared/DemoForm'
-import Input from '@/shared/Input'
 import { Divider } from '@/shared/divider'
+import Input from '@/shared/Input'
 import { Link } from '@/shared/link'
-import { type Metadata } from 'next'
+
 import SectionFounder from './SectionFounder'
 import SectionStatistic from './SectionStatistic'
 
@@ -15,10 +17,10 @@ export const metadata: Metadata = {
   alternates: { canonical: '/about' },
 }
 
-const PageAbout = ({}) => {
+const PageAbout = () => {
   return (
     <div className={`nc-PageAbout relative`}>
-      <h1 className="sr-only">About Ncmaz</h1>
+      <h1 className="sr-only">About Devink</h1>
       <div className="relative container space-y-16 py-16 lg:space-y-28 lg:py-28">
         <SectionHero
           rightImg={rightImg}

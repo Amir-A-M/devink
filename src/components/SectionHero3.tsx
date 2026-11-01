@@ -1,10 +1,14 @@
-import NcImage from '@/components/NcImage/NcImage'
-import { type TPost } from '@/data/posts'
-import ButtonSecondary from '@/shared/ButtonSecondary'
+import type { FC } from 'react'
+
 import { ArrowRightIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
+import NcImage from '@/components/NcImage/NcImage'
+import ButtonSecondary from '@/shared/ButtonSecondary'
+
 import Card5 from './PostCards/Card5'
 
 interface Props {
@@ -23,7 +27,7 @@ const SectionHero3: FC<Props> = ({ posts, className }) => {
           src={featuredImage}
           fill
           sizes="(max-width: 1024px) 100vw, 90vw"
-          priority
+          preload
         />
         <span className="absolute inset-0 rounded-[40px] bg-black/50"></span>
         <div className="absolute inset-0 p-5 md:p-14 xl:p-20 2xl:p-28">
@@ -59,7 +63,7 @@ const SectionHero3: FC<Props> = ({ posts, className }) => {
 
   return (
     <div className={clsx('section-hero-3', className)}>
-      {posts.length && renderMain()}
+      {Boolean(posts.length) && renderMain()}
       {posts.length > 1 && renderSubPosts()}
     </div>
   )

@@ -1,9 +1,13 @@
-import PostFeaturedMedia from '@/components/PostFeaturedMedia/PostFeaturedMedia'
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import clsx from 'clsx'
 import Image from 'next/image'
 import Link from 'next/link'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
+import PostFeaturedMedia from '@/components/PostFeaturedMedia/PostFeaturedMedia'
+
 import CategoryBadgeList from '../CategoryBadgeList'
 import PostCardCommentBtn from '../PostCardCommentBtn'
 import PostCardLikeBtn from '../PostCardLikeBtn'

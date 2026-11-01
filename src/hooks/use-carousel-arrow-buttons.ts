@@ -1,9 +1,10 @@
 'use client'
 
-import { type EmblaCarouselType } from 'embla-carousel'
+import type { EmblaCarouselType } from 'embla-carousel'
+
 import { useCallback, useEffect, useState } from 'react'
 
-type UsePrevNextButtonsType = {
+interface UsePrevNextButtonsType {
   prevBtnDisabled: boolean
   nextBtnDisabled: boolean
   onPrevButtonClick: () => void
@@ -24,9 +25,9 @@ export const useCarouselArrowButtons = (emblaApi: EmblaCarouselType | undefined)
     emblaApi.scrollNext()
   }, [emblaApi])
 
-  const onSelect = useCallback((emblaApi: EmblaCarouselType) => {
-    setPrevBtnDisabled(!emblaApi.canScrollPrev())
-    setNextBtnDisabled(!emblaApi.canScrollNext())
+  const onSelect = useCallback((emblaApiValue: EmblaCarouselType) => {
+    setPrevBtnDisabled(!emblaApiValue.canScrollPrev())
+    setNextBtnDisabled(!emblaApiValue.canScrollNext())
   }, [])
 
   useEffect(() => {

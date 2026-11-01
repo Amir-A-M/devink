@@ -1,9 +1,12 @@
 'use client'
 
-import { type TPost } from '@/data/posts'
+import type { FC } from 'react'
+
 import { PauseIcon, PlayIcon } from '@heroicons/react/24/solid'
 import clsx from 'clsx'
-import { type FC } from 'react'
+
+import type { TPost } from '@/data/posts'
+
 import { useAudioPlayer } from './AudioProvider'
 
 interface Props {
@@ -25,7 +28,7 @@ const ButtonPlayMusicPlayer: FC<Props> = ({
   buttonSize = 'size-13',
   buttonColor = 'bg-white text-primary-600',
 }) => {
-  let player = useAudioPlayer(post)
+  const player = useAudioPlayer(post)
 
   const renderDefaultBtn = (playing: boolean) => {
     return (
