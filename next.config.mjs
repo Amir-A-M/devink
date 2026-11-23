@@ -5,6 +5,7 @@ const nextConfig = {
   // the production build, but this keeps dev and build from walking the whole
   // package on every import.
   experimental: {
+    agentUpgrade: 'security',
     optimizePackageImports: ['@hugeicons/core-free-icons', '@hugeicons/react', '@heroicons/react'],
   },
   images: {
