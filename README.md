@@ -24,7 +24,7 @@ is resolved against it, so leaving it unset publishes `localhost` links.
 
 ```bash
 cp .env.example .env
-# then edit NEXT_PUBLIC_SITE_URL=https://your-domain.com
+# then edit the variables accordingly
 ```
 
 Site name, description and social handle live in `src/config/site.ts`.
