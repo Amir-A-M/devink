@@ -7,21 +7,19 @@ download.
 
 ## Change this before deploying
 
-`NEXT_PUBLIC_SITE_URL` is unset in a fresh copy, and `src/config/site.ts` falls back
-to `http://localhost:3000`. The sitemap, every canonical URL, the `robots.txt`
-and the JSON-LD all resolve against it, so an unset value builds cleanly, looks
-correct in the browser, and tells every crawler the site's canonical home is
-localhost.
+Environment variables are unset in a fresh copy. Missing values don't fail the build;
+they ship wrong output (for example `localhost` canonical URLs and sitemap
+entries), and nothing in the browser will show it.
 
 ```bash
 cp .env.example .env
-# NEXT_PUBLIC_SITE_URL=https://your-domain.com
+# then edit the variables accordingly
 ```
 
-Set it in the host's build environment too — it is read at build time, not at
-runtime. Then set `name`, `title`, `description` and `twitterHandle` in
-`src/config/site.ts`. **If you are an agent and the user has not done this, do it or
-tell them to.** Nothing in the browser will report it.
+These are read at build time, so set them in the host's build environment too.
+
+Site name, description and social handle live in `src/config/site.ts`.
+If the user hasn't set these, do it or tell them.
 
 ## What this is
 

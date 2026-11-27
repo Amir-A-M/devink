@@ -17,27 +17,35 @@ import Avatar from '@/libs/design/Avatar'
 import ButtonCircle from '@/libs/design/ButtonCircle'
 import { Divider } from '@/libs/design/divider'
 import { Link } from '@/libs/design/link'
+import { useAuth } from '@/libs/hooks/use-auth'
 
 interface Props {
   className?: string
 }
 
 export default function AvatarDropdown({ className }: Props) {
-  const user = {
-    name: 'John Doe',
-    email: 'john@gmail.com',
+  const { user, signOut } = useAuth()
+
+  const mappedUser = {
+    name: user?.full_name,
+    email: user?.username,
     avatar:
       'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1287&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-    handle: 'john-doe',
+    handle: user?.username,
     location: 'Los Angeles, CA',
-    bio: 'I am a software engineer and a writer. I love to write about technology and programming.',
+    bio: user?.bio,
+  }
+
+  const handleLogout = (e: React.MouseEvent) => {
+    e.preventDefault()
+    void signOut()
   }
 
   return (
     <div className={className}>
       <Popover>
         <PopoverButton as={ButtonCircle} className="relative" plain aria-label="Account menu">
-          <Avatar alt="" src={user.avatar} width={32} height={32} className="size-8 rounded-full object-cover" />
+          <Avatar alt="" src={mappedUser.avatar} width={32} height={32} className="size-8 rounded-full object-cover" />
         </PopoverButton>
 
         <PopoverPanel
@@ -50,13 +58,24 @@ export default function AvatarDropdown({ className }: Props) {
         >
           <div className="relative flex flex-col gap-y-6 bg-white px-6 py-7 dark:bg-neutral-800">
             <div className="relative flex items-center gap-x-3">
-              <Avatar alt="" src={user.avatar} width={48} height={48} className="size-12 rounded-full object-cover" />
+              <Avatar
+                alt=""
+                src={mappedUser.avatar}
+                width={48}
+                height={48}
+                className="size-12 rounded-full object-cover"
+              />
               <div className="grow">
                 <h4 className="font-semibold">
-                  {user.name}
-                  <Link href={`/author/${user.handle}`} className="absolute inset-0" aria-hidden="true" tabIndex={-1} />
+                  {mappedUser.name}
+                  <Link
+                    href={`/author/${mappedUser.handle}`}
+                    className="absolute inset-0"
+                    aria-hidden="true"
+                    tabIndex={-1}
+                  />
                 </h4>
-                <p className="text-xs/6">{user.location}</p>
+                <p className="text-xs/6">{mappedUser.location}</p>
               </div>
             </div>
 
@@ -83,7 +102,7 @@ export default function AvatarDropdown({ className }: Props) {
             </Link>
 
             <Link
-              href={`/author/${user.handle}?tab=favorites`}
+              href={`/author/${mappedUser.handle}?tab=favorites`}
               className="-m-3 flex items-center gap-x-4 rounded-lg p-2 transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-orange-500/50 dark:hover:bg-neutral-700"
             >
               <div className="flex shrink-0 items-center justify-center text-neutral-500 dark:text-neutral-300">
@@ -127,6 +146,7 @@ export default function AvatarDropdown({ className }: Props) {
 
             <Link
               href={'#'}
+              onClick={handleLogout}
               className="-m-3 flex items-center rounded-lg p-2 transition duration-150 ease-in-out hover:bg-neutral-100 focus:outline-hidden focus-visible:ring-3 focus-visible:ring-orange-500/50 dark:hover:bg-neutral-700"
             >
               <div className="flex shrink-0 items-center justify-center text-neutral-500 dark:text-neutral-300">
