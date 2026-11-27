@@ -4,11 +4,8 @@ import { Facebook01Icon, GithubIcon, NewTwitterIcon } from '@hugeicons/core-free
 import { HugeiconsIcon } from '@hugeicons/react'
 import Link from 'next/link'
 
-import DemoForm from '@/components/common/general/DemoForm'
+import LoginForm from '@/components/auth/LoginForm'
 import Logo from '@/components/common/site/Logo'
-import ButtonPrimary from '@/libs/design/ButtonPrimary'
-import { Field, Label } from '@/libs/design/fieldset'
-import Input from '@/libs/design/Input'
 
 const socials: {
   name: string
@@ -59,33 +56,8 @@ const Page = () => {
           </span>
           <div className="absolute top-1/2 left-0 w-full -translate-y-1/2 border border-neutral-100 dark:border-neutral-800"></div>
         </div>
-        <DemoForm
-          className="grid grid-cols-1 gap-6"
-          successMessage="Signed in — as far as a demo can. Point this form at your auth provider to make it real."
-          resetLabel="Back to the form"
-        >
-          <Field className="block">
-            <Label className="text-neutral-800 dark:text-neutral-200">Email address</Label>
-            <Input
-              type="email"
-              name="email"
-              autoComplete="email"
-              required
-              placeholder="example@example.com"
-              className="mt-1"
-            />
-          </Field>
-          <Field className="block">
-            <div className="flex items-center justify-between text-neutral-800 dark:text-neutral-200">
-              <Label>Password</Label>
-              <Link href="/forgot-password" className="text-sm font-medium underline">
-                Forgot password?
-              </Link>
-            </div>
-            <Input type="password" name="password" autoComplete="current-password" required className="mt-1" />
-          </Field>
-          <ButtonPrimary type="submit">Login</ButtonPrimary>
-        </DemoForm>
+
+        <LoginForm />
 
         <div className="block text-center text-sm text-neutral-700 dark:text-neutral-300">
           New user? {` `}

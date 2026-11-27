@@ -1,9 +1,9 @@
 import type { Metadata, Viewport } from 'next'
 
-import { Be_Vietnam_Pro } from 'next/font/google'
-
 import '@/styles/tailwind.css'
+import { Be_Vietnam_Pro } from 'next/font/google'
 import { Suspense } from 'react'
+import { Toaster } from 'sonner'
 
 import NavigationProgress from '@/components/common/navigation/NavigationProgress'
 import { siteConfig } from '@/config/site'
@@ -102,6 +102,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </Suspense>
         <ThemeProvider>
           <div>{children}</div>
+          <Toaster richColors position="bottom-right" />
         </ThemeProvider>
       </body>
     </html>
